@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
-    <link>https://tyhzxh.github.io/</link>
-    <description>Recent content on </description>
+    <title>Posts on </title>
+    <link>https://tyhzxh.github.io/posts/</link>
+    <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2024 </copyright>
-    <lastBuildDate>Sun, 11 Feb 2024 17:44:43 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Feb 2024 17:44:43 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>git</title>
       <link>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</link>
