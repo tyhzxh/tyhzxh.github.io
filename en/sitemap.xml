@@ -3,53 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://tyhzxh.github.io/</loc>
-    <lastmod>2024-02-12T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://tyhzxh.github.io/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="en"
-      href="https://tyhzxh.github.io/"
-    />
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/posts/</loc>
-    <lastmod>2024-02-12T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2024-02-12T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-02-11T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/posts/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2024-02-11T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/posts/%E9%A1%BA%E5%BA%8F%E9%80%89%E6%8B%A9%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2024-02-11T17:44:43+08:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tyhzxh.github.io/authors/</loc>
+    <loc>https://tyhzxh.github.io/en/authors/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -60,11 +14,11 @@
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/authors/"
+      href="https://tyhzxh.github.io/en/authors/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/categories/</loc>
+    <loc>https://tyhzxh.github.io/en/categories/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -75,11 +29,11 @@
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/categories/"
+      href="https://tyhzxh.github.io/en/categories/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/series/</loc>
+    <loc>https://tyhzxh.github.io/en/series/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -90,11 +44,11 @@
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/series/"
+      href="https://tyhzxh.github.io/en/series/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/tags/</loc>
+    <loc>https://tyhzxh.github.io/en/tags/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -105,7 +59,22 @@
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/tags/"
+      href="https://tyhzxh.github.io/en/tags/"
+    />
+  </url>
+  <url>
+    <loc>https://tyhzxh.github.io/en/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://tyhzxh.github.io/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://tyhzxh.github.io/en/"
     />
   </url>
 </urlset>
