@@ -7,14 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2024 </copyright>
-    <lastBuildDate>Sun, 11 Feb 2024 17:44:43 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Feb 2024 21:10:09 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>git</title>
-      <link>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Sun, 11 Feb 2024 17:44:43 +0800</pubDate>
+      <title>常用函数</title>
+      <link>https://tyhzxh.github.io/posts/%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Mon, 12 Feb 2024 21:10:09 +0800</pubDate>
       
-      <guid>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</guid>
-      <description>(学习廖俊峰教程的笔记)</description>
+      <guid>https://tyhzxh.github.io/posts/%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</guid>
+      <description>(大小写转换) #</description>
+      
+    </item>
+    
+    <item>
+      <title>数组、字符串及数据批量存储</title>
+      <link>https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Mon, 12 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/</guid>
+      <description>数组 #字符串 #数据批量存储 #</description>
       
     </item>
     
@@ -31,10 +41,20 @@
     <item>
       <title>算法知识体系(简化版)</title>
       <link>https://tyhzxh.github.io/posts/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84/</link>
-      <pubDate>Sun, 11 Feb 2024 17:44:43 +0800</pubDate>
+      <pubDate>Sat, 10 Feb 2024 17:44:43 +0800</pubDate>
       
       <guid>https://tyhzxh.github.io/posts/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84/</guid>
-      <description>刷题平台：牛客竞赛 题单：算法小白题单 本人语言使用：c++</description>
+      <description>刷题平台：牛客竞赛</description>
+      
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate>
+      
+      <guid>https://tyhzxh.github.io/posts/git%E7%AC%94%E8%AE%B0/</guid>
+      <description>(学习廖俊峰教程的笔记)</description>
       
     </item>
     

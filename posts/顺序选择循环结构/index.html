@@ -580,8 +580,8 @@
 <p>这部分就不给题目了,毕竟就是一些语法()</p>
 <p>只记一下知识点</p>
 <p><code>cin</code>, <code>cout</code> , 是 C++ 中用于输入,输出的函数和流</p>
-<p><code>scanf</code>, <code>printf</code> 是 C 语言中用于输入,输出的函数和流
-这里只介绍 <code>cin</code>,<code>cout</code></p>
+<p><code>scanf</code>, <code>printf</code> 是 C 语言中用于输入,输出的函数和流</p>
+<p>这里只介绍 <code>cin</code>,<code>cout</code></p>
 <p><code>ios::sync_with_stdio(0)</code> 是 C++ 中用于 <strong>同步 C标准输入输出流和C++标准输入输出流</strong> 的操作。</p>
 <h3 class="relative group">cin 和 cout 
     <div id="cin-和-cout" class="anchor"></div>
@@ -611,10 +611,10 @@ std::cout &lt;&lt; &quot;You entered: &quot; &lt;&lt; num &lt;&lt; std::endl;
     </span>        
     
 </h3>
-<p>头文件为 <code>#include &lt;iomanip&gt;</code>
-其中io代表输入输出，manip是manipulator（操纵器）的缩写
-iomanip的作用:
-主要是对cin,cout之类的一些操纵运算子,比如setfill,setw,setbase,setprecision等等。它是I/O流控制头文件,就像C里面的格式化输出一样。</p>
+<p>头文件为 <code>#include &lt;iomanip&gt;</code></p>
+<p>其中io代表输入输出，manip是manipulator（操纵器）的缩写</p>
+<p>iomanip的作用:</p>
+<p>主要是对cin,cout之类的一些操纵运算子,比如setfill,setw,setbase,setprecision等等。它是I/O流控制头文件,就像C里面的格式化输出一样。</p>
 <p>setw()控制总位数(不够就加上空格)放在前面补前面,后面补后面
 <code>cout&lt;&lt;setw(3)&lt;&lt;12&lt;&lt;endl</code>
 <code>cout&lt;&lt;12&lt;&lt;setw(3);</code></p>
@@ -635,9 +635,9 @@ iomanip的作用:
 <p>默认情况下，C++ 的输入输出流与 C 标准输入输出流是独立的(缓冲区不在一起)，可能会导致性能上的损失。</p>
 <p>通过调用<code>ios::sync_with_stdio(0)</code>可以 <strong>将 C++ 的输入输出流与 C 标准输入输出流同步(缓冲区合并)</strong> ，提高输入输出效率。</p>
 <p>关于它们要点：</p>
-<p>在 C++ 中，使用 cin 和 cout 进行输入输出时，如果不调用 ios::sync_with_stdio(0) 进行同步设置，默认情况下 C++ 的输入输出流是独立于 C 标准输入输出流的，这可能会导致性能上的损失，尤其在大量输入输出时。
-调用 ios::sync_with_stdio(0) 可以将 C++ 的输入输出流与 C 标准输入输出流同步，提高输入输出效率，但这样可能会导致 cin 和 cout 与 scanf 和 printf 混用时出现问题，因为它们 <strong>共享了同一个输入输出缓冲区</strong> 。
-<strong>注意!</strong> <strong>在使用 ios::sync_with_stdio(0) 进行同步设置时，用 cin 和 cout 就不用 scanf 和 printf</strong></p>
+<p>在 C++ 中，使用 cin 和 cout 进行输入输出时，如果不调用 ios::sync_with_stdio(0) 进行同步设置，默认情况下 C++ 的输入输出流是独立于 C 标准输入输出流的，这可能会导致性能上的损失，尤其在大量输入输出时。</p>
+<p>调用 ios::sync_with_stdio(0) 可以将 C++ 的输入输出流与 C 标准输入输出流同步，提高输入输出效率，但这样可能会导致 cin 和 cout 与 scanf 和 printf 混用时出现问题，因为它们 <strong>共享了同一个输入输出缓冲区</strong> 。</p>
+<p><strong>注意!</strong> <strong>在使用 ios::sync_with_stdio(0) 进行同步设置时，用 cin 和 cout 就不用 scanf 和 printf</strong></p>
 <h3 class="relative group">cin.tie(0)和cout.tie(0) 
     <div id="cintie0和couttie0" class="anchor"></div>
     
@@ -736,12 +736,12 @@ std::cout.tie(0);
     </span>        
     
 </h3>
-<p>挺坑人的,虽然是常识(现在回来写题解又忘了)
-这里给一下<strong>常识</strong>:</p>
-<p>1.平年365天和闰年366天
-2.判断一个年份是否为闰年的规则是：</p>
-<p>如果该年份能被4整除，但不能被100整除，或者能被400整除，那么它是闰年。
-故定义一个长度为12的月份数组(赋好值,第二月28天),再判断一下是否为闰年,是就2月改成29天</p>
+<p>挺坑人的,虽然是常识(现在回来写题解又忘了)</p>
+<p>这里给一下<strong>常识</strong>:</p>
+<p>1.平年365天和闰年366天</p>
+<p>2.判断一个年份是否为闰年的规则是：</p>
+<p>如果该年份能被4整除，但不能被100整除，或者能被400整除，那么它是闰年。</p>
+<p>故定义一个长度为12的月份数组(赋好值,第二月28天),再判断一下是否为闰年,是就2月改成29天</p>
 <pre><code>if((y%4==0&amp;&amp;y%100!=0)||y%400==0)
         month[1]=29;
 </code></pre>
@@ -770,8 +770,8 @@ std::cout.tie(0);
     </span>        
     
 </h3>
-<p>从年月日依次处理,本题结合不同年份,月份的天数差异,判断选择较多,很适合练习选择结构
-年:</p>
+<p>从年月日依次处理,本题结合不同年份,月份的天数差异,判断选择较多,很适合练习选择结构</p>
+<p>年:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(y1){
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(y1<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span><span style="color:#f92672">==</span>x)
 </span></span><span style="display:flex;"><span>                num<span style="color:#f92672">+=</span>month[m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
@@ -1088,7 +1088,7 @@ std::cout.tie(0);
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-11 17:44:43 &#43;0800 CST">February 11, 2024</time>
+                    <time datetime="2024-02-10 17:44:43 &#43;0800 CST">February 10, 2024</time>
                   
                 </span>
               </span>
@@ -1097,15 +1097,15 @@ std::cout.tie(0);
         </span>
         <span>
           
-            <a class="flex text-right group ml-3" href="/posts/git%E7%AC%94%E8%AE%B0/">
+            <a class="flex text-right group ml-3" href="/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/">
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >git</span
+                  >数组、字符串及数据批量存储</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-11 17:44:43 &#43;0800 CST">February 11, 2024</time>
+                    <time datetime="2024-02-12 00:00:00 &#43;0000 UTC">February 12, 2024</time>
                   
                 </span>
               </span>
