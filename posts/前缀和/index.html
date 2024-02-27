@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>数组、字符串及数据批量存储 &middot; </title>
-  <meta name="title" content="数组、字符串及数据批量存储 &middot; " />
+  <title>前缀和 &middot; </title>
+  <meta name="title" content="前缀和 &middot; " />
   
   
   
   
   
-  <link rel="canonical" href="https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/" />
+  <link rel="canonical" href="https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/" />
   
   
   
@@ -63,16 +63,16 @@
   
   
   
-  <meta property="og:title" content="数组、字符串及数据批量存储" />
-<meta property="og:description" content="数组 #字符串 #数据批量存储 #" />
+  <meta property="og:title" content="前缀和" />
+<meta property="og:description" content="前缀和/差分，搜索，第二类斯特林数 #why买外卖 #按闹分配 #" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-02-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-12T00:00:00+00:00" />
+<meta property="og:url" content="https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-23T13:34:50+08:00" />
+<meta property="article:modified_time" content="2024-02-23T13:34:50+08:00" />
 
 
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="数组、字符串及数据批量存储"/>
-<meta name="twitter:description" content="数组 #字符串 #数据批量存储 #"/>
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="前缀和"/>
+<meta name="twitter:description" content="前缀和/差分，搜索，第二类斯特林数 #why买外卖 #按闹分配 #"/>
 
   
   <script type="application/ld+json">
@@ -80,21 +80,21 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Posts",
-    "name": "数组、字符串及数据批量存储",
-    "headline": "数组、字符串及数据批量存储",
+    "name": "前缀和",
+    "headline": "前缀和",
     
-    "abstract": "数组 #\r字符串 #\r数据批量存储 #\r",
+    "abstract": "前缀和\/差分，搜索，第二类斯特林数 #\rwhy买外卖 #\r按闹分配 #\r",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/tyhzxh.github.io\/posts\/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8\/",
+    "url" : "https:\/\/tyhzxh.github.io\/posts\/%E5%89%8D%E7%BC%80%E5%92%8C\/",
     "author" : {
       "@type": "Person",
       "name": ""
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-02-12T00:00:00\u002b00:00",
-    "datePublished": "2024-02-12T00:00:00\u002b00:00",
+    "dateCreated": "2024-02-23T13:34:50\u002b08:00",
+    "datePublished": "2024-02-23T13:34:50\u002b08:00",
     
-    "dateModified": "2024-02-12T00:00:00\u002b00:00",
+    "dateModified": "2024-02-23T13:34:50\u002b08:00",
     
     
     
@@ -351,7 +351,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      数组、字符串及数据批量存储
+      前缀和
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -398,9 +398,9 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-12 00:00:00 &#43;0000 UTC">February 12, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-02-23 13:34:50 &#43;0800 CST">February 23, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
-    <span id="views_posts\数组、字符串及数据批量存储.md" 
+    <span id="views_posts\前缀和.md" 
     
         class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span> 
     <span class="inline-block align-text-bottom">
@@ -477,9 +477,12 @@
     class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#数组">数组</a></li>
-    <li><a href="#字符串">字符串</a></li>
-    <li><a href="#数据批量存储">数据批量存储</a></li>
+    <li><a href="#前缀和差分搜索第二类斯特林数">前缀和/差分，搜索，第二类斯特林数</a>
+      <ul>
+        <li><a href="#why买外卖">why买外卖</a></li>
+        <li><a href="#按闹分配">按闹分配</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -493,9 +496,12 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#数组">数组</a></li>
-    <li><a href="#字符串">字符串</a></li>
-    <li><a href="#数据批量存储">数据批量存储</a></li>
+    <li><a href="#前缀和差分搜索第二类斯特林数">前缀和/差分，搜索，第二类斯特林数</a>
+      <ul>
+        <li><a href="#why买外卖">why买外卖</a></li>
+        <li><a href="#按闹分配">按闹分配</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -511,36 +517,36 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <h2 class="relative group">数组 
-    <div id="数组" class="anchor"></div>
+          <h2 class="relative group">前缀和/差分，搜索，第二类斯特林数 
+    <div id="前缀和差分搜索第二类斯特林数" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e6%95%b0%e7%bb%84" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%89%8d%e7%bc%80%e5%92%8c%e5%b7%ae%e5%88%86%e6%90%9c%e7%b4%a2%e7%ac%ac%e4%ba%8c%e7%b1%bb%e6%96%af%e7%89%b9%e6%9e%97%e6%95%b0" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<h2 class="relative group">字符串 
-    <div id="字符串" class="anchor"></div>
+<h3 class="relative group">why买外卖 
+    <div id="why买外卖" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#why%e4%b9%b0%e5%a4%96%e5%8d%96" aria-label="锚点">#</a>
     </span>        
     
-</h2>
-<h2 class="relative group">数据批量存储 
-    <div id="数据批量存储" class="anchor"></div>
+</h3>
+<h3 class="relative group">按闹分配 
+    <div id="按闹分配" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e6%8c%89%e9%97%b9%e5%88%86%e9%85%8d" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 
         </div>
                 
@@ -554,7 +560,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;title=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;title=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -573,7 +579,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;text=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://twitter.com/intent/tweet/?url=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;text=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -591,7 +597,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;resubmit=true&amp;title=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://reddit.com/submit/?url=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;resubmit=true&amp;title=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -610,7 +616,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;description=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;description=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -629,7 +635,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;quote=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;quote=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -648,7 +654,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;subject=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="mailto:?body=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;subject=%e5%89%8d%e7%bc%80%e5%92%8c"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -667,7 +673,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;resubmit=true&amp;title=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://api.whatsapp.com/send?text=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;resubmit=true&amp;title=%e5%89%8d%e7%bc%80%e5%92%8c"
       title=""
       aria-label=""
       >
@@ -686,7 +692,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://tyhzxh.github.io/posts/%E6%95%B0%E7%BB%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%89%B9%E9%87%8F%E5%AD%98%E5%82%A8/&amp;resubmit=true&amp;title=%e6%95%b0%e7%bb%84%e3%80%81%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8a%e6%95%b0%e6%8d%ae%e6%89%b9%e9%87%8f%e5%ad%98%e5%82%a8"
+      href="https://t.me/share/url?url=https://tyhzxh.github.io/posts/%E5%89%8D%E7%BC%80%E5%92%8C/&amp;resubmit=true&amp;title=%e5%89%8d%e7%bc%80%e5%92%8c"
       title=""
       aria-label=""
       >
@@ -709,8 +715,8 @@
      
     
      <script>
-        var oid = "views_posts\\数组、字符串及数据批量存储.md"
-        var oid_likes = "likes_posts\\数组、字符串及数据批量存储.md"
+        var oid = "views_posts\\前缀和.md"
+        var oid_likes = "likes_posts\\前缀和.md"
       </script>
       
       
@@ -730,7 +736,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/posts/%E9%A1%BA%E5%BA%8F%E9%80%89%E6%8B%A9%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/">
+            <a class="flex group mr-3" href="/posts/%E5%9F%BA%E6%9C%AC%E6%8A%80%E5%B7%A7/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -742,11 +748,11 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >顺序选择循环结构</span
+                  >基本技巧</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-11 17:44:43 &#43;0800 CST">February 11, 2024</time>
+                    <time datetime="2024-02-12 21:10:09 &#43;0800 CST">February 12, 2024</time>
                   
                 </span>
               </span>
@@ -755,15 +761,15 @@
         </span>
         <span>
           
-            <a class="flex text-right group ml-3" href="/posts/%E5%9F%BA%E6%9C%AC%E6%8A%80%E5%B7%A7/">
+            <a class="flex text-right group ml-3" href="/posts/%E6%A8%A1%E6%8B%9F/">
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >基本技巧</span
+                  >模拟</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-12 21:10:09 &#43;0800 CST">February 12, 2024</time>
+                    <time datetime="2024-02-27 22:01:03 &#43;0800 CST">February 27, 2024</time>
                   
                 </span>
               </span>
