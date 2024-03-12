@@ -64,7 +64,7 @@
   
   
   <meta property="og:title" content="递归与分治" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="经典汉诺塔 #这题是在学校的算法书上看到的（陈慧南著）" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-27T22:03:04+08:00" />
@@ -72,7 +72,7 @@
 
 
   <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="递归与分治"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="经典汉诺塔 #这题是在学校的算法书上看到的（陈慧南著）"/>
 
   
   <script type="application/ld+json">
@@ -83,7 +83,7 @@
     "name": "递归与分治",
     "headline": "递归与分治",
     
-    
+    "abstract": "经典汉诺塔 #\r这题是在学校的算法书上看到的（陈慧南著）",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/tyhzxh.github.io\/posts\/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB\/",
     "author" : {
@@ -99,7 +99,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "0"
+    "wordCount": "117"
   }]
   </script>
 
@@ -375,7 +375,11 @@
 
 
 
+  
 
+
+
+  
 
 
 
@@ -394,7 +398,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-27 22:03:04 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-02-27 22:03:04 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>117 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
     <span id="views_posts\递归与分治.md" 
     
@@ -460,7 +464,54 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open class="toc-right mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#经典汉诺塔">经典汉诺塔</a>
+      <ul>
+        <li><a href="#递归形式">递归形式</a></li>
+        <li><a href="#迭代形式">迭代形式</a></li>
+      </ul>
+    </li>
+    <li><a href="#排列产生算法全排列-递归形式">排列产生算法(全排列-递归形式)</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#经典汉诺塔">经典汉诺塔</a>
+      <ul>
+        <li><a href="#递归形式">递归形式</a></li>
+        <li><a href="#迭代形式">迭代形式</a></li>
+      </ul>
+    </li>
+    <li><a href="#排列产生算法全排列-递归形式">排列产生算法(全排列-递归形式)</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+   </div>
+      </div>
+      
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -468,7 +519,128 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          
+          <h2 class="relative group">经典汉诺塔 
+    <div id="经典汉诺塔" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e7%bb%8f%e5%85%b8%e6%b1%89%e8%af%ba%e5%a1%94" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>这题是在学校的算法书上看到的（陈慧南著）</p>
+<p>之前在b站上也看到类似讲解，但是没有看懂题意，今天和舍友一起讨论这题讨论了三个小时（终于搞懂），这道题目思想很深，收获很大</p>
+<p>题目如下：</p>
+<p>n个圆盘从下面开始按大小顺序摆放在A柱子上。并且规定，任何时候，在小圆盘上都不能放大圆盘，且在三根柱子之间一次只能移动一个圆盘，求最少的移动步骤（描述出来）。</p>
+<p>这里吐槽一下学校的书，只简单说一下汉诺塔，就直接摆出代码（）</p>
+<p>你好歹说一下我要求什么吧（就说一下求个最少移动次数描述就行了 或者说求最少移动次数）</p>
+<p>描述形式 ：每次移动的盘子+所在柱子+移动到的柱子</p>
+<h3 class="relative group">递归形式 
+    <div id="递归形式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e9%80%92%e5%bd%92%e5%bd%a2%e5%bc%8f" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>先给题解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">move</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">int</span> k){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">&lt;&lt;</span>a<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;--&gt;&#34;</span><span style="color:#f92672">&lt;&lt;</span>c<span style="color:#f92672">&lt;&lt;</span>endl;
+</span></span><span style="display:flex;"><span>    }<span style="color:#75715e">//最小化问题
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hanoi</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">char</span> b,<span style="color:#66d9ef">int</span> k){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(k){
+</span></span><span style="display:flex;"><span>            Hanoi(a,b,c,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#75715e">//子问题1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            move(a,c,k);
+</span></span><span style="display:flex;"><span>            Hanoi(b,c,a,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#75715e">//子问题2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> k;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> k;
+</span></span><span style="display:flex;"><span>        Hanoi(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,k);<span style="color:#75715e">//总问题
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>这是最简单的形式</p>
+<p>这里直接给出递归算法的形式：</p>
+<p>Hanoi(a,c,b,k) = Hanoi(a,b,c,k-1) + move(a,c,k) + Hanoi(b,c,a,k-1)</p>
+<p>注意：Hanoi(a,c,b,k)算法含义是把k个盘子从a柱子移到c柱子(b柱子作为辅助)</p>
+<p>move(a,c,k)表示把编号为k的盘子从a移到c</p>
+<p>可能有的刚学递归或者没学递归的同学直接看这个式子是一脸懵（在下也是）</p>
+<h4 class="relative group">递归的本质 
+    <div id="递归的本质" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e9%80%92%e5%bd%92%e7%9a%84%e6%9c%ac%e8%b4%a8" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>这里说一下本座对 <strong>递归的理解</strong>：</p>
+<p>1.递归思想是说我们要求的的问题的解实际上是一棵树，书上挂满的节点就是所有的解</p>
+<p>这样能说可能很抽象）</p>
+<p>2.递归思想又叫最小化问题，比如这里的问题是求解所有的移动过程（移动次数最小的情况），可以看出来本身这个问题是非常棘手的，但是你看，如果盘子只有一个，你当然知道是把这个盘子从a移到c（也就是我写的move函数）</p>
+<p>3.而最小的这个问题就是树的子节点</p>
+<p>那么问题的本质就变成求出那个问题的最小化问题，而总问题因为分出一个最小化问题而变成一个小一点的子问题（之后不断的缩小全部变成最小化问题），就得到了问题的解</p>
+<h4 class="relative group">结合本题 
+    <div id="结合本题" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e7%bb%93%e5%90%88%e6%9c%ac%e9%a2%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h4>
+<p>再来看这道题</p>
+<p>子问题1就是描述上面k-1个盘子从a移到b的过程</p>
+<p>最小化问题就是描述把最下面那个盘子（k）移动的过程(a&ndash;&gt;c)（理由看理解3）</p>
+<p>子问题2就是描述上面k-1个盘子从b移到c的过程</p>
+<h3 class="relative group">迭代形式 
+    <div id="迭代形式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e8%bf%ad%e4%bb%a3%e5%bd%a2%e5%bc%8f" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>迭代形式就相当复杂了，这也是我和舍友讨论最久的一种解法（参考某位大佬）</p>
+<p>先给题解：</p>
+<p>观察规律：</p>
+<p>有递归算法：</p>
+<p>Hanoi(a,c,b,k) = Hanoi(a,b,c,k-1) + move(a,c,k) + Hanoi(b,c,a,k-1)</p>
+<p>1.这里是一颗二叉树，你自己去模拟移动盘子的过程：先从子节点到子节点的父节点，再到父节点的另一个子节点，该大佬发现这和二进制非常的像（太妙了），比如001，010，011，100···</p>
+<p>不断加一的过程中，最后一位的1所处的位置就是该节点所在二叉树的层数，既然知道了移动的次数，就得到对应二进制数的最后一位1所处位置（也就是所在二叉树的层数），就是移动盘子的序号</p>
+<p>2.光知道移动的盘子序号也是没用的，你不知道从哪移到哪啊，于是大佬又发现一个牛逼的规律：</p>
+<p>设a&ndash;&gt;c&ndash;&gt;b&ndash;&gt;a是正方向，反之则是反方向</p>
+<p>k，k-1，k-4，k-5···盘子是正方向</p>
+<p>k-2，k-3,k-6,k-7···盘子是反方向</p>
+<p>由Hanoi(a,c,b,k) = Hanoi(a,b,c,k-1) + move(a,c,k) + Hanoi(b,c,a,k-1)</p>
+<p>最大的盘子a&ndash;&gt;c是正方向，第二大的盘子a&ndash;&gt;b b&ndash;&gt;c是正方向···</p>
+<p>最后推出来这么个规律（晕）</p>
+<p>知道这两个规律后（发现了很多哎，但还是不会写（雾））</p>
+<p>大佬又用了一个二维数组表示从哪移到哪<code>a[0]['a'] == 'c'</code></p>
+<p>0是正方向，1是反方向</p>
+<h2 class="relative group">排列产生算法(全排列-递归形式) 
+    <div id="排列产生算法全排列-递归形式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e6%8e%92%e5%88%97%e4%ba%a7%e7%94%9f%e7%ae%97%e6%b3%95%e5%85%a8%e6%8e%92%e5%88%97-%e9%80%92%e5%bd%92%e5%bd%a2%e5%bc%8f" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>题解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"></code></pre></div>
         </div>
                 
         
@@ -714,7 +886,13 @@
   </footer>
 </article>
 
-      
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="" title="">
+    &uarr;
+  </a>
+</div>
     </main><footer id="site-footer" class="py-10 print:hidden">
   
   
