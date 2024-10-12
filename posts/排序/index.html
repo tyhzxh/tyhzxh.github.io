@@ -15,7 +15,7 @@
   
   
   
-  <link rel="canonical" href="https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/" />
+  <link rel="canonical" href="https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/" />
   
   
   
@@ -66,7 +66,7 @@
   <meta property="og:title" content="排序" />
 <meta property="og:description" content="某次学校实验实现的基本排序" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-27T22:11:13+08:00" />
 <meta property="article:modified_time" content="2024-02-27T22:11:13+08:00" />
 
@@ -85,7 +85,7 @@
     
     "abstract": "某次学校实验实现的基本排序",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/tyhzxh.github.io\/posts\/%E6%8E%92%E5%BA%8F\/",
+    "url" : "https:\/\/yourdomain.com\/posts\/%E6%8E%92%E5%BA%8F\/",
     "author" : {
       "@type": "Person",
       "name": ""
@@ -99,7 +99,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "537"
+    "wordCount": "582"
   }]
   </script>
 
@@ -398,7 +398,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-27 22:11:13 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>537 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-02-27 22:11:13 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>582 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
     <span id="views_posts\排序.md" 
     
@@ -484,7 +484,12 @@
     <li><a href="#快速排序">快速排序</a></li>
     <li><a href="#两路合并排序">两路合并排序</a></li>
     <li><a href="#堆排序">堆排序</a></li>
-    <li><a href="#自己写的检查程序">自己写的检查程序</a></li>
+    <li><a href="#测试">测试</a>
+      <ul>
+        <li><a href="#数据封装随机数">数据封装（随机数）</a></li>
+        <li><a href="#检查程序">检查程序</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -505,7 +510,12 @@
     <li><a href="#快速排序">快速排序</a></li>
     <li><a href="#两路合并排序">两路合并排序</a></li>
     <li><a href="#堆排序">堆排序</a></li>
-    <li><a href="#自己写的检查程序">自己写的检查程序</a></li>
+    <li><a href="#测试">测试</a>
+      <ul>
+        <li><a href="#数据封装随机数">数据封装（随机数）</a></li>
+        <li><a href="#检查程序">检查程序</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -681,7 +691,8 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        QuickSort(l, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, high);<span style="color:#75715e">//i后面的递归
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 class="relative group">两路合并排序 
+</span></span></code></pre></div><p>//快排太精妙了 所以学过一段时间就忘 不知道有些人怎么记住那么久的</p>
+<h2 class="relative group">两路合并排序 
     <div id="两路合并排序" class="anchor"></div>
     
     <span
@@ -691,6 +702,7 @@
     </span>        
     
 </h2>
+<p>两路合并排序使用了分治法策略</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">merge</span>(list<span style="color:#f92672">*</span>l,<span style="color:#66d9ef">int</span> left,<span style="color:#66d9ef">int</span> lmid,<span style="color:#66d9ef">int</span> rmid,<span style="color:#66d9ef">int</span> right){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> left,j<span style="color:#f92672">=</span>rmid;<span style="color:#75715e">//i,j指向left 和right
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    list temp;
@@ -715,6 +727,8 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这里的处理太傻逼了 还新建了一个链表 但实际怎么做捏 无语
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>Status <span style="color:#a6e22e">mergesort</span>(list<span style="color:#f92672">*</span>l,<span style="color:#66d9ef">int</span> left,<span style="color:#66d9ef">int</span> right){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(left<span style="color:#f92672">&lt;</span>right){
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left<span style="color:#f92672">+</span>(right<span style="color:#f92672">-</span>left)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
@@ -734,20 +748,44 @@
     </span>        
     
 </h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>Status <span style="color:#a6e22e">heapsort</span>(list<span style="color:#f92672">*</span>l){
-</span></span><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">downadjust</span>(list<span style="color:#f92672">*</span>l,<span style="color:#66d9ef">int</span> start,<span style="color:#66d9ef">int</span> end){<span style="color:#75715e">//调整堆
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Entry temp <span style="color:#f92672">=</span> l<span style="color:#f92672">-&gt;</span>D[start];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>start<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;=</span>end;i<span style="color:#f92672">*=</span><span style="color:#ae81ff">2</span>){<span style="color:#75715e">//从start结点的左子结点开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&lt;</span>end<span style="color:#f92672">&amp;&amp;</span>l<span style="color:#f92672">-&gt;</span>D[i].key<span style="color:#f92672">&gt;</span>l<span style="color:#f92672">-&gt;</span>D[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>].key)<span style="color:#75715e">//如果左子结点小于右子结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            i<span style="color:#f92672">++</span>;<span style="color:#75715e">//i指向右子结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(temp.key<span style="color:#f92672">&gt;=</span>l<span style="color:#f92672">-&gt;</span>D[i].key)<span style="color:#75715e">//如果父结点大于子结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">break</span>;<span style="color:#75715e">//调整结束
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        l<span style="color:#f92672">-&gt;</span>D[start] <span style="color:#f92672">=</span> l<span style="color:#f92672">-&gt;</span>D[i];<span style="color:#75715e">//否则将子结点值赋给父结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        start <span style="color:#f92672">=</span> i;<span style="color:#75715e">//重新赋值开始指针
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    l<span style="color:#f92672">-&gt;</span>D[start] <span style="color:#f92672">=</span> temp;<span style="color:#75715e">//调整结束后，将temp值放在最终位置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>Status <span style="color:#a6e22e">heapsort</span>(list<span style="color:#f92672">*</span>l){<span style="color:#75715e">//堆排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> l<span style="color:#f92672">-&gt;</span>n<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">--</span>){<span style="color:#75715e">//建堆
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        downadjust(l,i,l<span style="color:#f92672">-&gt;</span>n);<span style="color:#75715e">//调整堆
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> OK;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 class="relative group">自己写的检查程序 
-    <div id="自己写的检查程序" class="anchor"></div>
+</span></span></code></pre></div><h2 class="relative group">测试 
+    <div id="测试" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e8%87%aa%e5%b7%b1%e5%86%99%e7%9a%84%e6%a3%80%e6%9f%a5%e7%a8%8b%e5%ba%8f" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e6%b5%8b%e8%af%95" aria-label="锚点">#</a>
     </span>        
     
 </h2>
+<h3 class="relative group">数据封装（随机数） 
+    <div id="数据封装随机数" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e6%95%b0%e6%8d%ae%e5%b0%81%e8%a3%85%e9%9a%8f%e6%9c%ba%e6%95%b0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>list<span style="color:#f92672">*</span> <span style="color:#a6e22e">initlist</span>(<span style="color:#66d9ef">int</span> n){<span style="color:#75715e">//在list里生成n个随机数
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    list <span style="color:#f92672">*</span>l;
 </span></span><span style="display:flex;"><span>    l<span style="color:#f92672">=</span>(list<span style="color:#f92672">*</span>) malloc(<span style="color:#66d9ef">sizeof</span> (list));
@@ -761,7 +799,17 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deletelist</span>(list<span style="color:#f92672">*</span>l){
+</span></span></code></pre></div><h3 class="relative group">检查程序 
+    <div id="检查程序" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e6%a3%80%e6%9f%a5%e7%a8%8b%e5%ba%8f" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deletelist</span>(list<span style="color:#f92672">*</span>l){
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>l)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
 </span></span><span style="display:flex;"><span>    free(l);
@@ -887,7 +935,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;title=%e6%8e%92%e5%ba%8f"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;title=%e6%8e%92%e5%ba%8f"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -906,7 +954,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;text=%e6%8e%92%e5%ba%8f"
+      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;text=%e6%8e%92%e5%ba%8f"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -924,7 +972,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
+      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -943,7 +991,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;description=%e6%8e%92%e5%ba%8f"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;description=%e6%8e%92%e5%ba%8f"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -962,7 +1010,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;quote=%e6%8e%92%e5%ba%8f"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;quote=%e6%8e%92%e5%ba%8f"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -981,7 +1029,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;subject=%e6%8e%92%e5%ba%8f"
+      href="mailto:?body=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;subject=%e6%8e%92%e5%ba%8f"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -1000,7 +1048,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
+      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
       title=""
       aria-label=""
       >
@@ -1019,7 +1067,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://tyhzxh.github.io/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
+      href="https://t.me/share/url?url=https://yourdomain.com/posts/%E6%8E%92%E5%BA%8F/&amp;resubmit=true&amp;title=%e6%8e%92%e5%ba%8f"
       title=""
       aria-label=""
       >
@@ -1172,7 +1220,7 @@
 </footer><div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://tyhzxh.github.io/"
+  data-url="https://yourdomain.com/"
   style="z-index:500"
 >
   <div

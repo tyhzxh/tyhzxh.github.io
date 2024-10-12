@@ -15,7 +15,7 @@
   
   
   
-  <link rel="canonical" href="https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/" />
+  <link rel="canonical" href="https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/" />
   
   
   
@@ -66,7 +66,7 @@
   <meta property="og:title" content="递归与分治" />
 <meta property="og:description" content="经典汉诺塔 #这题是在学校的算法书上看到的（陈慧南著）" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-27T22:03:04+08:00" />
 <meta property="article:modified_time" content="2024-02-27T22:03:04+08:00" />
 
@@ -85,7 +85,7 @@
     
     "abstract": "经典汉诺塔 #\r这题是在学校的算法书上看到的（陈慧南著）",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/tyhzxh.github.io\/posts\/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB\/",
+    "url" : "https:\/\/yourdomain.com\/posts\/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB\/",
     "author" : {
       "@type": "Person",
       "name": ""
@@ -99,7 +99,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "117"
+    "wordCount": "124"
   }]
   </script>
 
@@ -398,7 +398,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-27 22:03:04 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>117 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2024-02-27 22:03:04 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>124 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
     <span id="views_posts\递归与分治.md" 
     
@@ -550,12 +550,13 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">move</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">int</span> k){
-</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">&lt;&lt;</span>a<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;--&gt;&#34;</span><span style="color:#f92672">&lt;&lt;</span>c<span style="color:#f92672">&lt;&lt;</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">move</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">int</span> k){<span style="color:#75715e">//把k个盘子从a柱子移到c柱子（b柱子作为辅助）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">&lt;&lt;</span>a<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;--&gt;&#34;</span><span style="color:#f92672">&lt;&lt;</span>c<span style="color:#f92672">&lt;&lt;</span>endl;
 </span></span><span style="display:flex;"><span>    }<span style="color:#75715e">//最小化问题
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hanoi</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">char</span> b,<span style="color:#66d9ef">int</span> k){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(k){
-</span></span><span style="display:flex;"><span>            Hanoi(a,b,c,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#75715e">//子问题1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//Hanoi(a,c,b,k) = Hanoi(a,b,c,k-1) + move(a,c,k) + Hanoi(b,c,a,k-1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hanoi</span>(<span style="color:#66d9ef">char</span> a,<span style="color:#66d9ef">char</span> c,<span style="color:#66d9ef">char</span> b,<span style="color:#66d9ef">int</span> k){<span style="color:#75715e">//k个盘子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(k){<span style="color:#75715e">//当k&gt;0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Hanoi(a,b,c,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#75715e">//子问题1
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            move(a,c,k);
 </span></span><span style="display:flex;"><span>            Hanoi(b,c,a,k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#75715e">//子问题2
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
@@ -653,7 +654,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -672,7 +673,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;text=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;text=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -690,7 +691,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -709,7 +710,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;description=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;description=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -728,7 +729,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;quote=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;quote=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -747,7 +748,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;subject=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="mailto:?body=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;subject=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -766,7 +767,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title=""
       aria-label=""
       >
@@ -785,7 +786,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://tyhzxh.github.io/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
+      href="https://t.me/share/url?url=https://yourdomain.com/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/&amp;resubmit=true&amp;title=%e9%80%92%e5%bd%92%e4%b8%8e%e5%88%86%e6%b2%bb"
       title=""
       aria-label=""
       >
@@ -938,7 +939,7 @@
 </footer><div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://tyhzxh.github.io/"
+  data-url="https://yourdomain.com/"
   style="z-index:500"
 >
   <div

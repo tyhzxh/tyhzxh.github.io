@@ -3,78 +3,78 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://tyhzxh.github.io/en/authors/</loc>
+    <loc>https://yourdomain.com/en/authors/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://tyhzxh.github.io/authors/"
+      href="https://yourdomain.com/authors/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/en/authors/"
+      href="https://yourdomain.com/en/authors/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/en/categories/</loc>
+    <loc>https://yourdomain.com/en/categories/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://tyhzxh.github.io/categories/"
+      href="https://yourdomain.com/categories/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/en/categories/"
+      href="https://yourdomain.com/en/categories/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/en/series/</loc>
+    <loc>https://yourdomain.com/en/series/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://tyhzxh.github.io/series/"
+      href="https://yourdomain.com/series/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/en/series/"
+      href="https://yourdomain.com/en/series/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/en/tags/</loc>
+    <loc>https://yourdomain.com/en/tags/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://tyhzxh.github.io/tags/"
+      href="https://yourdomain.com/tags/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/en/tags/"
+      href="https://yourdomain.com/en/tags/"
     />
   </url>
   <url>
-    <loc>https://tyhzxh.github.io/en/</loc>
+    <loc>https://yourdomain.com/en/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
       rel="alternate"
       hreflang="zh-cn"
-      href="https://tyhzxh.github.io/"
+      href="https://yourdomain.com/"
     />
     <xhtml:link
       rel="alternate"
       hreflang="en"
-      href="https://tyhzxh.github.io/en/"
+      href="https://yourdomain.com/en/"
     />
   </url>
 </urlset>

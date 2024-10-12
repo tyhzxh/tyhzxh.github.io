@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on </title>
-    <link>https://tyhzxh.github.io/series/</link>
+    <link>https://yourdomain.com/series/</link>
     <description>Recent content in Series on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2024 </copyright>
-    <atom:link href="https://tyhzxh.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yourdomain.com/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
