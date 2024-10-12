@@ -31,6 +31,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://yourdomain.com/posts/</loc>
+    <lastmod>2024-10-12T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://yourdomain.com/posts/ai_%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E7%AD%94/</loc>
     <lastmod>2024-10-12T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -50,12 +56,6 @@
   </url>
   <url>
     <loc>https://yourdomain.com/posts/ai_%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2024-10-12T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://yourdomain.com/posts/</loc>
     <lastmod>2024-10-12T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
