@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>贪心 &middot; </title>
-  <meta name="title" content="贪心 &middot; " />
+  <title> &middot; </title>
+  <meta name="title" content=" &middot; " />
   
   
   
   
   
-  <link rel="canonical" href="https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/" />
+  <link rel="canonical" href="https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/" />
   
   
   
@@ -63,16 +63,16 @@
   
   
   
-  <meta property="og:title" content="贪心" />
-<meta property="og:description" content="也是重点" />
+  <meta property="og:title" content="" />
+<meta property="og:description" content="在 Manacher 算法 中，右边界 (box_r) 是指当前已知的 回文串 的右边界的位置。这个右边界的作用是帮助我们快速判断当前字符是否可以利用对称性来推测回文半径，而不需要从头开始暴力扩展。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-02-27T22:02:23+08:00" />
-<meta property="article:modified_time" content="2024-02-27T22:02:23+08:00" />
+<meta property="og:url" content="https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/" /><meta property="article:section" content="posts" />
 
 
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="贪心"/>
-<meta name="twitter:description" content="也是重点"/>
+
+
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="在 Manacher 算法 中，右边界 (box_r) 是指当前已知的 回文串 的右边界的位置。这个右边界的作用是帮助我们快速判断当前字符是否可以利用对称性来推测回文半径，而不需要从头开始暴力扩展。"/>
 
   
   <script type="application/ld+json">
@@ -80,26 +80,26 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Posts",
-    "name": "贪心",
-    "headline": "贪心",
+    "name": "",
+    "headline": "",
     
-    "abstract": "也是重点",
+    "abstract": "在 Manacher 算法 中，右边界 (box_r) 是指当前已知的 回文串 的右边界的位置。这个右边界的作用是帮助我们快速判断当前字符是否可以利用对称性来推测回文半径，而不需要从头开始暴力扩展。",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/yourdomain.com\/posts\/%E8%B4%AA%E5%BF%83\/",
+    "url" : "https:\/\/yourdomain.com\/posts\/manacher%E7%AE%97%E6%B3%95\/",
     "author" : {
       "@type": "Person",
       "name": ""
     },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-02-27T22:02:23\u002b08:00",
-    "datePublished": "2024-02-27T22:02:23\u002b08:00",
     
-    "dateModified": "2024-02-27T22:02:23\u002b08:00",
+    
+    
+    
+    
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2"
+    "wordCount": "144"
   }]
   </script>
 
@@ -351,7 +351,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      贪心
+      
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -398,9 +398,9 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-27 22:02:23 &#43;0800 CST">February 27, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">January 1, 1</time><span class="px-2 text-primary-500">&middot;</span><span>144 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
-    <span id="views_posts\贪心.md" 
+    <span id="views_posts\Manacher算法.md" 
     
         class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span> 
     <span class="inline-block align-text-bottom">
@@ -415,12 +415,6 @@
   
 
   
-  
-  <span class="pl-2"><span class="flex" style="cursor: pointer;">
-  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
-    草稿
-  </span>
-</span></span>
   
 </div>
 
@@ -477,7 +471,16 @@
     class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li>
+      <ul>
+        <li><a href="#右边界的定义">右边界的定义</a></li>
+        <li><a href="#为什么需要右边界">为什么需要右边界？</a></li>
+        <li><a href="#右边界的更新">右边界的更新</a></li>
+        <li><a href="#举个例子">举个例子</a></li>
+        <li><a href="#右边界的作用">右边界的作用</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -491,7 +494,16 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li>
+      <ul>
+        <li><a href="#右边界的定义">右边界的定义</a></li>
+        <li><a href="#为什么需要右边界">为什么需要右边界？</a></li>
+        <li><a href="#右边界的更新">右边界的更新</a></li>
+        <li><a href="#举个例子">举个例子</a></li>
+        <li><a href="#右边界的作用">右边界的作用</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -507,17 +519,88 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>也是重点</p>
-<h2 class="relative group"> 
-    <div id="heading" class="anchor"></div>
+          <p>在 <strong>Manacher 算法</strong> 中，<strong>右边界</strong> (<code>box_r</code>) 是指当前已知的 <strong>回文串</strong> 的右边界的位置。这个右边界的作用是帮助我们快速判断当前字符是否可以利用对称性来推测回文半径，而不需要从头开始暴力扩展。</p>
+<h3 class="relative group">右边界的定义 
+    <div id="右边界的定义" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#heading" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%8f%b3%e8%be%b9%e7%95%8c%e7%9a%84%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
+<p><code>box_r</code> 是指当前 <strong>回文串</strong> 的右边界的下标。我们通常会认为回文串的中心是 <code>box_m</code>，而 <code>box_r</code> 是从这个中心向右扩展时能够达到的最大位置。</p>
+<p>换句话说，<code>box_r</code> 是当前所有回文串中 <strong>最右端</strong> 的位置。如果有一个回文串的右边界超出了 <code>box_r</code>，那么我们就需要暴力扩展以找到新的回文串的右边界，并更新 <code>box_r</code>。</p>
+<h3 class="relative group">为什么需要右边界？ 
+    <div id="为什么需要右边界" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%8f%b3%e8%be%b9%e7%95%8c" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>右边界 <code>box_r</code> 是 Manacher 算法优化的核心之一。通过 <strong>回文对称性</strong> 和 <strong>右边界的扩展</strong>，我们可以避免对每个位置都进行暴力扩展，减少时间复杂度。具体来说：</p>
+<ul>
+<li>如果当前的 <code>i</code> 在 <code>box_r</code> 左侧（即 <code>i &lt; box_r</code>），那么我们可以通过对称性推测出 <code>i</code> 的回文半径。</li>
+<li>如果 <code>i</code> 超过了当前的 <code>box_r</code>，我们就需要暴力扩展，并更新 <code>box_r</code>。</li>
+</ul>
+<h3 class="relative group">右边界的更新 
+    <div id="右边界的更新" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e5%8f%b3%e8%be%b9%e7%95%8c%e7%9a%84%e6%9b%b4%e6%96%b0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在 Manacher 算法的每次循环中，<code>box_r</code> 会被更新为当前找到的最大回文串的右边界。每次扩展时，如果 <code>i + half_len[i] &gt; box_r</code>，则我们更新 <code>box_r</code>。</p>
+<h3 class="relative group">举个例子 
+    <div id="举个例子" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e4%b8%be%e4%b8%aa%e4%be%8b%e5%ad%90" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>假设我们有一个字符串 <code>t = &quot;^#a#b#a#c#b#a#$&quot;</code>，并且已经计算出以下信息：</p>
+<ul>
+<li><code>box_m = 4</code>，即当前回文串的中心位置是 <code>4</code>。</li>
+<li><code>box_r = 7</code>，即当前回文串的右边界位置是 <code>7</code>。</li>
+</ul>
+<p>这意味着当前回文串的范围是 <code>t[4-2, 4+2] = &quot;a#b#a&quot;</code>，也就是从位置 2 到位置 6。</p>
+<p>接下来，我们要计算位置 <code>i = 6</code> 的回文半径。由于 <code>i = 6</code> 的位置在 <code>box_r = 7</code> 之前（也就是说，<code>i &lt; box_r</code>），因此我们可以使用对称性来推测出回文半径，具体的计算方法是 <code>half_len[i] = min(half_len[box_m * 2 - i], box_r - i)</code>，然后继续暴力扩展。</p>
+<h3 class="relative group">右边界的作用 
+    <div id="右边界的作用" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e5%8f%b3%e8%be%b9%e7%95%8c%e7%9a%84%e4%bd%9c%e7%94%a8" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li><strong>推测回文半径</strong>：如果当前的 <code>i</code> 在 <code>box_r</code> 左侧（即 <code>i &lt; box_r</code>），那么 <code>i</code> 的回文半径可以通过对称性推测出来。这减少了不必要的扩展。</li>
+<li><strong>更新右边界</strong>：如果通过暴力扩展后，发现当前回文串的右边界超过了 <code>box_r</code>，就更新 <code>box_r</code> 为新的右边界。</li>
+</ol>
+<h3 class="relative group">总结 
+    <div id="总结" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e6%80%bb%e7%bb%93" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p><strong>右边界</strong> (<code>box_r</code>) 是 Manacher 算法中用来表示当前回文串的最右端位置。通过维护 <code>box_r</code>，算法能够利用回文串的对称性来加速计算，从而将时间复杂度从暴力算法的 O(n^2) 降低到 O(n)。</p>
+<p>如果 <code>i</code> 的位置小于 <code>box_r</code>，则可以通过对称性推测 <code>i</code> 的回文半径；如果 <code>i</code> 的位置超过了 <code>box_r</code>，则需要进行暴力扩展并更新 <code>box_r</code>。</p>
 
         </div>
                 
@@ -531,7 +614,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;title=%e8%b4%aa%e5%bf%83"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;title="
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -550,7 +633,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;text=%e8%b4%aa%e5%bf%83"
+      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;text="
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -568,7 +651,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;resubmit=true&amp;title=%e8%b4%aa%e5%bf%83"
+      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;resubmit=true&amp;title="
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -587,7 +670,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;description=%e8%b4%aa%e5%bf%83"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;description="
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -606,7 +689,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;quote=%e8%b4%aa%e5%bf%83"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;quote="
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -625,7 +708,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;subject=%e8%b4%aa%e5%bf%83"
+      href="mailto:?body=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;subject="
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -644,7 +727,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;resubmit=true&amp;title=%e8%b4%aa%e5%bf%83"
+      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;resubmit=true&amp;title="
       title=""
       aria-label=""
       >
@@ -663,7 +746,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://yourdomain.com/posts/%E8%B4%AA%E5%BF%83/&amp;resubmit=true&amp;title=%e8%b4%aa%e5%bf%83"
+      href="https://t.me/share/url?url=https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/&amp;resubmit=true&amp;title="
       title=""
       aria-label=""
       >
@@ -686,8 +769,8 @@
      
     
      <script>
-        var oid = "views_posts\\贪心.md"
-        var oid_likes = "likes_posts\\贪心.md"
+        var oid = "views_posts\\Manacher算法.md"
+        var oid_likes = "likes_posts\\Manacher算法.md"
       </script>
       
       
@@ -707,7 +790,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/posts/%E6%A8%A1%E6%8B%9F/">
+            <a class="flex group mr-3" href="/posts/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%8D%E4%B9%A0/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -719,11 +802,11 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >模拟</span
+                  ></span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-27 22:01:03 &#43;0800 CST">February 27, 2024</time>
+                    <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">January 1, 1</time>
                   
                 </span>
               </span>
@@ -732,15 +815,15 @@
         </span>
         <span>
           
-            <a class="flex text-right group ml-3" href="/posts/%E9%80%92%E5%BD%92%E4%B8%8E%E5%88%86%E6%B2%BB/">
+            <a class="flex text-right group ml-3" href="/posts/kongbai/">
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >递归与分治</span
+                  ></span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-27 22:03:04 &#43;0800 CST">February 27, 2024</time>
+                    <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">January 1, 1</time>
                   
                 </span>
               </span>

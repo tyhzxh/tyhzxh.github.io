@@ -6,8 +6,18 @@
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>© 2024 </copyright>
-    <lastBuildDate>Sat, 12 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://yourdomain.com/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025 </copyright>
+    <lastBuildDate>Thu, 24 Oct 2024 19:52:26 +0800</lastBuildDate><atom:link href="https://yourdomain.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>双指针</title>
+      <link>https://yourdomain.com/posts/%E5%8F%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Thu, 24 Oct 2024 19:52:26 +0800</pubDate>
+      
+      <guid>https://yourdomain.com/posts/%E5%8F%8C%E6%8C%87%E9%92%88/</guid>
+      <description>双指针 #介绍 #双指针是一种常用的算法技巧，通常用于解决数组或链表中的问题。它通过使用两个指针来遍历数据结构，可以有效地减少时间复杂度，从O(n^2)降低到O(n)。双指针的类型主要有以下几种：</description>
+      
+    </item>
+    
     <item>
       <title>cmake</title>
       <link>https://yourdomain.com/posts/ai_cmake%E5%9B%9E%E7%AD%94/</link>
@@ -224,7 +234,7 @@
       <pubDate>Fri, 23 Feb 2024 13:34:50 +0800</pubDate>
       
       <guid>https://yourdomain.com/posts/%E5%89%8D%E7%BC%80%E5%92%8C/</guid>
-      <description>前缀和/差分，搜索，第二类斯特林数 #why买外卖 #按闹分配 #</description>
+      <description>前缀和/差分，搜索，第二类斯特林数 #一些题目 #why买外卖 #按闹分配 #前缀数组 #好的，我会详细解释每个代码示例，并提供相应的Python代码。</description>
       
     </item>
     
@@ -275,6 +285,56 @@
       
       <guid>https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/</guid>
       <description>(学习廖俊峰教程的笔记)</description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yourdomain.com/posts/ai_go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/ai_go/</guid>
+      <description>Go 和 C++ 的语法有显著差异，以下从变量声明、内存管理、面向对象特性、并发处理、错误处理等方面进行对比：</description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yourdomain.com/posts/kongbai/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/kongbai/</guid>
+      <description>Manacher 算法的核心思路是通过 回文半径的扩展 来高效地找到字符串中的最长回文子串，并且优化了暴力算法中的重复计算，避免了暴力的 O(n^2) 时间复杂度，达到了 O(n) 的时间复杂度。</description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/</guid>
+      <description>在 Manacher 算法 中，右边界 (box_r) 是指当前已知的 回文串 的右边界的位置。这个右边界的作用是帮助我们快速判断当前字符是否可以利用对称性来推测回文半径，而不需要从头开始暴力扩展。</description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yourdomain.com/posts/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%8D%E4%B9%A0/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yourdomain.com/posts/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</guid>
+      <description>从零基础开始开发并上线一个类似抖音商城的项目，需要分阶段学习和实践。以下是一个详细的学习和开发流程，适合零基础的小白：</description>
       
     </item>
     

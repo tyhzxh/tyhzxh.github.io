@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://yourdomain.com/</loc>
-    <lastmod>2024-10-12T00:00:00+00:00</lastmod>
+    <lastmod>2024-10-24T19:52:26+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -19,6 +19,18 @@
     />
   </url>
   <url>
+    <loc>https://yourdomain.com/posts/</loc>
+    <lastmod>2024-10-24T19:52:26+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/%E5%8F%8C%E6%8C%87%E9%92%88/</loc>
+    <lastmod>2024-10-24T19:52:26+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://yourdomain.com/posts/ai_cmake%E5%9B%9E%E7%AD%94/</loc>
     <lastmod>2024-10-12T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -26,12 +38,6 @@
   </url>
   <url>
     <loc>https://yourdomain.com/posts/ai_leveldb%E5%9B%9E%E7%AD%94/</loc>
-    <lastmod>2024-10-12T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://yourdomain.com/posts/</loc>
     <lastmod>2024-10-12T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -183,6 +189,31 @@
   <url>
     <loc>https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2024-02-09T17:44:43+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/ai_go/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/kongbai/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/manacher%E7%AE%97%E6%B3%95/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%8D%E4%B9%A0/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/posts/%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
