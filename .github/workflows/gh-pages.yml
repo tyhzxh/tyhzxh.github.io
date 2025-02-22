@@ -1,0 +1,36 @@
+name: Deploy Hugo to GitHub Pages
+
+on:
+  push:
+    branches: [ "master" ]  # 仅在 master 分支推送时触发
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # 拉取主题子模块（如使用）
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.125.7"  # 与本地版本一致
+          extended: true            # 若本地使用扩展版（支持 SCSS）
+
+      - name: Build
+        run: hugo --minify --environment production
+
+      - name: Disable Jekyll
+        run: touch public/.nojekyll  # 防止 GitHub Pages 忽略 Hugo 文件
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
