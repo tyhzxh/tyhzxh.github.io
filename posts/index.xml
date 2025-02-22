@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>© 2025 </copyright>
-    <lastBuildDate>Thu, 24 Oct 2024 19:52:26 +0800</lastBuildDate><atom:link href="https://yourdomain.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Feb 2025 02:39:29 +0800</lastBuildDate><atom:link href="https://yourdomain.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网站日常</title>
+      <link>https://yourdomain.com/posts/%E7%BD%91%E7%AB%99%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Sun, 23 Feb 2025 02:39:29 +0800</pubDate>
+      
+      <guid>https://yourdomain.com/posts/%E7%BD%91%E7%AB%99%E6%97%A5%E5%B8%B8/</guid>
+      <description>网站日常 #提交博客 #创建博客markdown文档 #在项目的根目录下</description>
+      
+    </item>
+    
+    <item>
+      <title>Springboot(0)</title>
+      <link>https://yourdomain.com/posts/springboot0/</link>
+      <pubDate>Sun, 23 Feb 2025 02:36:48 +0800</pubDate>
+      
+      <guid>https://yourdomain.com/posts/springboot0/</guid>
+      <description>Springboot #java的一个高效框架</description>
+      
+    </item>
+    
     <item>
       <title>双指针</title>
       <link>https://yourdomain.com/posts/%E5%8F%8C%E6%8C%87%E9%92%88/</link>
@@ -25,6 +45,16 @@
       
       <guid>https://yourdomain.com/posts/ai_cmake%E5%9B%9E%E7%AD%94/</guid>
       <description>cmake #cmake基本语法 #CMakeLists.</description>
+      
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://yourdomain.com/posts/ai_go/</link>
+      <pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://yourdomain.com/posts/ai_go/</guid>
+      <description>Go 和 C++ 的语法有显著差异，以下从变量声明、内存管理、面向对象特性、并发处理、错误处理等方面进行对比：</description>
       
     </item>
     
@@ -285,16 +315,6 @@
       
       <guid>https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/</guid>
       <description>(学习廖俊峰教程的笔记)</description>
-      
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://yourdomain.com/posts/ai_go/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://yourdomain.com/posts/ai_go/</guid>
-      <description>Go 和 C++ 的语法有显著差异，以下从变量声明、内存管理、面向对象特性、并发处理、错误处理等方面进行对比：</description>
       
     </item>
     

@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>git &middot; </title>
-  <meta name="title" content="git &middot; " />
+  <title>Springboot(0) &middot; </title>
+  <meta name="title" content="Springboot(0) &middot; " />
   
   
   
   
   
-  <link rel="canonical" href="https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/" />
+  <link rel="canonical" href="https://yourdomain.com/posts/springboot0/" />
   
   
   
@@ -63,16 +63,16 @@
   
   
   
-  <meta property="og:title" content="git" />
-<meta property="og:description" content="(学习廖俊峰教程的笔记)" />
+  <meta property="og:title" content="Springboot(0)" />
+<meta property="og:description" content="Springboot #java的一个高效框架" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-02-09T17:44:43+08:00" />
-<meta property="article:modified_time" content="2024-02-09T17:44:43+08:00" />
+<meta property="og:url" content="https://yourdomain.com/posts/springboot0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-02-23T02:36:48+08:00" />
+<meta property="article:modified_time" content="2025-02-23T02:36:48+08:00" />
 
 
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="git"/>
-<meta name="twitter:description" content="(学习廖俊峰教程的笔记)"/>
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Springboot(0)"/>
+<meta name="twitter:description" content="Springboot #java的一个高效框架"/>
 
   
   <script type="application/ld+json">
@@ -80,26 +80,26 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Posts",
-    "name": "git",
-    "headline": "git",
+    "name": "Springboot(0)",
+    "headline": "Springboot(0)",
     
-    "abstract": "(学习廖俊峰教程的笔记)",
+    "abstract": "Springboot #\rjava的一个高效框架",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/yourdomain.com\/posts\/git%E7%AC%94%E8%AE%B0\/",
+    "url" : "https:\/\/yourdomain.com\/posts\/springboot0\/",
     "author" : {
       "@type": "Person",
       "name": ""
     },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-02-09T17:44:43\u002b08:00",
-    "datePublished": "2024-02-09T17:44:43\u002b08:00",
+    "copyrightYear": "2025",
+    "dateCreated": "2025-02-23T02:36:48\u002b08:00",
+    "datePublished": "2025-02-23T02:36:48\u002b08:00",
     
-    "dateModified": "2024-02-09T17:44:43\u002b08:00",
+    "dateModified": "2025-02-23T02:36:48\u002b08:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "418"
+    "wordCount": "7"
   }]
   </script>
 
@@ -351,7 +351,7 @@
   <header id="single_header" class="mt-5 max-w-prose">
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      git
+      Springboot(0)
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -398,9 +398,9 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-09 17:44:43 &#43;0800 CST">February 9, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>418 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
+  <time datetime="2025-02-23 02:36:48 &#43;0800 CST">February 23, 2025</time><span class="px-2 text-primary-500">&middot;</span><span>7 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span><span class="px-2 text-primary-500">&middot;</span><span>
     
-    <span id="views_posts\Git笔记.md" 
+    <span id="views_posts\springboot(0).md" 
     
         class="animate-pulse inline-block text-transparent max-h-3 rounded-full mt-[-2px] align-middle bg-neutral-300 dark:bg-neutral-400" title="views">loading</span> 
     <span class="inline-block align-text-bottom">
@@ -477,22 +477,11 @@
     class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#基础概念">基础概念</a></li>
-    <li><a href="#基础操作windows下">基础操作(windows下)</a>
+    <li><a href="#重要概念">重要概念</a>
       <ul>
-        <li><a href="#注意git-add-可以一次性添加所有改动">注意：<em><strong><code>git add .</code>可以一次性添加所有改动.</strong></em></a></li>
+        <li><a href="#依赖注入">依赖注入</a></li>
       </ul>
     </li>
-    <li><a href="#检查操作">检查操作</a></li>
-    <li><a href="#回退操作">回退操作</a>
-      <ul>
-        <li><a href="#工作区回退自己手动修改也可以">工作区回退(自己手动修改也可以)</a></li>
-        <li><a href="#暂存区回退">暂存区回退</a></li>
-        <li><a href="#版本库回退">版本库回退</a></li>
-      </ul>
-    </li>
-    <li><a href="#删除操作">删除操作</a></li>
-    <li><a href="#远程仓库">远程仓库</a></li>
   </ul>
 </nav>
   </div>
@@ -506,22 +495,11 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#基础概念">基础概念</a></li>
-    <li><a href="#基础操作windows下">基础操作(windows下)</a>
+    <li><a href="#重要概念">重要概念</a>
       <ul>
-        <li><a href="#注意git-add-可以一次性添加所有改动">注意：<em><strong><code>git add .</code>可以一次性添加所有改动.</strong></em></a></li>
+        <li><a href="#依赖注入">依赖注入</a></li>
       </ul>
     </li>
-    <li><a href="#检查操作">检查操作</a></li>
-    <li><a href="#回退操作">回退操作</a>
-      <ul>
-        <li><a href="#工作区回退自己手动修改也可以">工作区回退(自己手动修改也可以)</a></li>
-        <li><a href="#暂存区回退">暂存区回退</a></li>
-        <li><a href="#版本库回退">版本库回退</a></li>
-      </ul>
-    </li>
-    <li><a href="#删除操作">删除操作</a></li>
-    <li><a href="#远程仓库">远程仓库</a></li>
   </ul>
 </nav>
   </div>
@@ -537,229 +515,37 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>(学习廖俊峰教程的笔记)</p>
-<h2 class="relative group">基础概念 
-    <div id="基础概念" class="anchor"></div>
+          <h1 class="relative group">Springboot 
+    <div id="springboot" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#springboot" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>java的一个高效框架</p>
+<h2 class="relative group">重要概念 
+    <div id="重要概念" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%e9%87%8d%e8%a6%81%e6%a6%82%e5%bf%b5" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p><em><strong>在.git文件所在目录下进行操作</strong></em></p>
-<p>三个区域：</p>
-<p>1.工作区(Working Directory所处的文件目录)</p>
-<p>2.<em><strong>暂存区(stage)</strong></em>  (重点)</p>
-<p>3.版本库（Repository，工作区有一个隐藏目录 <em>.git</em> ，这个不算工作区，而是Git的版本库）:
-<strong>创建Git版本库时，Git自动为我们创建了唯一一个master(main)分支，所以git commit就是往master(main)分支上提交更改</strong></p>
-<h2 class="relative group">基础操作(windows下) 
-    <div id="基础操作windows下" class="anchor"></div>
+<h3 class="relative group">依赖注入 
+    <div id="依赖注入" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%9f%ba%e7%a1%80%e6%93%8d%e4%bd%9cwindows%e4%b8%8b" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p><strong>git add命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行git commit就可以一次性把暂存区的所有修改提交到分支。</strong></p>
-<p><strong>在powershell或git bash下输入</strong>
-<em>建议git bash-支持很多linux下的命令</em></p>
-<p>一.初始化一个Git仓库，使用<code>git init</code>命令。
-二.添加文件到Git仓库，分两步：</p>
-<p>1.使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个工作区文件到暂存区；</p>
-<p>2.使用命令<code>git commit -m &lt;message&gt;</code>添加暂存区所有文件到Git仓库，完成。</p>
-<h3 class="relative group">注意：<em><strong><code>git add .</code>可以一次性添加所有改动.</strong></em> 
-    <div id="注意git-add-可以一次性添加所有改动" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e6%b3%a8%e6%84%8fgit-add-%e5%8f%af%e4%bb%a5%e4%b8%80%e6%ac%a1%e6%80%a7%e6%b7%bb%e5%8a%a0%e6%89%80%e6%9c%89%e6%94%b9%e5%8a%a8" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e4%be%9d%e8%b5%96%e6%b3%a8%e5%85%a5" aria-label="锚点">#</a>
     </span>        
     
 </h3>
-<h2 class="relative group">检查操作 
-    <div id="检查操作" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e6%a3%80%e6%9f%a5%e6%93%8d%e4%bd%9c" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>检查 <em><strong>工作区+暂存区</strong></em> 的状态，使用<code>git status</code>命令。</p>
-<pre><code>Changes to be committed:
-(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
-        modified:   1.md
-
-Changes not staged for commit:
-(use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-(use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
-        modified:   1.md
-</code></pre>
-<p>如果<code>git status</code>告诉你有文件被修改过，用<code>git diff</code>可以查看修改内容。</p>
-<pre><code>$ git diff readme.txt 
-diff --git a/readme.txt b/readme.txt
-index 46d49bf..9247db6 100644
---- a/readme.txt
-+++ b/readme.txt
-@@ -1,2 +1,2 @@
--Git is a version control system.
-+Git is a distributed version control system.
- Git is free software.
-</code></pre>
-<p>在Git中，我们用<code>git log</code>命令查看历史修改记录：</p>
-<pre><code>$ git log
-commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)
-Author: Michael Liao &lt;askxuefeng@gmail.com&gt;
-Date:   Fri May 18 21:06:15 2018 +0800
-
-append GPL
-
-commit e475afc93c209a690c39c13a46716e8fa000c366
-Author: Michael Liao &lt;askxuefeng@gmail.com&gt;
-Date:   Fri May 18 21:03:36 2018 +0800
-
-add distributed
-
-commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0
-Author: Michael Liao &lt;askxuefeng@gmail.com&gt;
-Date:   Fri May 18 20:59:18 2018 +0800
-
-wrote a readme file
-</code></pre>
-<p>如果嫌出来的记录有点多，加上&ndash;pretty=oneline参数</p>
-<pre><code>$ git log --pretty=oneline
-049c19eb21cbe21986810b7de105d3d7ab584d1c (HEAD -&gt; main) 1
-a87bfdefbae52977a72b7955a406eab118a04df5 w
-1dc3373085994a336323614fa726732b582f22f2 1
-049c19eb21cbe21986810b7de105d3d7ab584d1c (HEAD -&gt; main) 1
-a87bfdefbae52977a72b7955a406eab118a04df5 w
-1dc3373085994a336323614fa726732b582f22f2 1
-5b720547ec5708c2d8aef5cfce5d5e48ade4e2fd 一次还原
-fe5a8fe8cfe640934dab93dee4f02ad46da89cdb 提交
-fe4ba1b1cb1daa9e1234655a8c937ddf4c067ee7 第二次
-</code></pre>
-<p>一大串类似049c19eb21cbe&hellip;的是commit id（版本号）(SHA1计算出来的一个非常大的数字，用十六进制表示)</p>
-<p>在Git中，<strong>用HEAD表示当前版本</strong> ，也就是最新的提交1094adb&hellip;（注意我的提交ID和你的肯定不一样），<strong>上一个版本就是HEAD^</strong>， 上上一个版本就是 <strong>HEAD^^</strong> ，当然往上100个版本写100个^比较容易数不过来，所以写成 <strong>HEAD~100</strong></p>
-<h2 class="relative group">回退操作 
-    <div id="回退操作" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%9b%9e%e9%80%80%e6%93%8d%e4%bd%9c" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<h3 class="relative group">工作区回退(自己手动修改也可以) 
-    <div id="工作区回退自己手动修改也可以" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%b7%a5%e4%bd%9c%e5%8c%ba%e5%9b%9e%e9%80%80%e8%87%aa%e5%b7%b1%e6%89%8b%e5%8a%a8%e4%bf%ae%e6%94%b9%e4%b9%9f%e5%8f%af%e4%bb%a5" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p><code>git checkout -- file</code>可以丢弃工作区的修改：
-<code>$ git checkout -- readme.txt</code></p>
-<p><strong><code>--</code>很重要</strong></p>
-<h3 class="relative group">暂存区回退 
-    <div id="暂存区回退" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e6%9a%82%e5%ad%98%e5%8c%ba%e5%9b%9e%e9%80%80" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p><code>git reset HEAD &lt;file&gt;</code>可以把暂存区的修改撤销掉（unstage），重新放回工作区
-<code>git reset HEAD 1.md</code></p>
-<h3 class="relative group">版本库回退 
-    <div id="版本库回退" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e7%89%88%e6%9c%ac%e5%ba%93%e5%9b%9e%e9%80%80" aria-label="锚点">#</a>
-    </span>        
-    
-</h3>
-<p><code>git reset</code>命令：把当前版本append GPL回退到上一个版本add distributed</p>
-<pre><code>$ git reset --hard HEAD^
-HEAD is now at e475afc add distributed
-</code></pre>
-<p>个人理解：版本回退就是修改HEAD指针的指向(HEAD指向当前所处版本)</p>
-<p>回退到add distributed版本时，再想恢复到append GPL，就必须找到append GPL的commit id。</p>
-<p>Git提供了一个命令<code>git reflog</code>来记录你的 <em><strong>每一次命令</strong></em> ：</p>
-<pre><code>$ git reflog
-e475afc HEAD@{1}: reset: moving to HEAD^
-1094adb (HEAD -&gt; master) HEAD@{2}: commit: append GPL
-e475afc HEAD@{3}: commit: add distributed
-eaadf4e HEAD@{4}: commit (initial): wrote a readme file
-</code></pre>
-<p>从输出可知，append GPL的commit id是1094adb(每次的commit都对应着一个版本)</p>
-<h2 class="relative group">删除操作 
-    <div id="删除操作" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e5%88%a0%e9%99%a4%e6%93%8d%e4%bd%9c" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>排除git一般情况下：</p>
-<p>通常直接在文件管理器中把没用的文件删了，或者用rm命令删了
-<code>$ rm test.txt</code></p>
-<p>而在git中</p>
-<pre><code>$ git status
-On branch master
-Changes not staged for commit:
-(use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
-(use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-deleted:    test.txt
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre>
-<p>可以看出工作区和版本库不一致</p>
-<p>现在你有两个选择：</p>
-<p>1.确实要从版本库中删除该文件，那就用命令<code>git rm</code>删掉，并且<code>git commit</code>：</p>
-<pre><code>$ git rm test.txt
-rm 'test.txt'
-
-$ git commit -m &quot;remove test.txt&quot;
-[master d46f35e] remove test.txt
- 1 file changed, 1 deletion(-)
- delete mode 100644 test.txt
-</code></pre>
-<p>现在，文件就从版本库中被删除了。</p>
-<p>2.删错了，版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：</p>
-<p><code>$ git checkout -- test.txt</code></p>
-<p><code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
-<p>注意：从来没有被添加到版本库就被删除的文件，是无法恢复的！</p>
-<p>命令git rm用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远 <em>不用担心误删</em> ，但是要小心，<strong>你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容</strong>。</p>
-<h2 class="relative group">远程仓库 
-    <div id="远程仓库" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>我的github <code>git clone</code>后本地仓库和远程仓库自动同步了,所以每次直接 本地仓库更新完直接<code>git push</code>一下就好了</p>
-<p><code>$ git push orgin master</code></p>
-<p>本地仓库与远程仓库同步 使用<code>git remote</code>命令</p>
-<p><code>$ git remote add orgin https://github.com/tyhzxh/tyhzxh.github.io.git</code></p>
 
         </div>
                 
@@ -773,7 +559,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;title=git"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yourdomain.com/posts/springboot0/&amp;title=Springboot%280%29"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -792,7 +578,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;text=git"
+      href="https://twitter.com/intent/tweet/?url=https://yourdomain.com/posts/springboot0/&amp;text=Springboot%280%29"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -810,7 +596,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;resubmit=true&amp;title=git"
+      href="https://reddit.com/submit/?url=https://yourdomain.com/posts/springboot0/&amp;resubmit=true&amp;title=Springboot%280%29"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -829,7 +615,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;description=git"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://yourdomain.com/posts/springboot0/&amp;description=Springboot%280%29"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -848,7 +634,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;quote=git"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/posts/springboot0/&amp;quote=Springboot%280%29"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -867,7 +653,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;subject=git"
+      href="mailto:?body=https://yourdomain.com/posts/springboot0/&amp;subject=Springboot%280%29"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -886,7 +672,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;resubmit=true&amp;title=git"
+      href="https://api.whatsapp.com/send?text=https://yourdomain.com/posts/springboot0/&amp;resubmit=true&amp;title=Springboot%280%29"
       title=""
       aria-label=""
       >
@@ -905,7 +691,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://yourdomain.com/posts/git%E7%AC%94%E8%AE%B0/&amp;resubmit=true&amp;title=git"
+      href="https://t.me/share/url?url=https://yourdomain.com/posts/springboot0/&amp;resubmit=true&amp;title=Springboot%280%29"
       title=""
       aria-label=""
       >
@@ -928,8 +714,8 @@ $ git commit -m &quot;remove test.txt&quot;
      
     
      <script>
-        var oid = "views_posts\\Git笔记.md"
-        var oid_likes = "likes_posts\\Git笔记.md"
+        var oid = "views_posts\\springboot(0).md"
+        var oid_likes = "likes_posts\\springboot(0).md"
       </script>
       
       
@@ -949,7 +735,7 @@ $ git commit -m &quot;remove test.txt&quot;
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/posts/kongbai/">
+            <a class="flex group mr-3" href="/posts/%E5%8F%8C%E6%8C%87%E9%92%88/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -961,11 +747,11 @@ $ git commit -m &quot;remove test.txt&quot;
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  ></span
+                  >双指针</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">January 1, 1</time>
+                    <time datetime="2024-10-24 19:52:26 &#43;0800 CST">October 24, 2024</time>
                   
                 </span>
               </span>
@@ -974,15 +760,15 @@ $ git commit -m &quot;remove test.txt&quot;
         </span>
         <span>
           
-            <a class="flex text-right group ml-3" href="/posts/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84/">
+            <a class="flex text-right group ml-3" href="/posts/%E7%BD%91%E7%AB%99%E6%97%A5%E5%B8%B8/">
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >算法知识体系(简化版)</span
+                  >网站日常</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-02-10 17:44:43 &#43;0800 CST">February 10, 2024</time>
+                    <time datetime="2025-02-23 02:39:29 &#43;0800 CST">February 23, 2025</time>
                   
                 </span>
               </span>
