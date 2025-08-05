@@ -1,0 +1,144 @@
+baseURL = 'https://tyhzxh.github.io/'
+languageCode = 'zh-cn'
+title = 'tyhzxh的个人博客'
+theme = 'PaperMod'
+
+# 启用表情符号
+enableEmoji = true
+# 启用Git信息
+enableGitInfo = true
+# 构建草稿
+buildDrafts = false
+# 构建过期内容
+buildExpired = false
+# 构建未来内容
+buildFuture = false
+
+# 分页设置
+[pagination]
+  pagerSize = 10
+
+# 代码高亮设置
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = false
+    style = "github"
+    tabWidth = 4
+
+# PaperMod主题配置
+[params]
+  # 网站描述
+  description = "分享技术、思考与生活的个人博客"
+  # 作者
+  author = "tyhzxh"
+  # 显示阅读时间
+  ShowReadingTime = true
+  # 显示分享按钮
+  ShowShareButtons = true
+  # 显示文章导航
+  ShowPostNavLinks = true
+  # 显示面包屑导航
+  ShowBreadCrumbs = true
+  # 显示代码复制按钮
+  ShowCodeCopyButtons = true
+  # 显示全文内容
+  ShowFullTextinRSS = true
+  # 显示目录
+  ShowToc = true
+  # 目录开放
+  TocOpen = false
+  # 评论系统
+  comments = false
+  # 数学公式支持
+  math = true
+  # 默认主题模式 (auto, light, dark)
+  defaultTheme = "auto"
+  # 禁用主题切换
+  disableThemeToggle = false
+  # 显示编辑链接
+  ShowEditLink = false
+  # 编辑链接
+  EditPath = ""
+
+  # 首页信息
+  [params.homeInfoParams]
+    Title = "欢迎来到我的博客 👋"
+    Content = """
+    这里是我分享技术文章、学习笔记和生活感悟的地方。
+    
+    主要内容包括：
+    - 💻 编程技术与开发经验
+    - 📚 学习笔记与知识总结  
+    - 🤔 思考与感悟
+    - 📸 生活记录
+    
+    希望这些内容对你有所帮助！
+    """
+
+  # 社交链接
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/tyhzxh"
+
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:your-email@example.com"
+
+  # 搜索配置
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
+
+# 菜单配置
+[[menu.main]]
+  identifier = "home"
+  name = "首页"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "posts"
+  name = "文章"
+  url = "/posts/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "archives"
+  name = "归档"
+  url = "/archives/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "tags"
+  name = "标签"
+  url = "/tags/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 50
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 60
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
