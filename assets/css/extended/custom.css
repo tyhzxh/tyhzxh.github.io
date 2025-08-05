@@ -1,28 +1,36 @@
 /* 自定义字体 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* 全局字体设置 */
-:root {
-    --font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    --code-font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-}
-
+/* GitHub风格字体优化 */
 body {
-    font-family: var(--font-family);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    color: #24292f !important;
     font-weight: 400;
     line-height: 1.6;
 }
 
-/* 代码字体 */
+/* 代码字体 - GitHub风格 */
 code, pre, .highlight {
-    font-family: var(--code-font-family);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-weight: 400;
 }
 
-/* 标题字体优化 */
+/* 标题字体加粗 */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-family);
-    font-weight: 600;
+    font-weight: 600 !important;
+    color: #1f2328 !important;
     line-height: 1.3;
+}
+
+/* 链接颜色 */
+a {
+    color: #0969da !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0550ae !important;
+    text-decoration: underline;
 }
 
 /* 头像样式 */
@@ -41,23 +49,143 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.05);
 }
 
-/* 背景壁纸设置 */
-.main {
-    background-image: url('/images/background.svg');
+/* 高质量背景图片设置 - 使用多种方法确保显示 */
+html {
+    background-image: url('/images/wallhaven-3lo8q3.jpg?v=7') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh !important;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+body {
+    background-image: url('/images/wallhaven-3lo8q3.jpg?v=7') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh !important;
+    background-color: transparent !important;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* PaperMod主题特定覆盖 */
+.main, #main, .container, .page {
+    background: transparent !important;
+}
+
+/* 确保背景覆盖整个页面 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/images/wallhaven-3lo8q3.jpg?v=7');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    z-index: -999;
+    pointer-events: none;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
-/* 为了确保内容可读性，添加半透明背景 */
+/* 主容器宽度调整 */
+.main {
+    max-width: 75% !important;
+    width: 75% !important;
+    margin: 0 auto;
+    background: transparent;
+}
+
+/* 内容区域宽度调整 */
+.container {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* 文章列表和内容区域 - 更加透明，减少毛玻璃效果 */
 .post-content, .post-header, .home-info {
-    background: rgba(var(--theme-rgb), 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 10px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(3px);
+    border-radius: 16px;
+    padding: 30px;
+    margin: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #000000 !important;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 全局文字颜色设置 - 所有文字都设为纯黑色 */
+body, 
+.main,
+.post-content,
+.post-header,
+.home-info,
+.post-entry,
+.header,
+.footer,
+p, div, span, li, td, th, blockquote, 
+.post-meta, .post-description, .entry-content, .entry-summary,
+h1, h2, h3, h4, h5, h6,
+a, .nav-link, .menu-link,
+.profile-info, .profile-text,
+.social-icons a,
+.breadcrumbs a,
+.pagination a,
+.tag-link,
+.archive-entry,
+.search-results {
+    color: #000000 !important;
+}
+
+/* 文章内容中的所有文本元素设为纯黑色 */
+.post-content p,
+.post-content div,
+.post-content span,
+.post-content li,
+.post-content td,
+.post-content th,
+.post-content blockquote,
+.post-content .post-meta,
+.post-content .post-description {
+    color: #000000 !important;
+}
+
+/* 深色模式下的内容区域 - 半透明，优化字体渲染 */
+.dark .post-content, 
+.dark .post-header, 
+.dark .home-info {
+    background: rgba(0, 0, 0, 0.15) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 文章标题 */
+.post-title, .home-info h1 {
+    color: #1f2328 !important;
+    font-weight: 600 !important;
+}
+
+.dark .post-title, .dark .home-info h1 {
+    color: #f0f6fc !important;
 }
 
 /* 深色模式下的背景调整 */
@@ -127,31 +255,229 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(5px);
 }
 
-/* 代码块样式优化 */
+/* 代码块样式优化 - 黑色背景，彩色代码 */
 .highlight {
     border-radius: 8px;
     overflow: hidden;
+    background: rgba(40, 44, 52, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 pre {
     border-radius: 8px;
     padding: 16px;
+    background: rgba(40, 44, 52, 0.95) !important;
+    color: #abb2bf !important;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: auto;
 }
 
-/* 响应式设计 */
+/* 行内代码样式 */
+code {
+    background: rgba(40, 44, 52, 0.9) !important;
+    color: #e06c75 !important;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
+    font-size: 0.95em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 代码块中的代码不需要额外背景 */
+pre code {
+    background: transparent !important;
+    color: inherit !important;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* 确保代码块内容不受全局黑色文字设置影响 */
+.highlight pre, .highlight code, pre, pre code {
+    color: #abb2bf !important;
+}
+
+.highlight pre *, .highlight code *, pre *, pre code * {
+    color: inherit !important;
+}
+
+/* 代码高亮颜色 - 深色主题 */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt { color: #c678dd !important; } /* 关键字 */
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx { color: #98c379 !important; } /* 字符串 */
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp, .highlight .cs { color: #5c6370 !important; } /* 注释 */
+.highlight .n, .highlight .na, .highlight .nb, .highlight .nc, .highlight .nd, .highlight .ne, .highlight .nf, .highlight .ni, .highlight .nl, .highlight .nn, .highlight .no, .highlight .nt, .highlight .nv, .highlight .nx, .highlight .py { color: #e06c75 !important; } /* 名称 */
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo { color: #d19a66 !important; } /* 数字 */
+.highlight .o, .highlight .ow { color: #56b6c2 !important; } /* 操作符 */
+
+/* 引用块样式优化 */
+blockquote {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-left: 4px solid #007acc;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    color: #000000 !important;
+    font-style: italic;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+blockquote p {
+    color: #000000 !important;
+    margin: 0;
+}
+
+/* 表格样式优化 */
+table {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #000000 !important;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+th {
+    background: rgba(255, 255, 255, 0.25) !important;
+    font-weight: 600;
+}
+
+/* 文章条目样式优化 - 更加透明，减少毛玻璃效果 */
+.post-entry {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(2px);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    color: #000000 !important;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 文章条目中的所有文本元素设为纯黑色 */
+.post-entry p,
+.post-entry div,
+.post-entry span,
+.post-entry .entry-content,
+.post-entry .entry-summary,
+.post-entry .post-meta {
+    color: #000000 !important;
+}
+
+.post-entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* 深色模式下的文章条目 - 轻微背景，清晰字体 */
+.dark .post-entry {
+    background: rgba(0, 0, 0, 0.12) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.dark .post-entry:hover {
+    background: rgba(0, 0, 0, 0.18) !important;
+}
+
+/* 文章条目标题 */
+.post-entry .entry-header h2 {
+    color: #1f2328 !important;
+    font-weight: 600 !important;
+}
+
+.dark .post-entry .entry-header h2 {
+    color: #f0f6fc !important;
+}
+
+/* 导航栏优化 - 更加透明，减少毛玻璃效果 */
+.header {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 导航栏文字颜色 */
+.header a,
+.header .nav-link,
+.header .menu-link,
+.header .logo,
+.header .site-title {
+    color: #000000 !important;
+}
+
+/* 页脚优化 - 更加透明，减少毛玻璃效果 */
+.footer {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 页脚文字颜色 */
+.footer,
+.footer a,
+.footer p,
+.footer span,
+.footer div {
+    color: #000000 !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+    .main {
+        max-width: 80% !important;
+        width: 80% !important;
+    }
+}
+
 @media (max-width: 768px) {
     .main {
+        max-width: 90% !important;
+        width: 90% !important;
         background-attachment: scroll;
     }
     
     .profile-image {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .home-info h1 {
+        font-size: 1.8rem;
     }
     
     .post-content, .post-header, .home-info {
         margin: 5px 0;
-        padding: 15px;
+        padding: 20px;
     }
 }
 
