@@ -39,6 +39,8 @@ buildFuture = false
   description = "分享技术、思考与生活的个人博客"
   # 作者
   author = "tyhzxh"
+  # 网站图标
+  favicon = "/favicon.svg"
   # 显示阅读时间
   ShowReadingTime = true
   # 显示分享按钮
@@ -82,6 +84,10 @@ buildFuture = false
     
     希望这些内容对你有所帮助！
     """
+    imageUrl = "/images/avatar.svg"
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = "tyhzxh"
 
   # 社交链接
   [[params.socialIcons]]

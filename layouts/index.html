@@ -1,0 +1,71 @@
+{{- define "main" }}
+
+{{- if .Site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>{{ .Site.Params.homeInfoParams.Title | markdownify }}</h1>
+    </header>
+    <div class="entry-content">
+        {{- if .Site.Params.homeInfoParams.imageUrl }}
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="{{ .Site.Params.homeInfoParams.imageUrl }}" 
+                 alt="{{ .Site.Params.homeInfoParams.imageTitle | default .Site.Title }}"
+                 class="profile-image"
+                 width="{{ .Site.Params.homeInfoParams.imageWidth | default 120 }}"
+                 height="{{ .Site.Params.homeInfoParams.imageHeight | default 120 }}">
+        </div>
+        {{- end }}
+        {{ .Site.Params.homeInfoParams.Content | markdownify }}
+    </div>
+    <footer class="entry-footer">
+        {{- $social := .Site.Params.socialIcons }}
+        {{- if $social }}
+        <div class="social-icons">
+            {{- range $social }}
+            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer me" title="{{ .name | title }}">
+                <svg class="social-icon">
+                    <use href="#{{ .name }}"></use>
+                </svg>
+            </a>
+            {{- end }}
+        </div>
+        {{- end }}
+    </footer>
+</article>
+{{- end }}
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+
+{{- if and (not .Site.Params.homeInfoParams) $pages }}
+{{- $pages = $pages | first 5 }}
+{{- end }}
+
+{{- range $pages }}
+{{- if eq .Kind "page" }}
+<article class="post-entry"> 
+    {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInList | default site.Params.cover.hidden }}
+    <header class="entry-header">
+        <h2>
+            {{- .Title }}
+            {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+        </h2>
+    </header>
+    {{- if (and .Site.Params.ShowReadingTime (ne .Params.ShowReadingTime false)) }}
+    <div class="entry-meta">
+        {{- partial "post_meta.html" . -}}
+    </div>
+    {{- end }}
+    <div class="entry-content">
+        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- if not (.Params.hideMeta | default .Site.Params.hideMeta) }}
+    <footer class="entry-footer">
+        {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+{{- end }}
+
+{{- end }}{{/* end main */}}
