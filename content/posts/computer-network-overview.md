@@ -5,9 +5,6 @@ draft: false
 tags: ["计算机网络", "OSI模型", "TCP/IP", "HTTP协议", "网络协议"]
 categories: ["计算机基础"]
 description: "深入解析计算机网络的核心概念，包括OSI七层模型和TCP/IP四层模型的对比，以及HTTP、TCP、IP等重要协议的工作原理和应用场景"
-cover:
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop"
-    alt: "计算机网络架构"
 ---
 
 ## 计算机网络基础概述

@@ -5,9 +5,7 @@ draft: false
 tags: ["数据库", "MySQL", "SQL", "数据库设计", "CRUD操作"]
 categories: ["数据库技术"]
 description: "数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术"
-cover:
-    image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=400&fit=crop"
-    alt: "数据库技术学习"
+
 ---
 
 ## 数据库学习概述
