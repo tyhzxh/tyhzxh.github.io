@@ -1,223 +1,880 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Java类设计详解：Entity类与JavaBean规范 | tyhzxh的个人博客</title><meta name=keywords content="Java,面向对象,JavaBean,Entity,设计模式"><meta name=description content="深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/posts/java-classes-and-beans/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://tyhzxh.github.io/posts/java-classes-and-beans/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/posts/java-classes-and-beans/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="Java类设计详解：Entity类与JavaBean规范"><meta property="og:description" content="深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-03-15T14:30:00+08:00"><meta property="article:modified_time" content="2025-08-06T08:51:21+08:00"><meta property="article:tag" content="Java"><meta property="article:tag" content="面向对象"><meta property="article:tag" content="JavaBean"><meta property="article:tag" content="Entity"><meta property="article:tag" content="设计模式"><meta property="og:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop"><meta name=twitter:title content="Java类设计详解：Entity类与JavaBean规范"><meta name=twitter:description content="深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://tyhzxh.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Java类设计详解：Entity类与JavaBean规范","item":"https://tyhzxh.github.io/posts/java-classes-and-beans/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Java类设计详解：Entity类与JavaBean规范","name":"Java类设计详解：Entity类与JavaBean规范","description":"深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践","keywords":["Java","面向对象","JavaBean","Entity","设计模式"],"articleBody":"Java类设计概述 在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。\nEntity Class（实体类） 什么是实体类？ 实体类（Entity Class） 是一种特殊的类，主要用于表示业务领域中的具体对象（如用户、订单、商品等），并承载与这些对象相关的数据。它的核心特征是：用属性描述对象特征，用方法定义简单行为。\n实体类示例 以RPC示例中的User类为例：\nimport lombok.Data; import java.io.Serializable; @Data // Lombok注解，自动生成getter/setter/toString等方法 public class User implements Serializable { private static final long serialVersionUID = 1L; private int id; // 用户ID private String name; // 用户名 private String email; // 邮箱 private int age; // 年龄 // 无参构造器（序列化/反序列化时需要） public User() {} // 全参构造器（方便创建对象） public User(int id, String name, String email, int age) { this.id = id; this.name = name; this.email = email; this.age = age; } // 部分参数构造器 public User(int id, String name) { this.id = id; this.name = name; } } 为什么需要实体类？ 1. 数据封装 将相关属性（如id、name、email）聚合在一起，形成有业务意义的对象 提供统一的数据访问接口 隐藏内部实现细节 // 好的设计：使用实体类 User user = new User(1, \"张三\", \"zhangsan@example.com\", 25); userService.saveUser(user); // 不好的设计：分散的参数 userService.saveUser(1, \"张三\", \"zhangsan@example.com\", 25); 2. 跨层传输 在RPC调用中，客户端和服务端需要通过网络传输对象 实体类会被序列化为字节流传输，接收方再反序列化还原对象 提供统一的数据传输格式 // RPC服务接口 public interface UserService { User getUserById(int id); // 返回实体类 List\u003cUser\u003e getAllUsers(); // 返回实体类列表 boolean saveUser(User user); // 接收实体类参数 } 3. 接口契约 定义明确的参数和返回值类型 提供类型安全保障 便于API文档生成和维护 实体类的设计规范 特性 说明 示例 实现Serializable 必须实现序列化接口，否则无法跨网络传输 implements Serializable 无参构造器 反射和反序列化时需要默认构造器 public User() {} 属性私有化 通过getter/setter访问属性，保证封装性 private String name; 避免业务逻辑 实体类应只包含数据，不包含复杂业务方法 只有简单的getter/setter 使用Lombok 推荐用@Data自动生成getter/setter，减少样板代码 @Data 序列化版本号 添加serialVersionUID确保序列化兼容性 private static final long serialVersionUID = 1L; JavaBean规范 什么是JavaBean？ JavaBean是符合特定规范的Java类，用于封装数据和定义可重用组件。它是Java开发中的一种设计标准，广泛应用于各种框架和工具中。\nJavaBean核心规范 规范 说明 示例 无参构造器 必须提供默认构造器（反射实例化时需要） public User() {} 属性私有化 字段用private修饰 private String name; 公共getter/setter 通过方法访问属性 getName()/setName() 实现Serializable 可选，但通常建议实现以便序列化 implements Serializable 标准JavaBean示例 import java.io.Serializable; public class User implements Serializable { private static final long serialVersionUID = 1L; // 属性私有 private int id; private String name; private String email; private boolean active; // 无参构造器 public User() {} // getter/setter方法 public int getId() { return id; } public void setId(int id) { this.id = id; } public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public boolean isActive() { // boolean类型的getter使用is前缀 return active; } public void setActive(boolean active) { this.active = active; } // 可选：重写toString、equals、hashCode @Override public String toString() { return \"User{\" + \"id=\" + id + \", name='\" + name + '\\'' + \", email='\" + email + '\\'' + \", active=\" + active + '}'; } } JavaBean的主要用途 1. GUI组件 在Swing等GUI框架中，JavaBean用于创建可重用的组件：\n// Swing中的JavaBean组件 JButton button = new JButton(); button.setText(\"点击我\"); button.setEnabled(true); button.setVisible(true); 2. 数据封装 在ORM框架（如Hibernate、MyBatis）中映射数据库表：\n@Entity @Table(name = \"users\") public class User implements Serializable { @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id; @Column(name = \"username\") private String name; // getter/setter... } 3. 框架集成 Spring等框架通过反射操作JavaBean：\n@Component public class UserService { @Autowired private UserRepository userRepository; public User createUser(User user) { // Spring会自动注入依赖，通过反射调用setter方法 return userRepository.save(user); } } 使用Lombok简化开发 Lombok常用注解 import lombok.*; @Data // 生成getter/setter/toString/equals/hashCode @NoArgsConstructor // 生成无参构造器 @AllArgsConstructor // 生成全参构造器 @Builder // 生成建造者模式 public class User implements Serializable { private static final long serialVersionUID = 1L; private Long id; private String name; private String email; private Integer age; private Boolean active; } 使用建造者模式创建对象 // 使用@Builder注解后，可以这样创建对象 User user = User.builder() .id(1L) .name(\"张三\") .email(\"zhangsan@example.com\") .age(25) .active(true) .build(); 最佳实践 1. 实体类设计原则 @Data @NoArgsConstructor @AllArgsConstructor @Builder public class Product implements Serializable { private static final long serialVersionUID = 1L; // 使用包装类型，避免基本类型的默认值问题 private Long id; private String name; private BigDecimal price; // 金额使用BigDecimal private Integer stock; private LocalDateTime createTime; // 时间使用LocalDateTime private Boolean deleted; // 逻辑删除标记 // 可以添加一些简单的业务方法 public boolean isInStock() { return stock != null \u0026\u0026 stock \u003e 0; } public boolean isDeleted() { return Boolean.TRUE.equals(deleted); } } 2. 验证注解的使用 import javax.validation.constraints.*; @Data @NoArgsConstructor @AllArgsConstructor public class UserCreateRequest implements Serializable { @NotBlank(message = \"用户名不能为空\") @Size(min = 2, max = 20, message = \"用户名长度必须在2-20之间\") private String name; @NotBlank(message = \"邮箱不能为空\") @Email(message = \"邮箱格式不正确\") private String email; @NotNull(message = \"年龄不能为空\") @Min(value = 1, message = \"年龄必须大于0\") @Max(value = 150, message = \"年龄不能超过150\") private Integer age; } 3. 分层设计 // DO (Data Object) - 数据库实体 @Entity @Table(name = \"users\") public class UserDO { // 数据库字段映射 } // DTO (Data Transfer Object) - 数据传输对象 public class UserDTO { // 用于服务间传输 } // VO (Value Object) - 视图对象 public class UserVO { // 用于前端展示 } // BO (Business Object) - 业务对象 public class UserBO { // 业务逻辑处理 } 总结 Entity类的关键点 数据封装：将相关属性聚合成有意义的业务对象 跨层传输：支持序列化，便于网络传输和持久化 接口契约：提供明确的类型定义和API契约 JavaBean规范的价值 标准化：提供统一的组件设计规范 框架兼容：与各种Java框架无缝集成 工具支持：IDE和开发工具能够更好地支持 开发建议 优先使用Lombok：减少样板代码，提高开发效率 合理分层：根据不同场景使用不同的对象类型 添加验证：使用Bean Validation进行数据校验 注意序列化：确保实体类能够正确序列化和反序列化 遵循命名规范：使用清晰、有意义的类名和属性名 通过遵循这些设计原则和最佳实践，可以创建出结构清晰、易于维护的Java类，为整个应用程序的架构奠定坚实的基础。\n","wordCount":"671","inLanguage":"en","image":"https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800\u0026h=400\u0026fit=crop","datePublished":"2024-03-15T14:30:00+08:00","dateModified":"2025-08-06T08:51:21+08:00","author":{"@type":"Person","name":"tyhzxh"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://tyhzxh.github.io/posts/java-classes-and-beans/"},"publisher":{"@type":"Organization","name":"tyhzxh的个人博客","logo":{"@type":"ImageObject","url":"https://tyhzxh.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">Java类设计详解：Entity类与JavaBean规范</h1><div class=post-description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</div><div class=post-meta><span title='2024-03-15 14:30:00 +0800 CST'>March 15, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh</div></header><figure class=entry-cover><img loading=eager src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt=Java类设计></figure><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#java%e7%b1%bb%e8%ae%be%e8%ae%a1%e6%a6%82%e8%bf%b0 aria-label=Java类设计概述>Java类设计概述</a></li><li><a href=#entity-class%e5%ae%9e%e4%bd%93%e7%b1%bb aria-label="Entity Class（实体类）">Entity Class（实体类）</a><ul><li><a href=#%e4%bb%80%e4%b9%88%e6%98%af%e5%ae%9e%e4%bd%93%e7%b1%bb aria-label=什么是实体类？>什么是实体类？</a></li><li><a href=#%e5%ae%9e%e4%bd%93%e7%b1%bb%e7%a4%ba%e4%be%8b aria-label=实体类示例>实体类示例</a></li><li><a href=#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%ae%9e%e4%bd%93%e7%b1%bb aria-label=为什么需要实体类？>为什么需要实体类？</a><ul><li><a href=#1-%e6%95%b0%e6%8d%ae%e5%b0%81%e8%a3%85 aria-label="1. 数据封装">1. 数据封装</a></li><li><a href=#2-%e8%b7%a8%e5%b1%82%e4%bc%a0%e8%be%93 aria-label="2. 跨层传输">2. 跨层传输</a></li><li><a href=#3-%e6%8e%a5%e5%8f%a3%e5%a5%91%e7%ba%a6 aria-label="3. 接口契约">3. 接口契约</a></li></ul></li><li><a href=#%e5%ae%9e%e4%bd%93%e7%b1%bb%e7%9a%84%e8%ae%be%e8%ae%a1%e8%a7%84%e8%8c%83 aria-label=实体类的设计规范>实体类的设计规范</a></li></ul></li><li><a href=#javabean%e8%a7%84%e8%8c%83 aria-label=JavaBean规范>JavaBean规范</a><ul><li><a href=#%e4%bb%80%e4%b9%88%e6%98%afjavabean aria-label=什么是JavaBean？>什么是JavaBean？</a></li><li><a href=#javabean%e6%a0%b8%e5%bf%83%e8%a7%84%e8%8c%83 aria-label=JavaBean核心规范>JavaBean核心规范</a></li><li><a href=#%e6%a0%87%e5%87%86javabean%e7%a4%ba%e4%be%8b aria-label=标准JavaBean示例>标准JavaBean示例</a></li><li><a href=#javabean%e7%9a%84%e4%b8%bb%e8%a6%81%e7%94%a8%e9%80%94 aria-label=JavaBean的主要用途>JavaBean的主要用途</a><ul><li><a href=#1-gui%e7%bb%84%e4%bb%b6 aria-label="1. GUI组件">1. GUI组件</a></li><li><a href=#2-%e6%95%b0%e6%8d%ae%e5%b0%81%e8%a3%85 aria-label="2. 数据封装">2. 数据封装</a></li><li><a href=#3-%e6%a1%86%e6%9e%b6%e9%9b%86%e6%88%90 aria-label="3. 框架集成">3. 框架集成</a></li></ul></li></ul></li><li><a href=#%e4%bd%bf%e7%94%a8lombok%e7%ae%80%e5%8c%96%e5%bc%80%e5%8f%91 aria-label=使用Lombok简化开发>使用Lombok简化开发</a><ul><li><a href=#lombok%e5%b8%b8%e7%94%a8%e6%b3%a8%e8%a7%a3 aria-label=Lombok常用注解>Lombok常用注解</a></li><li><a href=#%e4%bd%bf%e7%94%a8%e5%bb%ba%e9%80%a0%e8%80%85%e6%a8%a1%e5%bc%8f%e5%88%9b%e5%bb%ba%e5%af%b9%e8%b1%a1 aria-label=使用建造者模式创建对象>使用建造者模式创建对象</a></li></ul></li><li><a href=#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 aria-label=最佳实践>最佳实践</a><ul><li><a href=#1-%e5%ae%9e%e4%bd%93%e7%b1%bb%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99 aria-label="1. 实体类设计原则">1. 实体类设计原则</a></li><li><a href=#2-%e9%aa%8c%e8%af%81%e6%b3%a8%e8%a7%a3%e7%9a%84%e4%bd%bf%e7%94%a8 aria-label="2. 验证注解的使用">2. 验证注解的使用</a></li><li><a href=#3-%e5%88%86%e5%b1%82%e8%ae%be%e8%ae%a1 aria-label="3. 分层设计">3. 分层设计</a></li></ul></li><li><a href=#%e6%80%bb%e7%bb%93 aria-label=总结>总结</a><ul><li><a href=#entity%e7%b1%bb%e7%9a%84%e5%85%b3%e9%94%ae%e7%82%b9 aria-label=Entity类的关键点>Entity类的关键点</a></li><li><a href=#javabean%e8%a7%84%e8%8c%83%e7%9a%84%e4%bb%b7%e5%80%bc aria-label=JavaBean规范的价值>JavaBean规范的价值</a></li><li><a href=#%e5%bc%80%e5%8f%91%e5%bb%ba%e8%ae%ae aria-label=开发建议>开发建议</a></li></ul></li></ul></div></details></div><div class=post-content><h2 id=java类设计概述>Java类设计概述<a hidden class=anchor aria-hidden=true href=#java类设计概述>#</a></h2><p>在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。</p><h2 id=entity-class实体类>Entity Class（实体类）<a hidden class=anchor aria-hidden=true href=#entity-class实体类>#</a></h2><h3 id=什么是实体类>什么是实体类？<a hidden class=anchor aria-hidden=true href=#什么是实体类>#</a></h3><p><strong>实体类（Entity Class）</strong> 是一种特殊的类，主要用于表示<strong>业务领域中的具体对象</strong>（如用户、订单、商品等），并承载与这些对象相关的数据。它的核心特征是：<strong>用属性描述对象特征，用方法定义简单行为</strong>。</p><h3 id=实体类示例>实体类示例<a hidden class=anchor aria-hidden=true href=#实体类示例>#</a></h3><p>以RPC示例中的<code>User</code>类为例：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>lombok.Data</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>java.io.Serializable</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Data</span><span class=w> </span><span class=c1>// Lombok注解，自动生成getter/setter/toString等方法</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>User</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kd>final</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=n>serialVersionUID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1L</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>        </span><span class=c1>// 用户ID</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>   </span><span class=c1>// 用户名</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>  </span><span class=c1>// 邮箱</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>age</span><span class=p>;</span><span class=w>       </span><span class=c1>// 年龄</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 无参构造器（序列化/反序列化时需要）</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=nf>User</span><span class=p>()</span><span class=w> </span><span class=p>{}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 全参构造器（方便创建对象）</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=nf>User</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>,</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>age</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>email</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>age</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>age</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 部分参数构造器</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=nf>User</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h3 id=为什么需要实体类>为什么需要实体类？<a hidden class=anchor aria-hidden=true href=#为什么需要实体类>#</a></h3><h4 id=1-数据封装>1. 数据封装<a hidden class=anchor aria-hidden=true href=#1-数据封装>#</a></h4><ul><li>将相关属性（如<code>id</code>、<code>name</code>、<code>email</code>）聚合在一起，形成有业务意义的对象</li><li>提供统一的数据访问接口</li><li>隐藏内部实现细节</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 好的设计：使用实体类</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>User</span><span class=p>(</span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=s>&#34;张三&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;zhangsan@example.com&#34;</span><span class=p>,</span><span class=w> </span><span class=n>25</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>userService</span><span class=p>.</span><span class=na>saveUser</span><span class=p>(</span><span class=n>user</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 不好的设计：分散的参数</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>userService</span><span class=p>.</span><span class=na>saveUser</span><span class=p>(</span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=s>&#34;张三&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;zhangsan@example.com&#34;</span><span class=p>,</span><span class=w> </span><span class=n>25</span><span class=p>);</span><span class=w>
-</span></span></span></code></pre></div><h4 id=2-跨层传输>2. 跨层传输<a hidden class=anchor aria-hidden=true href=#2-跨层传输>#</a></h4><ul><li>在RPC调用中，客户端和服务端需要通过网络传输对象</li><li>实体类会被<strong>序列化</strong>为字节流传输，接收方再<strong>反序列化</strong>还原对象</li><li>提供统一的数据传输格式</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// RPC服务接口</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>interface</span> <span class=nc>UserService</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>User</span><span class=w> </span><span class=nf>getUserById</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>);</span><span class=w>           </span><span class=c1>// 返回实体类</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>List</span><span class=o>&lt;</span><span class=n>User</span><span class=o>&gt;</span><span class=w> </span><span class=nf>getAllUsers</span><span class=p>();</span><span class=w>           </span><span class=c1>// 返回实体类列表</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>boolean</span><span class=w> </span><span class=nf>saveUser</span><span class=p>(</span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=p>);</span><span class=w>        </span><span class=c1>// 接收实体类参数</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h4 id=3-接口契约>3. 接口契约<a hidden class=anchor aria-hidden=true href=#3-接口契约>#</a></h4><ul><li>定义明确的参数和返回值类型</li><li>提供类型安全保障</li><li>便于API文档生成和维护</li></ul><h3 id=实体类的设计规范>实体类的设计规范<a hidden class=anchor aria-hidden=true href=#实体类的设计规范>#</a></h3><table><thead><tr><th>特性</th><th>说明</th><th>示例</th></tr></thead><tbody><tr><td>实现<code>Serializable</code></td><td>必须实现序列化接口，否则无法跨网络传输</td><td><code>implements Serializable</code></td></tr><tr><td>无参构造器</td><td>反射和反序列化时需要默认构造器</td><td><code>public User() {}</code></td></tr><tr><td>属性私有化</td><td>通过getter/setter访问属性，保证封装性</td><td><code>private String name;</code></td></tr><tr><td>避免业务逻辑</td><td>实体类应只包含数据，不包含复杂业务方法</td><td>只有简单的getter/setter</td></tr><tr><td>使用Lombok</td><td>推荐用<code>@Data</code>自动生成getter/setter，减少样板代码</td><td><code>@Data</code></td></tr><tr><td>序列化版本号</td><td>添加<code>serialVersionUID</code>确保序列化兼容性</td><td><code>private static final long serialVersionUID = 1L;</code></td></tr></tbody></table><h2 id=javabean规范>JavaBean规范<a hidden class=anchor aria-hidden=true href=#javabean规范>#</a></h2><h3 id=什么是javabean>什么是JavaBean？<a hidden class=anchor aria-hidden=true href=#什么是javabean>#</a></h3><p>JavaBean是符合特定规范的Java类，用于<strong>封装数据</strong>和<strong>定义可重用组件</strong>。它是Java开发中的一种设计标准，广泛应用于各种框架和工具中。</p><h3 id=javabean核心规范>JavaBean核心规范<a hidden class=anchor aria-hidden=true href=#javabean核心规范>#</a></h3><table><thead><tr><th>规范</th><th>说明</th><th>示例</th></tr></thead><tbody><tr><td><strong>无参构造器</strong></td><td>必须提供默认构造器（反射实例化时需要）</td><td><code>public User() {}</code></td></tr><tr><td><strong>属性私有化</strong></td><td>字段用<code>private</code>修饰</td><td><code>private String name;</code></td></tr><tr><td><strong>公共getter/setter</strong></td><td>通过方法访问属性</td><td><code>getName()</code>/<code>setName()</code></td></tr><tr><td><strong>实现<code>Serializable</code></strong></td><td>可选，但通常建议实现以便序列化</td><td><code>implements Serializable</code></td></tr></tbody></table><h3 id=标准javabean示例>标准JavaBean示例<a hidden class=anchor aria-hidden=true href=#标准javabean示例>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>java.io.Serializable</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>User</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kd>final</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=n>serialVersionUID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1L</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 属性私有</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=n>active</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 无参构造器</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=nf>User</span><span class=p>()</span><span class=w> </span><span class=p>{}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// getter/setter方法</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nf>getId</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>setId</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>id</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>getName</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>setName</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>getEmail</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>setEmail</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>email</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>isActive</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>  </span><span class=c1>// boolean类型的getter使用is前缀</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>active</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>setActive</span><span class=p>(</span><span class=kt>boolean</span><span class=w> </span><span class=n>active</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>this</span><span class=p>.</span><span class=na>active</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>active</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 可选：重写toString、equals、hashCode</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>toString</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=s>&#34;User{&#34;</span><span class=w> </span><span class=o>+</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=s>&#34;id=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>id</span><span class=w> </span><span class=o>+</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=s>&#34;, name=&#39;&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>name</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=sc>&#39;\&#39;&#39;</span><span class=w> </span><span class=o>+</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=s>&#34;, email=&#39;&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>email</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=sc>&#39;\&#39;&#39;</span><span class=w> </span><span class=o>+</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=s>&#34;, active=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>active</span><span class=w> </span><span class=o>+</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=sc>&#39;}&#39;</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h3 id=javabean的主要用途>JavaBean的主要用途<a hidden class=anchor aria-hidden=true href=#javabean的主要用途>#</a></h3><h4 id=1-gui组件>1. GUI组件<a hidden class=anchor aria-hidden=true href=#1-gui组件>#</a></h4><p>在Swing等GUI框架中，JavaBean用于创建可重用的组件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// Swing中的JavaBean组件</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>JButton</span><span class=w> </span><span class=n>button</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>JButton</span><span class=p>();</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>button</span><span class=p>.</span><span class=na>setText</span><span class=p>(</span><span class=s>&#34;点击我&#34;</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>button</span><span class=p>.</span><span class=na>setEnabled</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>button</span><span class=p>.</span><span class=na>setVisible</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span><span class=w>
-</span></span></span></code></pre></div><h4 id=2-数据封装>2. 数据封装<a hidden class=anchor aria-hidden=true href=#2-数据封装>#</a></h4><p>在ORM框架（如Hibernate、MyBatis）中映射数据库表：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Entity</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Table</span><span class=p>(</span><span class=n>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;users&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>User</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Id</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@GeneratedValue</span><span class=p>(</span><span class=n>strategy</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>GenerationType</span><span class=p>.</span><span class=na>IDENTITY</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Long</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Column</span><span class=p>(</span><span class=n>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;username&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// getter/setter...</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h4 id=3-框架集成>3. 框架集成<a hidden class=anchor aria-hidden=true href=#3-框架集成>#</a></h4><p>Spring等框架通过反射操作JavaBean：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Component</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserService</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Autowired</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>UserRepository</span><span class=w> </span><span class=n>userRepository</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>User</span><span class=w> </span><span class=nf>createUser</span><span class=p>(</span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// Spring会自动注入依赖，通过反射调用setter方法</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>userRepository</span><span class=p>.</span><span class=na>save</span><span class=p>(</span><span class=n>user</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=使用lombok简化开发>使用Lombok简化开发<a hidden class=anchor aria-hidden=true href=#使用lombok简化开发>#</a></h2><h3 id=lombok常用注解>Lombok常用注解<a hidden class=anchor aria-hidden=true href=#lombok常用注解>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>lombok.*</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Data</span><span class=w>                    </span><span class=c1>// 生成getter/setter/toString/equals/hashCode</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@NoArgsConstructor</span><span class=w>      </span><span class=c1>// 生成无参构造器</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@AllArgsConstructor</span><span class=w>     </span><span class=c1>// 生成全参构造器</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Builder</span><span class=w>                </span><span class=c1>// 生成建造者模式</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>User</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kd>final</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=n>serialVersionUID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1L</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Long</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>age</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Boolean</span><span class=w> </span><span class=n>active</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h3 id=使用建造者模式创建对象>使用建造者模式创建对象<a hidden class=anchor aria-hidden=true href=#使用建造者模式创建对象>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// 使用@Builder注解后，可以这样创建对象</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>User</span><span class=p>.</span><span class=na>builder</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>id</span><span class=p>(</span><span class=n>1L</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>name</span><span class=p>(</span><span class=s>&#34;张三&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>email</span><span class=p>(</span><span class=s>&#34;zhangsan@example.com&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>age</span><span class=p>(</span><span class=n>25</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>active</span><span class=p>(</span><span class=kc>true</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>.</span><span class=na>build</span><span class=p>();</span><span class=w>
-</span></span></span></code></pre></div><h2 id=最佳实践>最佳实践<a hidden class=anchor aria-hidden=true href=#最佳实践>#</a></h2><h3 id=1-实体类设计原则>1. 实体类设计原则<a hidden class=anchor aria-hidden=true href=#1-实体类设计原则>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@NoArgsConstructor</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@AllArgsConstructor</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Builder</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>Product</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kd>final</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=n>serialVersionUID</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1L</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 使用包装类型，避免基本类型的默认值问题</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Long</span><span class=w> </span><span class=n>id</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>BigDecimal</span><span class=w> </span><span class=n>price</span><span class=p>;</span><span class=w>        </span><span class=c1>// 金额使用BigDecimal</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>stock</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>LocalDateTime</span><span class=w> </span><span class=n>createTime</span><span class=p>;</span><span class=w> </span><span class=c1>// 时间使用LocalDateTime</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Boolean</span><span class=w> </span><span class=n>deleted</span><span class=p>;</span><span class=w>         </span><span class=c1>// 逻辑删除标记</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 可以添加一些简单的业务方法</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>isInStock</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>stock</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>null</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=n>stock</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>isDeleted</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>Boolean</span><span class=p>.</span><span class=na>TRUE</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>deleted</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h3 id=2-验证注解的使用>2. 验证注解的使用<a hidden class=anchor aria-hidden=true href=#2-验证注解的使用>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=nn>javax.validation.constraints.*</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@NoArgsConstructor</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@AllArgsConstructor</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserCreateRequest</span><span class=w> </span><span class=kd>implements</span><span class=w> </span><span class=n>Serializable</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@NotBlank</span><span class=p>(</span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;用户名不能为空&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Size</span><span class=p>(</span><span class=n>min</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>2</span><span class=p>,</span><span class=w> </span><span class=n>max</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>20</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;用户名长度必须在2-20之间&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@NotBlank</span><span class=p>(</span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;邮箱不能为空&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Email</span><span class=p>(</span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;邮箱格式不正确&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>email</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@NotNull</span><span class=p>(</span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;年龄不能为空&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;年龄必须大于0&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Max</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>150</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;年龄不能超过150&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>private</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>age</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h3 id=3-分层设计>3. 分层设计<a hidden class=anchor aria-hidden=true href=#3-分层设计>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// DO (Data Object) - 数据库实体</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Entity</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@Table</span><span class=p>(</span><span class=n>name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;users&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserDO</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 数据库字段映射</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// DTO (Data Transfer Object) - 数据传输对象</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserDTO</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 用于服务间传输</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// VO (Value Object) - 视图对象</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserVO</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 用于前端展示</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// BO (Business Object) - 业务对象</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>UserBO</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 业务逻辑处理</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=总结>总结<a hidden class=anchor aria-hidden=true href=#总结>#</a></h2><h3 id=entity类的关键点>Entity类的关键点<a hidden class=anchor aria-hidden=true href=#entity类的关键点>#</a></h3><ul><li><strong>数据封装</strong>：将相关属性聚合成有意义的业务对象</li><li><strong>跨层传输</strong>：支持序列化，便于网络传输和持久化</li><li><strong>接口契约</strong>：提供明确的类型定义和API契约</li></ul><h3 id=javabean规范的价值>JavaBean规范的价值<a hidden class=anchor aria-hidden=true href=#javabean规范的价值>#</a></h3><ul><li><strong>标准化</strong>：提供统一的组件设计规范</li><li><strong>框架兼容</strong>：与各种Java框架无缝集成</li><li><strong>工具支持</strong>：IDE和开发工具能够更好地支持</li></ul><h3 id=开发建议>开发建议<a hidden class=anchor aria-hidden=true href=#开发建议>#</a></h3><ol><li><strong>优先使用Lombok</strong>：减少样板代码，提高开发效率</li><li><strong>合理分层</strong>：根据不同场景使用不同的对象类型</li><li><strong>添加验证</strong>：使用Bean Validation进行数据校验</li><li><strong>注意序列化</strong>：确保实体类能够正确序列化和反序列化</li><li><strong>遵循命名规范</strong>：使用清晰、有意义的类名和属性名</li></ol><p>通过遵循这些设计原则和最佳实践，可以创建出结构清晰、易于维护的Java类，为整个应用程序的架构奠定坚实的基础。</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://tyhzxh.github.io/tags/java/>Java</a></li><li><a href=https://tyhzxh.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/>面向对象</a></li><li><a href=https://tyhzxh.github.io/tags/javabean/>JavaBean</a></li><li><a href=https://tyhzxh.github.io/tags/entity/>Entity</a></li><li><a href=https://tyhzxh.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/>设计模式</a></li></ul><nav class=paginav><a class=prev href=https://tyhzxh.github.io/posts/java-buffered-streams/><span class=title>« Prev</span><br><span>Java缓冲流详解：提升IO性能的关键技术</span>
-</a><a class=next href=https://tyhzxh.github.io/posts/database-fundamentals/><span class=title>Next »</span><br><span>数据库基础入门：从概念到实践</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Java类设计详解：Entity类与JavaBean规范 | tyhzxh的个人博客</title>
+<meta name="keywords" content="Java, 面向对象, JavaBean, Entity, 设计模式">
+<meta name="description" content="深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/posts/java-classes-and-beans/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/java-classes-and-beans/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Java类设计详解：Entity类与JavaBean规范
+    </h1>
+    <div class="post-description">
+      深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践
+    </div>
+    <div class="post-meta"><span title='2024-03-15 14:30:00 +0800 CST'>March 15, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt="Java类设计">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#java%e7%b1%bb%e8%ae%be%e8%ae%a1%e6%a6%82%e8%bf%b0" aria-label="Java类设计概述">Java类设计概述</a></li>
+                <li>
+                    <a href="#entity-class%e5%ae%9e%e4%bd%93%e7%b1%bb" aria-label="Entity Class（实体类）">Entity Class（实体类）</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%ae%9e%e4%bd%93%e7%b1%bb" aria-label="什么是实体类？">什么是实体类？</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e4%bd%93%e7%b1%bb%e7%a4%ba%e4%be%8b" aria-label="实体类示例">实体类示例</a></li>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%ae%9e%e4%bd%93%e7%b1%bb" aria-label="为什么需要实体类？">为什么需要实体类？</a><ul>
+                        
+                <li>
+                    <a href="#1-%e6%95%b0%e6%8d%ae%e5%b0%81%e8%a3%85" aria-label="1. 数据封装">1. 数据封装</a></li>
+                <li>
+                    <a href="#2-%e8%b7%a8%e5%b1%82%e4%bc%a0%e8%be%93" aria-label="2. 跨层传输">2. 跨层传输</a></li>
+                <li>
+                    <a href="#3-%e6%8e%a5%e5%8f%a3%e5%a5%91%e7%ba%a6" aria-label="3. 接口契约">3. 接口契约</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%ae%9e%e4%bd%93%e7%b1%bb%e7%9a%84%e8%ae%be%e8%ae%a1%e8%a7%84%e8%8c%83" aria-label="实体类的设计规范">实体类的设计规范</a></li></ul>
+                </li>
+                <li>
+                    <a href="#javabean%e8%a7%84%e8%8c%83" aria-label="JavaBean规范">JavaBean规范</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afjavabean" aria-label="什么是JavaBean？">什么是JavaBean？</a></li>
+                <li>
+                    <a href="#javabean%e6%a0%b8%e5%bf%83%e8%a7%84%e8%8c%83" aria-label="JavaBean核心规范">JavaBean核心规范</a></li>
+                <li>
+                    <a href="#%e6%a0%87%e5%87%86javabean%e7%a4%ba%e4%be%8b" aria-label="标准JavaBean示例">标准JavaBean示例</a></li>
+                <li>
+                    <a href="#javabean%e7%9a%84%e4%b8%bb%e8%a6%81%e7%94%a8%e9%80%94" aria-label="JavaBean的主要用途">JavaBean的主要用途</a><ul>
+                        
+                <li>
+                    <a href="#1-gui%e7%bb%84%e4%bb%b6" aria-label="1. GUI组件">1. GUI组件</a></li>
+                <li>
+                    <a href="#2-%e6%95%b0%e6%8d%ae%e5%b0%81%e8%a3%85" aria-label="2. 数据封装">2. 数据封装</a></li>
+                <li>
+                    <a href="#3-%e6%a1%86%e6%9e%b6%e9%9b%86%e6%88%90" aria-label="3. 框架集成">3. 框架集成</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%bd%bf%e7%94%a8lombok%e7%ae%80%e5%8c%96%e5%bc%80%e5%8f%91" aria-label="使用Lombok简化开发">使用Lombok简化开发</a><ul>
+                        
+                <li>
+                    <a href="#lombok%e5%b8%b8%e7%94%a8%e6%b3%a8%e8%a7%a3" aria-label="Lombok常用注解">Lombok常用注解</a></li>
+                <li>
+                    <a href="#%e4%bd%bf%e7%94%a8%e5%bb%ba%e9%80%a0%e8%80%85%e6%a8%a1%e5%bc%8f%e5%88%9b%e5%bb%ba%e5%af%b9%e8%b1%a1" aria-label="使用建造者模式创建对象">使用建造者模式创建对象</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" aria-label="最佳实践">最佳实践</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%ae%9e%e4%bd%93%e7%b1%bb%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" aria-label="1. 实体类设计原则">1. 实体类设计原则</a></li>
+                <li>
+                    <a href="#2-%e9%aa%8c%e8%af%81%e6%b3%a8%e8%a7%a3%e7%9a%84%e4%bd%bf%e7%94%a8" aria-label="2. 验证注解的使用">2. 验证注解的使用</a></li>
+                <li>
+                    <a href="#3-%e5%88%86%e5%b1%82%e8%ae%be%e8%ae%a1" aria-label="3. 分层设计">3. 分层设计</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a><ul>
+                        
+                <li>
+                    <a href="#entity%e7%b1%bb%e7%9a%84%e5%85%b3%e9%94%ae%e7%82%b9" aria-label="Entity类的关键点">Entity类的关键点</a></li>
+                <li>
+                    <a href="#javabean%e8%a7%84%e8%8c%83%e7%9a%84%e4%bb%b7%e5%80%bc" aria-label="JavaBean规范的价值">JavaBean规范的价值</a></li>
+                <li>
+                    <a href="#%e5%bc%80%e5%8f%91%e5%bb%ba%e8%ae%ae" aria-label="开发建议">开发建议</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="java类设计概述">Java类设计概述<a hidden class="anchor" aria-hidden="true" href="#java类设计概述">#</a></h2>
+<p>在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。</p>
+<h2 id="entity-class实体类">Entity Class（实体类）<a hidden class="anchor" aria-hidden="true" href="#entity-class实体类">#</a></h2>
+<h3 id="什么是实体类">什么是实体类？<a hidden class="anchor" aria-hidden="true" href="#什么是实体类">#</a></h3>
+<p><strong>实体类（Entity Class）</strong> 是一种特殊的类，主要用于表示<strong>业务领域中的具体对象</strong>（如用户、订单、商品等），并承载与这些对象相关的数据。它的核心特征是：<strong>用属性描述对象特征，用方法定义简单行为</strong>。</p>
+<h3 id="实体类示例">实体类示例<a hidden class="anchor" aria-hidden="true" href="#实体类示例">#</a></h3>
+<p>以RPC示例中的<code>User</code>类为例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.Serializable</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w"> </span><span class="c1">// Lombok注解，自动生成getter/setter/toString等方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">serialVersionUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">        </span><span class="c1">// 用户ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">   </span><span class="c1">// 用户名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">  </span><span class="c1">// 邮箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">       </span><span class="c1">// 年龄</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 无参构造器（序列化/反序列化时需要）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">User</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 全参构造器（方便创建对象）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">User</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 部分参数构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">User</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="为什么需要实体类">为什么需要实体类？<a hidden class="anchor" aria-hidden="true" href="#为什么需要实体类">#</a></h3>
+<h4 id="1-数据封装">1. 数据封装<a hidden class="anchor" aria-hidden="true" href="#1-数据封装">#</a></h4>
+<ul>
+<li>将相关属性（如<code>id</code>、<code>name</code>、<code>email</code>）聚合在一起，形成有业务意义的对象</li>
+<li>提供统一的数据访问接口</li>
+<li>隐藏内部实现细节</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 好的设计：使用实体类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;张三&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;zhangsan@example.com&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">userService</span><span class="p">.</span><span class="na">saveUser</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 不好的设计：分散的参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">userService</span><span class="p">.</span><span class="na">saveUser</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;张三&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;zhangsan@example.com&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h4 id="2-跨层传输">2. 跨层传输<a hidden class="anchor" aria-hidden="true" href="#2-跨层传输">#</a></h4>
+<ul>
+<li>在RPC调用中，客户端和服务端需要通过网络传输对象</li>
+<li>实体类会被<strong>序列化</strong>为字节流传输，接收方再<strong>反序列化</strong>还原对象</li>
+<li>提供统一的数据传输格式</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// RPC服务接口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">UserService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">User</span><span class="w"> </span><span class="nf">getUserById</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">           </span><span class="c1">// 返回实体类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getAllUsers</span><span class="p">();</span><span class="w">           </span><span class="c1">// 返回实体类列表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">saveUser</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">);</span><span class="w">        </span><span class="c1">// 接收实体类参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="3-接口契约">3. 接口契约<a hidden class="anchor" aria-hidden="true" href="#3-接口契约">#</a></h4>
+<ul>
+<li>定义明确的参数和返回值类型</li>
+<li>提供类型安全保障</li>
+<li>便于API文档生成和维护</li>
+</ul>
+<h3 id="实体类的设计规范">实体类的设计规范<a hidden class="anchor" aria-hidden="true" href="#实体类的设计规范">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>说明</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>实现<code>Serializable</code></td>
+          <td>必须实现序列化接口，否则无法跨网络传输</td>
+          <td><code>implements Serializable</code></td>
+      </tr>
+      <tr>
+          <td>无参构造器</td>
+          <td>反射和反序列化时需要默认构造器</td>
+          <td><code>public User() {}</code></td>
+      </tr>
+      <tr>
+          <td>属性私有化</td>
+          <td>通过getter/setter访问属性，保证封装性</td>
+          <td><code>private String name;</code></td>
+      </tr>
+      <tr>
+          <td>避免业务逻辑</td>
+          <td>实体类应只包含数据，不包含复杂业务方法</td>
+          <td>只有简单的getter/setter</td>
+      </tr>
+      <tr>
+          <td>使用Lombok</td>
+          <td>推荐用<code>@Data</code>自动生成getter/setter，减少样板代码</td>
+          <td><code>@Data</code></td>
+      </tr>
+      <tr>
+          <td>序列化版本号</td>
+          <td>添加<code>serialVersionUID</code>确保序列化兼容性</td>
+          <td><code>private static final long serialVersionUID = 1L;</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="javabean规范">JavaBean规范<a hidden class="anchor" aria-hidden="true" href="#javabean规范">#</a></h2>
+<h3 id="什么是javabean">什么是JavaBean？<a hidden class="anchor" aria-hidden="true" href="#什么是javabean">#</a></h3>
+<p>JavaBean是符合特定规范的Java类，用于<strong>封装数据</strong>和<strong>定义可重用组件</strong>。它是Java开发中的一种设计标准，广泛应用于各种框架和工具中。</p>
+<h3 id="javabean核心规范">JavaBean核心规范<a hidden class="anchor" aria-hidden="true" href="#javabean核心规范">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>规范</th>
+          <th>说明</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>无参构造器</strong></td>
+          <td>必须提供默认构造器（反射实例化时需要）</td>
+          <td><code>public User() {}</code></td>
+      </tr>
+      <tr>
+          <td><strong>属性私有化</strong></td>
+          <td>字段用<code>private</code>修饰</td>
+          <td><code>private String name;</code></td>
+      </tr>
+      <tr>
+          <td><strong>公共getter/setter</strong></td>
+          <td>通过方法访问属性</td>
+          <td><code>getName()</code>/<code>setName()</code></td>
+      </tr>
+      <tr>
+          <td><strong>实现<code>Serializable</code></strong></td>
+          <td>可选，但通常建议实现以便序列化</td>
+          <td><code>implements Serializable</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="标准javabean示例">标准JavaBean示例<a hidden class="anchor" aria-hidden="true" href="#标准javabean示例">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.Serializable</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">serialVersionUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 属性私有</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">active</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 无参构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">User</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// getter/setter方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setId</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getEmail</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setEmail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isActive</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// boolean类型的getter使用is前缀</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">active</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setActive</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">active</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">active</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 可选：重写toString、equals、hashCode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;User{&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;id=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;, name=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;, email=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;, active=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="javabean的主要用途">JavaBean的主要用途<a hidden class="anchor" aria-hidden="true" href="#javabean的主要用途">#</a></h3>
+<h4 id="1-gui组件">1. GUI组件<a hidden class="anchor" aria-hidden="true" href="#1-gui组件">#</a></h4>
+<p>在Swing等GUI框架中，JavaBean用于创建可重用的组件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// Swing中的JavaBean组件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">JButton</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JButton</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">button</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="s">&#34;点击我&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">button</span><span class="p">.</span><span class="na">setEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">button</span><span class="p">.</span><span class="na">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h4 id="2-数据封装">2. 数据封装<a hidden class="anchor" aria-hidden="true" href="#2-数据封装">#</a></h4>
+<p>在ORM框架（如Hibernate、MyBatis）中映射数据库表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;users&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;username&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// getter/setter...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="3-框架集成">3. 框架集成<a hidden class="anchor" aria-hidden="true" href="#3-框架集成">#</a></h4>
+<p>Spring等框架通过反射操作JavaBean：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">UserRepository</span><span class="w"> </span><span class="n">userRepository</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="nf">createUser</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Spring会自动注入依赖，通过反射调用setter方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="使用lombok简化开发">使用Lombok简化开发<a hidden class="anchor" aria-hidden="true" href="#使用lombok简化开发">#</a></h2>
+<h3 id="lombok常用注解">Lombok常用注解<a hidden class="anchor" aria-hidden="true" href="#lombok常用注解">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">                    </span><span class="c1">// 生成getter/setter/toString/equals/hashCode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NoArgsConstructor</span><span class="w">      </span><span class="c1">// 生成无参构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">     </span><span class="c1">// 生成全参构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Builder</span><span class="w">                </span><span class="c1">// 生成建造者模式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">serialVersionUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Boolean</span><span class="w"> </span><span class="n">active</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="使用建造者模式创建对象">使用建造者模式创建对象<a hidden class="anchor" aria-hidden="true" href="#使用建造者模式创建对象">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 使用@Builder注解后，可以这样创建对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="n">1L</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">email</span><span class="p">(</span><span class="s">&#34;zhangsan@example.com&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">age</span><span class="p">(</span><span class="n">25</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">active</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><h2 id="最佳实践">最佳实践<a hidden class="anchor" aria-hidden="true" href="#最佳实践">#</a></h2>
+<h3 id="1-实体类设计原则">1. 实体类设计原则<a hidden class="anchor" aria-hidden="true" href="#1-实体类设计原则">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NoArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Builder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">serialVersionUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 使用包装类型，避免基本类型的默认值问题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span><span class="w">        </span><span class="c1">// 金额使用BigDecimal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">stock</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createTime</span><span class="p">;</span><span class="w"> </span><span class="c1">// 时间使用LocalDateTime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Boolean</span><span class="w"> </span><span class="n">deleted</span><span class="p">;</span><span class="w">         </span><span class="c1">// 逻辑删除标记</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 可以添加一些简单的业务方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isInStock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isDeleted</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Boolean</span><span class="p">.</span><span class="na">TRUE</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">deleted</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-验证注解的使用">2. 验证注解的使用<a hidden class="anchor" aria-hidden="true" href="#2-验证注解的使用">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">javax.validation.constraints.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NoArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserCreateRequest</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotBlank</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;用户名不能为空&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Size</span><span class="p">(</span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">20</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;用户名长度必须在2-20之间&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotBlank</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;邮箱不能为空&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Email</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;邮箱格式不正确&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;年龄不能为空&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;年龄必须大于0&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Max</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">150</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;年龄不能超过150&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="3-分层设计">3. 分层设计<a hidden class="anchor" aria-hidden="true" href="#3-分层设计">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// DO (Data Object) - 数据库实体</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;users&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserDO</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 数据库字段映射</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// DTO (Data Transfer Object) - 数据传输对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserDTO</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 用于服务间传输</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// VO (Value Object) - 视图对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserVO</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 用于前端展示</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// BO (Business Object) - 业务对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserBO</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 业务逻辑处理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<h3 id="entity类的关键点">Entity类的关键点<a hidden class="anchor" aria-hidden="true" href="#entity类的关键点">#</a></h3>
+<ul>
+<li><strong>数据封装</strong>：将相关属性聚合成有意义的业务对象</li>
+<li><strong>跨层传输</strong>：支持序列化，便于网络传输和持久化</li>
+<li><strong>接口契约</strong>：提供明确的类型定义和API契约</li>
+</ul>
+<h3 id="javabean规范的价值">JavaBean规范的价值<a hidden class="anchor" aria-hidden="true" href="#javabean规范的价值">#</a></h3>
+<ul>
+<li><strong>标准化</strong>：提供统一的组件设计规范</li>
+<li><strong>框架兼容</strong>：与各种Java框架无缝集成</li>
+<li><strong>工具支持</strong>：IDE和开发工具能够更好地支持</li>
+</ul>
+<h3 id="开发建议">开发建议<a hidden class="anchor" aria-hidden="true" href="#开发建议">#</a></h3>
+<ol>
+<li><strong>优先使用Lombok</strong>：减少样板代码，提高开发效率</li>
+<li><strong>合理分层</strong>：根据不同场景使用不同的对象类型</li>
+<li><strong>添加验证</strong>：使用Bean Validation进行数据校验</li>
+<li><strong>注意序列化</strong>：确保实体类能够正确序列化和反序列化</li>
+<li><strong>遵循命名规范</strong>：使用清晰、有意义的类名和属性名</li>
+</ol>
+<p>通过遵循这些设计原则和最佳实践，可以创建出结构清晰、易于维护的Java类，为整个应用程序的架构奠定坚实的基础。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/java/">Java</a></li>
+      <li><a href="http://localhost:1313/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></li>
+      <li><a href="http://localhost:1313/tags/javabean/">JavaBean</a></li>
+      <li><a href="http://localhost:1313/tags/entity/">Entity</a></li>
+      <li><a href="http://localhost:1313/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/java-buffered-streams/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Java缓冲流详解：提升IO性能的关键技术</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/database-fundamentals/">
+    <span class="title">Next »</span>
+    <br>
+    <span>数据库基础入门：从概念到实践</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

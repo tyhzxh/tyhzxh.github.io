@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Java on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/java/</link><description>Recent content in Java on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>Java缓冲流详解：提升IO性能的关键技术</title><link>https://tyhzxh.github.io/posts/java-buffered-streams/</link><pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-buffered-streams/</guid><description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description><content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Java on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/java/</link>
+    <description>Recent content in Java on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java缓冲流详解：提升IO性能的关键技术</title>
+      <link>http://localhost:1313/posts/java-buffered-streams/</link>
+      <pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-buffered-streams/</guid>
+      <description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description>
+      <content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
 <p><strong>缓冲流（Buffered Stream）</strong> 是Java IO中一种<strong>处理流（Processing Stream）</strong>，它在底层节点流（如文件流、网络流）的基础上，增加<strong>内存缓冲区</strong>，通过<strong>批量读写数据</strong>显著提升IO效率。</p>
 <h2 id="缓冲流的核心作用">缓冲流的核心作用</h2>
 <h3 id="1-减少物理io次数">1. 减少物理IO次数</h3>
@@ -651,7 +667,15 @@
 <li>结合具体的硬件环境（SSD vs HDD）和网络条件进行调优</li>
 </ul>
 <p>掌握缓冲流的使用是Java IO编程的基础技能，它不仅能显著提升程序性能，还能让代码更加简洁和可维护。</p>
-]]></content:encoded></item><item><title>Java类设计详解：Entity类与JavaBean规范</title><link>https://tyhzxh.github.io/posts/java-classes-and-beans/</link><pubDate>Fri, 15 Mar 2024 14:30:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-classes-and-beans/</guid><description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</description><content:encoded><![CDATA[<h2 id="java类设计概述">Java类设计概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Java类设计详解：Entity类与JavaBean规范</title>
+      <link>http://localhost:1313/posts/java-classes-and-beans/</link>
+      <pubDate>Fri, 15 Mar 2024 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-classes-and-beans/</guid>
+      <description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</description>
+      <content:encoded><![CDATA[<h2 id="java类设计概述">Java类设计概述</h2>
 <p>在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。</p>
 <h2 id="entity-class实体类">Entity Class（实体类）</h2>
 <h3 id="什么是实体类">什么是实体类？</h3>
@@ -1006,7 +1030,15 @@
 <li><strong>遵循命名规范</strong>：使用清晰、有意义的类名和属性名</li>
 </ol>
 <p>通过遵循这些设计原则和最佳实践，可以创建出结构清晰、易于维护的Java类，为整个应用程序的架构奠定坚实的基础。</p>
-]]></content:encoded></item><item><title>Java接口详解：从基础概念到高级应用</title><link>https://tyhzxh.github.io/posts/java-interfaces-guide/</link><pubDate>Wed, 28 Feb 2024 15:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-interfaces-guide/</guid><description>深入解析Java接口的概念、特性、应用场景和最佳实践，包括标记接口、函数式接口、默认方法等高级特性</description><content:encoded><![CDATA[<h2 id="java接口概述">Java接口概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Java接口详解：从基础概念到高级应用</title>
+      <link>http://localhost:1313/posts/java-interfaces-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 15:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-interfaces-guide/</guid>
+      <description>深入解析Java接口的概念、特性、应用场景和最佳实践，包括标记接口、函数式接口、默认方法等高级特性</description>
+      <content:encoded><![CDATA[<h2 id="java接口概述">Java接口概述</h2>
 <p>**接口（Interface）**是Java中实现多重继承和定义契约的重要机制。接口定义了类必须实现的方法签名，但不提供具体实现（除了默认方法和静态方法）。接口是Java面向对象编程的核心概念之一。</p>
 <h3 id="接口的基本特性">接口的基本特性</h3>
 <table>
@@ -2346,7 +2378,15 @@
 <li><strong>性能考虑</strong>：注意接口调用的性能开销</li>
 </ul>
 <p>Java接口是实现抽象、多态和解耦的重要工具，掌握其各种特性和应用模式对于编写高质量的Java代码至关重要。随着Java版本的演进，接口功能越来越强大，为现代Java开发提供了更多的设计选择。</p>
-]]></content:encoded></item><item><title>SpringBoot 核心概念详解</title><link>https://tyhzxh.github.io/posts/springboot-fundamentals/</link><pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate><guid>https://tyhzxh.github.io/posts/springboot-fundamentals/</guid><description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description><content:encoded><![CDATA[<blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>SpringBoot 核心概念详解</title>
+      <link>http://localhost:1313/posts/springboot-fundamentals/</link>
+      <pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate>
+      <guid>http://localhost:1313/posts/springboot-fundamentals/</guid>
+      <description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>SpringBoot是Java最流行的开发框架，它通过解耦代码来提升可维护性和可测试性。本文将深入解析SpringBoot的核心概念。</p></blockquote>
 <h2 id="框架概述">框架概述</h2>
 <p><strong>SpringBoot</strong> 是基于Spring框架的快速开发脚手架，它简化了Spring应用的配置和部署过程，让开发者能够快速构建生产级别的应用程序。</p>
@@ -2617,4 +2657,7 @@
 <p>这些概念的结合使用，让SpringBoot成为了Java开发中最受欢迎的框架，大大提升了开发效率和代码质量。</p>
 <hr>
 <p><em>理解这些核心概念是掌握SpringBoot的关键，建议通过实际项目来加深理解。</em></p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

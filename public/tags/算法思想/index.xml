@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>算法思想 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link><description>Recent content in 算法思想 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/index.xml" rel="self" type="application/rss+xml"/><item><title>递归与分治算法详解</title><link>https://tyhzxh.github.io/posts/recursion-and-divide-conquer/</link><pubDate>Tue, 27 Feb 2024 22:03:04 +0800</pubDate><guid>https://tyhzxh.github.io/posts/recursion-and-divide-conquer/</guid><description>深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法</description><content:encoded><![CDATA[<h2 id="递归算法概述">递归算法概述</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>算法思想 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link>
+    <description>Recent content in 算法思想 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>递归与分治算法详解</title>
+      <link>http://localhost:1313/posts/recursion-and-divide-conquer/</link>
+      <pubDate>Tue, 27 Feb 2024 22:03:04 +0800</pubDate>
+      <guid>http://localhost:1313/posts/recursion-and-divide-conquer/</guid>
+      <description>深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法</description>
+      <content:encoded><![CDATA[<h2 id="递归算法概述">递归算法概述</h2>
 <p>递归是一种重要的算法设计思想，它将复杂问题分解为规模更小的同类子问题来解决。递归算法的核心在于找到问题的<strong>递归关系</strong>和<strong>边界条件</strong>。</p>
 <h2 id="经典汉诺塔问题">经典汉诺塔问题</h2>
 <p>汉诺塔是学习递归算法的经典问题。这个问题看似简单，但蕴含着深刻的递归思想。</p>
@@ -266,4 +282,7 @@
 <li>必要时使用记忆化或改为迭代实现</li>
 </ol>
 <p>掌握递归与分治思想对于算法学习和问题解决都具有重要意义，它们是许多高级算法的基础。</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

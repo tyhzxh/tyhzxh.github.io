@@ -1,6 +1,293 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>补码 | tyhzxh的个人博客</title><meta name=keywords content><meta name=description content="分享技术、思考与生活的个人博客"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/tags/%E8%A1%A5%E7%A0%81/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://tyhzxh.github.io/tags/%E8%A1%A5%E7%A0%81/index.xml><link rel=alternate hreflang=en href=https://tyhzxh.github.io/tags/%E8%A1%A5%E7%A0%81/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/tags/%E8%A1%A5%E7%A0%81/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="补码"><meta property="og:description" content="分享技术、思考与生活的个人博客"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="website"><meta name=twitter:card content="summary"><meta name=twitter:title content="补码"><meta name=twitter:description content="分享技术、思考与生活的个人博客"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><header class=page-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/tags/>Tags</a></div><h1>补码</h1></header><article class="post-entry tag-entry"><header class=entry-header><h2 class=entry-hint-parent>CSAPP第二章：信息的表示与处理</h2></header><div class=entry-content><p>著名的大黑书 CSAPP《深入理解计算机系统》第二章学习笔记。从第二章（信息的表示与处理）开始，这是计算机底层数据表示的核心内容。
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>补码 | tyhzxh的个人博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="分享技术、思考与生活的个人博客">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/tags/%E8%A1%A5%E7%A0%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/%E8%A1%A5%E7%A0%81/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/%E8%A1%A5%E7%A0%81/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
+  <h1>
+    补码
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">CSAPP第二章：信息的表示与处理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 著名的大黑书 CSAPP《深入理解计算机系统》第二章学习笔记。从第二章（信息的表示与处理）开始，这是计算机底层数据表示的核心内容。
 前言 从这一章开始，CSAPP将我们引入了计算机最底层的数据表示领域——梦开始的地方！
 核心观点：计算机中的二进制序列本身是没有实际意义的，重要的是看你怎么去解释它。
 这句话贯穿了整个计算机系统的设计哲学。
@@ -9,11 +296,85 @@
 二进制: 11111111 十六进制: FF 记忆技巧：
 16进制的两位分别由二进制的4位组成 每一位的权重：8、4、2、1（数字电路基础） 有符号数（补码表示） 以int类型为例：
 大小：4个字节，共32位 符号位：第一位，0表示正数，1表示负数 存储方式：补码 补码的精妙设计 // 正数：直接表示 int a = 5; // 00000000 00000000 00000000 00000101 // 负数：补码表示 int b = -5; // 11111111 11111111 11111111 11111011 补码计算规则：
-正数的补码就是其二进制表示 负数的补码 = 按位取反 + 1 数的相反数 = 按位取反 + 1 补码的优势 统一运算：加法和减法可以用同一套电路实现 唯一零值：只有一个零的表示 范围对称：能表示的负数比正数多一个 无符号数 无符号数最简单：32位二进制代码直接对应真值，没有符号位的概念。
+正数的补码就是其二进制表示 负数的补码 = 按位取反 &#43; 1 数的相反数 = 按位取反 &#43; 1 补码的优势 统一运算：加法和减法可以用同一套电路实现 唯一零值：只有一个零的表示 范围对称：能表示的负数比正数多一个 无符号数 无符号数最简单：32位二进制代码直接对应真值，没有符号位的概念。
 unsigned int x = 4294967295U; // 2^32 - 1 二、实际编程练习 1. 大小端检测程序 背景：大小端之争是计算机历史上的经典问题
-小端机器：低位字节存储在低地址（现在PC大多是小端） 大端机器：高位字节存储在低地址 #include &lt;stdio.h> char get_first_bytes(char *a) { return a[0]; } void islittle_endian() { int a = 1; if (get_first_bytes((char *)&amp;a)) printf("is little_endian\n"); else printf("is big_endian\n"); } int main() { islittle_endian(); return 0; } 原理解析：
-...</p></div><footer class=entry-footer><span title='2024-04-07 23:31:21 +0800 CST'>April 7, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to CSAPP第二章：信息的表示与处理" href=https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+小端机器：低位字节存储在低地址（现在PC大多是小端） 大端机器：高位字节存储在低地址 #include &lt;stdio.h&gt; char get_first_bytes(char *a) { return a[0]; } void islittle_endian() { int a = 1; if (get_first_bytes((char *)&amp;a)) printf(&#34;is little_endian\n&#34;); else printf(&#34;is big_endian\n&#34;); } int main() { islittle_endian(); return 0; } 原理解析：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-04-07 23:31:21 +0800 CST'>April 7, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to CSAPP第二章：信息的表示与处理" href="http://localhost:1313/posts/csapp-chapter2-data-representation/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

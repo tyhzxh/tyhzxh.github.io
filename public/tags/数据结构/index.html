@@ -1,6 +1,296 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>数据结构 | tyhzxh的个人博客</title><meta name=keywords content><meta name=description content="分享技术、思考与生活的个人博客"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://tyhzxh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml><link rel=alternate hreflang=en href=https://tyhzxh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="数据结构"><meta property="og:description" content="分享技术、思考与生活的个人博客"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="website"><meta name=twitter:card content="summary"><meta name=twitter:title content="数据结构"><meta name=twitter:description content="分享技术、思考与生活的个人博客"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><header class=page-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/tags/>Tags</a></div><h1>数据结构</h1></header><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=400&amp;fit=crop" alt=双指针算法示意图></figure><header class=entry-header><h2 class=entry-hint-parent>双指针算法详解</h2></header><div class=entry-content><p>介绍 双指针是一种常用的算法技巧，通过使用两个指针来遍历数据结构，可以有效地减少时间复杂度，从O(n²)降低到O(n)。双指针的类型主要有以下几种：
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>数据结构 | tyhzxh的个人博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="分享技术、思考与生活的个人博客">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
+  <h1>
+    数据结构
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=400&amp;fit=crop" alt="双指针算法示意图">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">双指针算法详解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 双指针是一种常用的算法技巧，通过使用两个指针来遍历数据结构，可以有效地减少时间复杂度，从O(n²)降低到O(n)。双指针的类型主要有以下几种：
 1. 对撞指针（Two Pointers from Two Sides） 两个指针分别从数组或链表的两端开始，向中间移动，直到相遇或者满足某个条件。这种方法适用于有序数组或链表，可以用于查找和问题、乘积和问题等。
 2. 快慢指针（Fast and Slow Pointers） 两个指针从同一位置开始，一个指针（快指针）移动的速度是另一个指针（慢指针）的两倍。这种方法常用于链表问题，比如判断链表是否有环，或者找到链表的中间节点。
 3. 左右指针（Left and Right Pointers） 两个指针分别从数组的两端开始，向中间移动。这种方法适用于有序数组，可以用于查找特定元素或者解决三数之和问题。
@@ -9,7 +299,7 @@
 常见使用场景： 滑动窗口问题：当需要找到一个子数组或子串，使得它满足特定条件（如最大和、最小和、包含特定元素等）时，可以使用双指针来维护一个滑动窗口。
 有序数组中的查找问题：如果有两个有序数组，需要找到两个数组的第k小的数，或者判断一个数组是否是另一个数组的子集，可以使用双指针。
 链表问题：在链表中找到中间节点、删除链表中的节点、合并两个有序链表等问题，通常使用快慢指针。
-数组中的成对问题：需要在数组中找到两个数，它们的和为特定值（如"两数之和"问题），或者需要找到两个数，它们的乘积为特定值。
+数组中的成对问题：需要在数组中找到两个数，它们的和为特定值（如&#34;两数之和&#34;问题），或者需要找到两个数，它们的乘积为特定值。
 循环数组问题：当数组是循环的，需要找到重复的元素或者满足特定条件的元素对时，可以使用双指针。
 数组中的连续子数组问题：需要找到连续的子数组，使得它们的和满足特定条件，或者找到最长的连续子数组，使得它们满足特定条件。
 算法优势 双指针技巧在解决特定问题时具有显著的优势：
@@ -18,27 +308,146 @@
 3. 简化问题 双指针可以将复杂问题简化为更简单的形式。例如，在滑动窗口问题中，双指针可以动态地维护一个窗口，而不需要每次都重新计算窗口内的元素。
 4. 灵活性和适应性 双指针技巧非常灵活，可以根据问题的不同需求调整指针的移动策略，如可以同时向中间移动，也可以一个向前移动而另一个向后移动。
 滑动窗口 滑动窗口（Sliding Window）是一种在数组或字符串上进行操作的算法策略，主要用于解决需要在连续子数组或子字符串上满足特定条件的问题。
-为什么叫滑动窗口？ “滑动窗口"这个名字的由来是因为这种算法的操作方式类似于一个可以沿着数组或字符串滑动的窗口。窗口可以扩大或缩小，以包含不同的元素，直到找到满足条件的子数组或子字符串。
+为什么叫滑动窗口？ “滑动窗口&#34;这个名字的由来是因为这种算法的操作方式类似于一个可以沿着数组或字符串滑动的窗口。窗口可以扩大或缩小，以包含不同的元素，直到找到满足条件的子数组或子字符串。
 滑动窗口的特点： 连续性：窗口内的元素是连续的，不需要是整个数组或字符串的子集。 动态性：窗口的大小可以根据需要动态调整，窗口的边界可以向前或向后移动。 实时性：窗口可以实时地检查当前窗口内的数据是否满足条件。 滑动窗口的实现： 滑动窗口通常使用双指针（或索引）来实现，一个指针表示窗口的开始，另一个指针表示窗口的结束。通过移动这两个指针，可以动态地调整窗口的大小和位置。
 扩展窗口：通常通过移动结束指针（右指针）向右来实现，这样可以包含更多的元素。 收缩窗口：通常通过移动开始指针（左指针）向右来实现，这样可以排除窗口中的第一个元素。 经典算法实现 1. 对撞指针示例 问题描述：找出数组中乘积小于K的连续子数组的最大长度。
-def maxProductSubarray(nums, k): left, right = 0, 0 max_length = 0 product = 1 while right &lt; len(nums): product *= nums[right] while left &lt;= right and product >= k: product /= nums[left] left += 1 max_length = max(max_length, right - left + 1) right += 1 return max_length 2. 快慢指针示例 问题描述：判断链表是否有环，并返回环的入口节点。
-...</p></div><footer class=entry-footer><span title='2024-10-24 19:52:26 +0800 CST'>October 24, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to 双指针算法详解" href=https://tyhzxh.github.io/posts/two-pointers-algorithm/></a></article><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&amp;h=400&amp;fit=crop" alt=排序算法可视化></figure><header class=entry-header><h2 class=entry-hint-parent>经典排序算法实现与分析</h2></header><div class=entry-content><p>前言 这是某次学校数据结构实验中实现的基本排序算法。数据结构这门课的难点在于实现的复杂性，每次实验都需要封装数据结构，编写测试程序，对于初学者来说确实是一个挑战。
+def maxProductSubarray(nums, k): left, right = 0, 0 max_length = 0 product = 1 while right &lt; len(nums): product *= nums[right] while left &lt;= right and product &gt;= k: product /= nums[left] left &#43;= 1 max_length = max(max_length, right - left &#43; 1) right &#43;= 1 return max_length 2. 快慢指针示例 问题描述：判断链表是否有环，并返回环的入口节点。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-10-24 19:52:26 +0800 CST'>October 24, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to 双指针算法详解" href="http://localhost:1313/posts/two-pointers-algorithm/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&amp;h=400&amp;fit=crop" alt="排序算法可视化">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">经典排序算法实现与分析
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 这是某次学校数据结构实验中实现的基本排序算法。数据结构这门课的难点在于实现的复杂性，每次实验都需要封装数据结构，编写测试程序，对于初学者来说确实是一个挑战。
 通过这次实验，我深刻体会到了代码质量的重要性。虽然当时的代码可能不够优雅，但这正是学习过程中的宝贵经历。
 基本数据结构封装 首先定义基本的数据结构和工具函数：
-#include "stdio.h" #include &lt;iostream> #include &lt;ctime> #include &lt;cstdlib> #define ERROR 0 #define OK 1 #define Overflow 2 #define Underflow 3 #define NotPresent 4 // 元素不存在 #define Duplicate 5 // 元素重复存在 #define MaxSize 100001 typedef int KeyType; typedef int Status; typedef int DataType; typedef struct Entry { KeyType key; DataType data; } entry; typedef struct list { int n; Entry D[MaxSize]; } List; // 输出函数 Status printlist(list* l) { for(int i = 0; i &lt; l->n; i++) { printf("%d ", l->D[i].key); } return OK; } // 交换函数 void swap(Entry* a, Entry* b) { Entry temp = *a; *a = *b; *b = temp; } 排序算法实现 1. 简单选择排序 选择排序的基本思想是每次从未排序的元素中选择最小的元素，放到已排序序列的末尾。
-...</p></div><footer class=entry-footer><span title='2024-02-27 22:11:13 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to 经典排序算法实现与分析" href=https://tyhzxh.github.io/posts/sorting-algorithms-implementation/></a></article><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt=算法思维与优化></figure><header class=entry-header><h2 class=entry-hint-parent>贪心算法详解：从基础概念到经典问题</h2></header><div class=entry-content><p>贪心算法概述 **贪心算法（Greedy Algorithm）**是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。贪心算法在算法竞赛和实际工程中都有着重要的地位。
+#include &#34;stdio.h&#34; #include &lt;iostream&gt; #include &lt;ctime&gt; #include &lt;cstdlib&gt; #define ERROR 0 #define OK 1 #define Overflow 2 #define Underflow 3 #define NotPresent 4 // 元素不存在 #define Duplicate 5 // 元素重复存在 #define MaxSize 100001 typedef int KeyType; typedef int Status; typedef int DataType; typedef struct Entry { KeyType key; DataType data; } entry; typedef struct list { int n; Entry D[MaxSize]; } List; // 输出函数 Status printlist(list* l) { for(int i = 0; i &lt; l-&gt;n; i&#43;&#43;) { printf(&#34;%d &#34;, l-&gt;D[i].key); } return OK; } // 交换函数 void swap(Entry* a, Entry* b) { Entry temp = *a; *a = *b; *b = temp; } 排序算法实现 1. 简单选择排序 选择排序的基本思想是每次从未排序的元素中选择最小的元素，放到已排序序列的末尾。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-27 22:11:13 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to 经典排序算法实现与分析" href="http://localhost:1313/posts/sorting-algorithms-implementation/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt="算法思维与优化">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">贪心算法详解：从基础概念到经典问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>贪心算法概述 **贪心算法（Greedy Algorithm）**是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。贪心算法在算法竞赛和实际工程中都有着重要的地位。
 贪心算法的核心思想 基本原理 贪心算法的核心思想是：
 局部最优选择：在每一步都做出当前看起来最优的选择 不回溯：一旦做出选择，就不再改变 希望全局最优：通过局部最优选择达到全局最优解 贪心选择性质 一个问题能够用贪心算法解决，必须具备以下性质：
-性质 描述 重要性 贪心选择性质 通过局部最优选择能达到全局最优 核心性质 最优子结构 问题的最优解包含子问题的最优解 必要条件 无后效性 当前选择不影响之前的选择 保证正确性 贪心算法设计步骤 1. 问题分析 def greedy_algorithm_template(problem_input): """ 贪心算法通用模板 """ # 步骤1：将问题分解为子问题 subproblems = decompose_problem(problem_input) # 步骤2：确定贪心策略 strategy = define_greedy_strategy() # 步骤3：按贪心策略排序 sorted_items = sort_by_strategy(subproblems, strategy) # 步骤4：逐步构造解 solution = [] for item in sorted_items: if is_feasible(solution, item): solution.append(item) return solution 2. 贪心策略选择 常见的贪心策略包括：
+性质 描述 重要性 贪心选择性质 通过局部最优选择能达到全局最优 核心性质 最优子结构 问题的最优解包含子问题的最优解 必要条件 无后效性 当前选择不影响之前的选择 保证正确性 贪心算法设计步骤 1. 问题分析 def greedy_algorithm_template(problem_input): &#34;&#34;&#34; 贪心算法通用模板 &#34;&#34;&#34; # 步骤1：将问题分解为子问题 subproblems = decompose_problem(problem_input) # 步骤2：确定贪心策略 strategy = define_greedy_strategy() # 步骤3：按贪心策略排序 sorted_items = sort_by_strategy(subproblems, strategy) # 步骤4：逐步构造解 solution = [] for item in sorted_items: if is_feasible(solution, item): solution.append(item) return solution 2. 贪心策略选择 常见的贪心策略包括：
 策略类型 描述 适用场景 最大优先 优先选择最大值 最大收益问题 最小优先 优先选择最小值 最小成本问题 比值优先 按某种比值排序 效率优化问题 截止时间优先 按时间排序 调度问题 经典贪心算法问题 1. 活动选择问题 问题描述 给定n个活动，每个活动都有开始时间和结束时间，选择最多的活动使得它们不冲突。
-...</p></div><footer class=entry-footer><span title='2024-02-27 22:02:23 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to 贪心算法详解：从基础概念到经典问题" href=https://tyhzxh.github.io/posts/greedy-algorithm-guide/></a></article><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt=前缀和算法示意图></figure><header class=entry-header><h2 class=entry-hint-parent>前缀和算法详解与应用</h2></header><div class=entry-content><p>前缀和算法概述 前缀和是一种重要的算法技巧，主要用于快速计算数组区间内的各种统计信息。通过预处理构建前缀数组，可以将原本需要O(n)时间复杂度的区间查询优化到O(1)。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-27 22:02:23 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to 贪心算法详解：从基础概念到经典问题" href="http://localhost:1313/posts/greedy-algorithm-guide/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt="前缀和算法示意图">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">前缀和算法详解与应用
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前缀和算法概述 前缀和是一种重要的算法技巧，主要用于快速计算数组区间内的各种统计信息。通过预处理构建前缀数组，可以将原本需要O(n)时间复杂度的区间查询优化到O(1)。
 前缀和算法的核心思想是：利用前面已经计算过的结果来快速得出当前的结果。
 前缀和的基本类型 1. 累计值前缀数组（用于区间求和） 这是最常见的前缀和应用，用于快速计算数组中任意区间的元素和。
-def build_prefix_sum(arr): """构建前缀和数组""" prefix_sum = [0] # 初始化前缀和数组，第一个元素为0 for num in arr: prefix_sum.append(prefix_sum[-1] + num) # 将当前元素加到前一个前缀和上 return prefix_sum def range_sum(prefix_sum, start, end): """计算区间和""" return prefix_sum[end + 1] - prefix_sum[start] # 示例使用 arr = [1, 2, 3, 4, 5] prefix_sum = build_prefix_sum(arr) print(f"原数组: {arr}") print(f"前缀和数组: {prefix_sum}") # 查询区间 [1, 3] 的和 (索引1到3，即元素2, 3, 4) result = range_sum(prefix_sum, 1, 3) print(f"区间 [1, 3] 的和: {result}") # 输出 9 (2 + 3 + 4) 算法解释：
-build_prefix_sum 函数通过遍历输入数组并累加每个元素来构建前缀和数组 前缀和数组的第一个元素初始化为0，表示空区间的和 range_sum 函数利用前缀和的性质：区间[start, end]的和 = prefix_sum[end+1] - prefix_sum[start] 2. 累计出现次数前缀数组 用于快速查询某个特定值在指定区间内的出现次数。
-def build_prefix_count(arr, target): """构建目标值的前缀计数数组""" prefix_count = [0] # 初始化前缀计数数组 for num in arr: if num == target: prefix_count.append(prefix_count[-1] + 1) # 如果是目标值，计数加1 else: prefix_count.append(prefix_count[-1]) # 否则，计数不变 return prefix_count def count_range_occurrences(prefix_count, start, end): """计算区间内目标值的出现次数""" return prefix_count[end + 1] - prefix_count[start] # 示例使用 arr = [1, 3, 2, 3, 3, 4] target = 3 prefix_count = build_prefix_count(arr, target) print(f"原数组: {arr}") print(f"目标值 {target} 的前缀计数数组: {prefix_count}") # 查询区间 [1, 4] 中目标值的出现次数 result = count_range_occurrences(prefix_count, 1, 4) print(f"区间 [1, 4] 中值 {target} 的出现次数: {result}") # 输出 3 算法解释：
-...</p></div><footer class=entry-footer><span title='2024-02-23 13:34:50 +0800 CST'>February 23, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to 前缀和算法详解与应用" href=https://tyhzxh.github.io/posts/prefix-sum-algorithm/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+def build_prefix_sum(arr): &#34;&#34;&#34;构建前缀和数组&#34;&#34;&#34; prefix_sum = [0] # 初始化前缀和数组，第一个元素为0 for num in arr: prefix_sum.append(prefix_sum[-1] &#43; num) # 将当前元素加到前一个前缀和上 return prefix_sum def range_sum(prefix_sum, start, end): &#34;&#34;&#34;计算区间和&#34;&#34;&#34; return prefix_sum[end &#43; 1] - prefix_sum[start] # 示例使用 arr = [1, 2, 3, 4, 5] prefix_sum = build_prefix_sum(arr) print(f&#34;原数组: {arr}&#34;) print(f&#34;前缀和数组: {prefix_sum}&#34;) # 查询区间 [1, 3] 的和 (索引1到3，即元素2, 3, 4) result = range_sum(prefix_sum, 1, 3) print(f&#34;区间 [1, 3] 的和: {result}&#34;) # 输出 9 (2 &#43; 3 &#43; 4) 算法解释：
+build_prefix_sum 函数通过遍历输入数组并累加每个元素来构建前缀和数组 前缀和数组的第一个元素初始化为0，表示空区间的和 range_sum 函数利用前缀和的性质：区间[start, end]的和 = prefix_sum[end&#43;1] - prefix_sum[start] 2. 累计出现次数前缀数组 用于快速查询某个特定值在指定区间内的出现次数。
+def build_prefix_count(arr, target): &#34;&#34;&#34;构建目标值的前缀计数数组&#34;&#34;&#34; prefix_count = [0] # 初始化前缀计数数组 for num in arr: if num == target: prefix_count.append(prefix_count[-1] &#43; 1) # 如果是目标值，计数加1 else: prefix_count.append(prefix_count[-1]) # 否则，计数不变 return prefix_count def count_range_occurrences(prefix_count, start, end): &#34;&#34;&#34;计算区间内目标值的出现次数&#34;&#34;&#34; return prefix_count[end &#43; 1] - prefix_count[start] # 示例使用 arr = [1, 3, 2, 3, 3, 4] target = 3 prefix_count = build_prefix_count(arr, target) print(f&#34;原数组: {arr}&#34;) print(f&#34;目标值 {target} 的前缀计数数组: {prefix_count}&#34;) # 查询区间 [1, 4] 中目标值的出现次数 result = count_range_occurrences(prefix_count, 1, 4) print(f&#34;区间 [1, 4] 中值 {target} 的出现次数: {result}&#34;) # 输出 3 算法解释：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-23 13:34:50 +0800 CST'>February 23, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to 前缀和算法详解与应用" href="http://localhost:1313/posts/prefix-sum-algorithm/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

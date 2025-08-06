@@ -1,13 +1,392 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>设计模式 | tyhzxh的个人博客</title><meta name=keywords content><meta name=description content="分享技术、思考与生活的个人博客"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://tyhzxh.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml><link rel=alternate hreflang=en href=https://tyhzxh.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="设计模式"><meta property="og:description" content="分享技术、思考与生活的个人博客"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="website"><meta name=twitter:card content="summary"><meta name=twitter:title content="设计模式"><meta name=twitter:description content="分享技术、思考与生活的个人博客"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><header class=page-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/tags/>Tags</a></div><h1>设计模式</h1></header><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt=Java类设计></figure><header class=entry-header><h2 class=entry-hint-parent>Java类设计详解：Entity类与JavaBean规范</h2></header><div class=entry-content><p>Java类设计概述 在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>设计模式 | tyhzxh的个人博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="分享技术、思考与生活的个人博客">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
+  <h1>
+    设计模式
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt="Java类设计">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java类设计详解：Entity类与JavaBean规范
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Java类设计概述 在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。
 Entity Class（实体类） 什么是实体类？ 实体类（Entity Class） 是一种特殊的类，主要用于表示业务领域中的具体对象（如用户、订单、商品等），并承载与这些对象相关的数据。它的核心特征是：用属性描述对象特征，用方法定义简单行为。
 实体类示例 以RPC示例中的User类为例：
-import lombok.Data; import java.io.Serializable; @Data // Lombok注解，自动生成getter/setter/toString等方法 public class User implements Serializable { private static final long serialVersionUID = 1L; private int id; // 用户ID private String name; // 用户名 private String email; // 邮箱 private int age; // 年龄 // 无参构造器（序列化/反序列化时需要） public User() {} // 全参构造器（方便创建对象） public User(int id, String name, String email, int age) { this.id = id; this.name = name; this.email = email; this.age = age; } // 部分参数构造器 public User(int id, String name) { this.id = id; this.name = name; } } 为什么需要实体类？ 1. 数据封装 将相关属性（如id、name、email）聚合在一起，形成有业务意义的对象 提供统一的数据访问接口 隐藏内部实现细节 // 好的设计：使用实体类 User user = new User(1, "张三", "zhangsan@example.com", 25); userService.saveUser(user); // 不好的设计：分散的参数 userService.saveUser(1, "张三", "zhangsan@example.com", 25); 2. 跨层传输 在RPC调用中，客户端和服务端需要通过网络传输对象 实体类会被序列化为字节流传输，接收方再反序列化还原对象 提供统一的数据传输格式 // RPC服务接口 public interface UserService { User getUserById(int id); // 返回实体类 List&lt;User> getAllUsers(); // 返回实体类列表 boolean saveUser(User user); // 接收实体类参数 } 3. 接口契约 定义明确的参数和返回值类型 提供类型安全保障 便于API文档生成和维护 实体类的设计规范 特性 说明 示例 实现Serializable 必须实现序列化接口，否则无法跨网络传输 implements Serializable 无参构造器 反射和反序列化时需要默认构造器 public User() {} 属性私有化 通过getter/setter访问属性，保证封装性 private String name; 避免业务逻辑 实体类应只包含数据，不包含复杂业务方法 只有简单的getter/setter 使用Lombok 推荐用@Data自动生成getter/setter，减少样板代码 @Data 序列化版本号 添加serialVersionUID确保序列化兼容性 private static final long serialVersionUID = 1L; JavaBean规范 什么是JavaBean？ JavaBean是符合特定规范的Java类，用于封装数据和定义可重用组件。它是Java开发中的一种设计标准，广泛应用于各种框架和工具中。
-...</p></div><footer class=entry-footer><span title='2024-03-15 14:30:00 +0800 CST'>March 15, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to Java类设计详解：Entity类与JavaBean规范" href=https://tyhzxh.github.io/posts/java-classes-and-beans/></a></article><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt=Java接口与面向对象编程></figure><header class=entry-header><h2 class=entry-hint-parent>Java接口详解：从基础概念到高级应用</h2></header><div class=entry-content><p>Java接口概述 **接口（Interface）**是Java中实现多重继承和定义契约的重要机制。接口定义了类必须实现的方法签名，但不提供具体实现（除了默认方法和静态方法）。接口是Java面向对象编程的核心概念之一。
-接口的基本特性 特性 描述 示例 抽象性 接口中的方法默认是抽象的 void method(); 多重实现 一个类可以实现多个接口 class A implements B, C 常量定义 接口中的变量默认是常量 int CONSTANT = 10; 继承关系 接口可以继承其他接口 interface A extends B 多态支持 接口引用可以指向实现类对象 Interface obj = new Implementation(); 接口的基本语法 接口定义和实现 // 基本接口定义 public interface Drawable { // 常量（默认 public static final） String DEFAULT_COLOR = "BLACK"; int MAX_SIZE = 1000; // 抽象方法（默认 public abstract） void draw(); void setColor(String color); void resize(int width, int height); // 默认方法（Java 8+） default void reset() { setColor(DEFAULT_COLOR); System.out.println("图形已重置为默认状态"); } // 静态方法（Java 8+） static void printInfo() { System.out.println("这是一个可绘制接口"); } // 私有方法（Java 9+） private void validateColor(String color) { if (color == null || color.isEmpty()) { throw new IllegalArgumentException("颜色不能为空"); } } } // 接口实现 public class Circle implements Drawable { private String color; private int radius; public Circle(int radius) { this.radius = radius; this.color = DEFAULT_COLOR; } @Override public void draw() { System.out.println("绘制一个" + color + "的圆形，半径：" + radius); } @Override public void setColor(String color) { this.color = color; } @Override public void resize(int width, int height) { // 对于圆形，使用较小的值作为半径 this.radius = Math.min(width, height) / 2; } // 可以重写默认方法 @Override public void reset() { this.radius = 10; Drawable.super.reset(); // 调用接口的默认实现 } } // 多接口实现 public interface Movable { void move(int x, int y); void stop(); } public interface Rotatable { void rotate(double angle); } public class Shape implements Drawable, Movable, Rotatable { private String color = Drawable.DEFAULT_COLOR; private int x, y; private double rotation; @Override public void draw() { System.out.println("绘制形状在位置 (" + x + ", " + y + ")，旋转角度：" + rotation); } @Override public void setColor(String color) { this.color = color; } @Override public void resize(int width, int height) { System.out.println("调整大小为：" + width + "x" + height); } @Override public void move(int x, int y) { this.x = x; this.y = y; System.out.println("移动到位置：(" + x + ", " + y + ")"); } @Override public void stop() { System.out.println("停止移动"); } @Override public void rotate(double angle) { this.rotation = angle; System.out.println("旋转角度：" + angle + "度"); } } // 使用示例 public class InterfaceExample { public static void main(String[] args) { // 多态使用 Drawable drawable = new Circle(5); drawable.draw(); drawable.setColor("RED"); drawable.draw(); drawable.reset(); // 静态方法调用 Drawable.printInfo(); // 多接口实现 Shape shape = new Shape(); shape.draw(); shape.move(10, 20); shape.rotate(45.0); // 接口引用 Movable movable = shape; movable.move(30, 40); Rotatable rotatable = shape; rotatable.rotate(90.0); } } 标记接口详解 Serializable接口 Serializable是Java中最重要的标记接口之一，用于标识类的对象可以被序列化。
-...</p></div><footer class=entry-footer><span title='2024-02-28 15:00:00 +0800 CST'>February 28, 2024</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to Java接口详解：从基础概念到高级应用" href=https://tyhzxh.github.io/posts/java-interfaces-guide/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+import lombok.Data; import java.io.Serializable; @Data // Lombok注解，自动生成getter/setter/toString等方法 public class User implements Serializable { private static final long serialVersionUID = 1L; private int id; // 用户ID private String name; // 用户名 private String email; // 邮箱 private int age; // 年龄 // 无参构造器（序列化/反序列化时需要） public User() {} // 全参构造器（方便创建对象） public User(int id, String name, String email, int age) { this.id = id; this.name = name; this.email = email; this.age = age; } // 部分参数构造器 public User(int id, String name) { this.id = id; this.name = name; } } 为什么需要实体类？ 1. 数据封装 将相关属性（如id、name、email）聚合在一起，形成有业务意义的对象 提供统一的数据访问接口 隐藏内部实现细节 // 好的设计：使用实体类 User user = new User(1, &#34;张三&#34;, &#34;zhangsan@example.com&#34;, 25); userService.saveUser(user); // 不好的设计：分散的参数 userService.saveUser(1, &#34;张三&#34;, &#34;zhangsan@example.com&#34;, 25); 2. 跨层传输 在RPC调用中，客户端和服务端需要通过网络传输对象 实体类会被序列化为字节流传输，接收方再反序列化还原对象 提供统一的数据传输格式 // RPC服务接口 public interface UserService { User getUserById(int id); // 返回实体类 List&lt;User&gt; getAllUsers(); // 返回实体类列表 boolean saveUser(User user); // 接收实体类参数 } 3. 接口契约 定义明确的参数和返回值类型 提供类型安全保障 便于API文档生成和维护 实体类的设计规范 特性 说明 示例 实现Serializable 必须实现序列化接口，否则无法跨网络传输 implements Serializable 无参构造器 反射和反序列化时需要默认构造器 public User() {} 属性私有化 通过getter/setter访问属性，保证封装性 private String name; 避免业务逻辑 实体类应只包含数据，不包含复杂业务方法 只有简单的getter/setter 使用Lombok 推荐用@Data自动生成getter/setter，减少样板代码 @Data 序列化版本号 添加serialVersionUID确保序列化兼容性 private static final long serialVersionUID = 1L; JavaBean规范 什么是JavaBean？ JavaBean是符合特定规范的Java类，用于封装数据和定义可重用组件。它是Java开发中的一种设计标准，广泛应用于各种框架和工具中。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-15 14:30:00 +0800 CST'>March 15, 2024</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to Java类设计详解：Entity类与JavaBean规范" href="http://localhost:1313/posts/java-classes-and-beans/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&amp;h=400&amp;fit=crop" alt="Java接口与面向对象编程">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java接口详解：从基础概念到高级应用
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Java接口概述 **接口（Interface）**是Java中实现多重继承和定义契约的重要机制。接口定义了类必须实现的方法签名，但不提供具体实现（除了默认方法和静态方法）。接口是Java面向对象编程的核心概念之一。
+接口的基本特性 特性 描述 示例 抽象性 接口中的方法默认是抽象的 void method(); 多重实现 一个类可以实现多个接口 class A implements B, C 常量定义 接口中的变量默认是常量 int CONSTANT = 10; 继承关系 接口可以继承其他接口 interface A extends B 多态支持 接口引用可以指向实现类对象 Interface obj = new Implementation(); 接口的基本语法 接口定义和实现 // 基本接口定义 public interface Drawable { // 常量（默认 public static final） String DEFAULT_COLOR = &#34;BLACK&#34;; int MAX_SIZE = 1000; // 抽象方法（默认 public abstract） void draw(); void setColor(String color); void resize(int width, int height); // 默认方法（Java 8&#43;） default void reset() { setColor(DEFAULT_COLOR); System.out.println(&#34;图形已重置为默认状态&#34;); } // 静态方法（Java 8&#43;） static void printInfo() { System.out.println(&#34;这是一个可绘制接口&#34;); } // 私有方法（Java 9&#43;） private void validateColor(String color) { if (color == null || color.isEmpty()) { throw new IllegalArgumentException(&#34;颜色不能为空&#34;); } } } // 接口实现 public class Circle implements Drawable { private String color; private int radius; public Circle(int radius) { this.radius = radius; this.color = DEFAULT_COLOR; } @Override public void draw() { System.out.println(&#34;绘制一个&#34; &#43; color &#43; &#34;的圆形，半径：&#34; &#43; radius); } @Override public void setColor(String color) { this.color = color; } @Override public void resize(int width, int height) { // 对于圆形，使用较小的值作为半径 this.radius = Math.min(width, height) / 2; } // 可以重写默认方法 @Override public void reset() { this.radius = 10; Drawable.super.reset(); // 调用接口的默认实现 } } // 多接口实现 public interface Movable { void move(int x, int y); void stop(); } public interface Rotatable { void rotate(double angle); } public class Shape implements Drawable, Movable, Rotatable { private String color = Drawable.DEFAULT_COLOR; private int x, y; private double rotation; @Override public void draw() { System.out.println(&#34;绘制形状在位置 (&#34; &#43; x &#43; &#34;, &#34; &#43; y &#43; &#34;)，旋转角度：&#34; &#43; rotation); } @Override public void setColor(String color) { this.color = color; } @Override public void resize(int width, int height) { System.out.println(&#34;调整大小为：&#34; &#43; width &#43; &#34;x&#34; &#43; height); } @Override public void move(int x, int y) { this.x = x; this.y = y; System.out.println(&#34;移动到位置：(&#34; &#43; x &#43; &#34;, &#34; &#43; y &#43; &#34;)&#34;); } @Override public void stop() { System.out.println(&#34;停止移动&#34;); } @Override public void rotate(double angle) { this.rotation = angle; System.out.println(&#34;旋转角度：&#34; &#43; angle &#43; &#34;度&#34;); } } // 使用示例 public class InterfaceExample { public static void main(String[] args) { // 多态使用 Drawable drawable = new Circle(5); drawable.draw(); drawable.setColor(&#34;RED&#34;); drawable.draw(); drawable.reset(); // 静态方法调用 Drawable.printInfo(); // 多接口实现 Shape shape = new Shape(); shape.draw(); shape.move(10, 20); shape.rotate(45.0); // 接口引用 Movable movable = shape; movable.move(30, 40); Rotatable rotatable = shape; rotatable.rotate(90.0); } } 标记接口详解 Serializable接口 Serializable是Java中最重要的标记接口之一，用于标识类的对象可以被序列化。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-28 15:00:00 +0800 CST'>February 28, 2024</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to Java接口详解：从基础概念到高级应用" href="http://localhost:1313/posts/java-interfaces-guide/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

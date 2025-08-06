@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/posts/</link><description>Recent content in Posts on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo博客网站日常维护指南</title><link>https://tyhzxh.github.io/posts/hugo-blog-workflow/</link><pubDate>Sun, 23 Feb 2025 02:39:29 +0800</pubDate><guid>https://tyhzxh.github.io/posts/hugo-blog-workflow/</guid><description>Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo博客网站日常维护指南</title>
+      <link>http://localhost:1313/posts/hugo-blog-workflow/</link>
+      <pubDate>Sun, 23 Feb 2025 02:39:29 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hugo-blog-workflow/</guid>
+      <description>Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程</description>
+      <content:encoded><![CDATA[<h2 id="前言">前言</h2>
 <p>本文介绍使用Hugo静态网站生成器搭建的博客网站的日常维护流程。Hugo是一个快速、现代的静态网站生成器，结合GitHub Pages可以轻松搭建个人博客网站。</p>
 <h2 id="hugo博客发布流程">Hugo博客发布流程</h2>
 <h3 id="完整工作流程">完整工作流程</h3>
@@ -328,7 +344,15 @@
 <li><a href="https://www.markdownguide.org/">Markdown语法指南</a></li>
 <li><a href="https://themes.gohugo.io/">Hugo主题库</a></li>
 </ul>
-]]></content:encoded></item><item><title>双指针算法详解</title><link>https://tyhzxh.github.io/posts/two-pointers-algorithm/</link><pubDate>Thu, 24 Oct 2024 19:52:26 +0800</pubDate><guid>https://tyhzxh.github.io/posts/two-pointers-algorithm/</guid><description>深入解析双指针算法的原理、应用场景和实现技巧，包括对撞指针、快慢指针、滑动窗口等经典模式</description><content:encoded><![CDATA[<h2 id="介绍">介绍</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>双指针算法详解</title>
+      <link>http://localhost:1313/posts/two-pointers-algorithm/</link>
+      <pubDate>Thu, 24 Oct 2024 19:52:26 +0800</pubDate>
+      <guid>http://localhost:1313/posts/two-pointers-algorithm/</guid>
+      <description>深入解析双指针算法的原理、应用场景和实现技巧，包括对撞指针、快慢指针、滑动窗口等经典模式</description>
+      <content:encoded><![CDATA[<h2 id="介绍">介绍</h2>
 <p>双指针是一种常用的算法技巧，通过使用两个指针来遍历数据结构，可以有效地减少时间复杂度，从O(n²)降低到O(n)。双指针的类型主要有以下几种：</p>
 <h3 id="1-对撞指针two-pointers-from-two-sides">1. 对撞指针（Two Pointers from Two Sides）</h3>
 <p>两个指针分别从数组或链表的两端开始，向中间移动，直到相遇或者满足某个条件。这种方法适用于有序数组或链表，可以用于查找和问题、乘积和问题等。</p>
@@ -466,7 +490,15 @@
 </span></span></code></pre></div><h2 id="总结">总结</h2>
 <p>双指针技巧是一种高效且强大的算法工具，适用于解决多种算法问题，特别是在处理数组和链表时。通过合理使用双指针，可以设计出既高效又简洁的算法解决方案。</p>
 <p>滑动窗口算法的时间复杂度通常是O(n)，其中n是数组或字符串的长度，这使得它在处理大数据集时非常有效。掌握双指针技巧对于提升算法能力和解决实际编程问题都具有重要意义。</p>
-]]></content:encoded></item><item><title>LevelDB源码阅读指南</title><link>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</link><pubDate>Sat, 12 Oct 2024 10:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</guid><description>深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>LevelDB源码阅读指南</title>
+      <link>http://localhost:1313/posts/leveldb-source-code-guide/</link>
+      <pubDate>Sat, 12 Oct 2024 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/leveldb-source-code-guide/</guid>
+      <description>深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容</description>
+      <content:encoded><![CDATA[<h2 id="前言">前言</h2>
 <p>阅读LevelDB源码是一项很好的学习机会，因为它的代码质量高、设计简洁而高效。LevelDB是Google开发的一个高性能键值存储数据库，采用LSM Tree数据结构，广泛应用于各种存储系统中。</p>
 <h2 id="基本概念">基本概念</h2>
 <p>在阅读源码之前，确保你熟悉LevelDB的基本概念和术语：</p>
@@ -657,7 +689,15 @@
 <li><a href="https://github.com/google/leveldb/blob/main/doc/index.md">LevelDB设计文档</a></li>
 <li><a href="https://www.cs.umb.edu/~poneil/lsmtree.pdf">LSM Tree论文</a></li>
 </ul>
-]]></content:encoded></item><item><title>CSAPP第二章：信息的表示与处理</title><link>https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/</link><pubDate>Sun, 07 Apr 2024 23:31:21 +0800</pubDate><guid>https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/</guid><description>深入理解计算机系统第二章学习笔记，涵盖整数表示、补码、大小端、浮点数等核心概念，包含实际代码示例</description><content:encoded><![CDATA[<blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>CSAPP第二章：信息的表示与处理</title>
+      <link>http://localhost:1313/posts/csapp-chapter2-data-representation/</link>
+      <pubDate>Sun, 07 Apr 2024 23:31:21 +0800</pubDate>
+      <guid>http://localhost:1313/posts/csapp-chapter2-data-representation/</guid>
+      <description>深入理解计算机系统第二章学习笔记，涵盖整数表示、补码、大小端、浮点数等核心概念，包含实际代码示例</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>著名的大黑书 CSAPP《深入理解计算机系统》第二章学习笔记。从第二章（信息的表示与处理）开始，这是计算机底层数据表示的核心内容。</p></blockquote>
 <h2 id="前言">前言</h2>
 <p>从这一章开始，CSAPP将我们引入了计算机最底层的数据表示领域——<strong>梦开始的地方</strong>！</p>
@@ -949,7 +989,15 @@
 <p>理解这些基础概念，是深入学习计算机系统的第一步。接下来的章节会在这个基础上，探讨更复杂的系统概念。</p>
 <hr>
 <p><em>下一篇将总结CSAPP的Data Lab实验，那里有更多有趣的位运算挑战！</em></p>
-]]></content:encoded></item><item><title>计算机网络概述：从OSI模型到TCP/IP协议栈</title><link>https://tyhzxh.github.io/posts/computer-network-overview/</link><pubDate>Mon, 25 Mar 2024 22:24:11 +0800</pubDate><guid>https://tyhzxh.github.io/posts/computer-network-overview/</guid><description>深入解析计算机网络的核心概念，包括OSI七层模型和TCP/IP四层模型的对比，以及HTTP、TCP、IP等重要协议的工作原理和应用场景</description><content:encoded><![CDATA[<h2 id="计算机网络基础概述">计算机网络基础概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>计算机网络概述：从OSI模型到TCP/IP协议栈</title>
+      <link>http://localhost:1313/posts/computer-network-overview/</link>
+      <pubDate>Mon, 25 Mar 2024 22:24:11 +0800</pubDate>
+      <guid>http://localhost:1313/posts/computer-network-overview/</guid>
+      <description>深入解析计算机网络的核心概念，包括OSI七层模型和TCP/IP四层模型的对比，以及HTTP、TCP、IP等重要协议的工作原理和应用场景</description>
+      <content:encoded><![CDATA[<h2 id="计算机网络基础概述">计算机网络基础概述</h2>
 <p>计算机网络是现代信息技术的基础设施，理解网络模型和协议对于任何IT从业者都至关重要。本文将深入探讨网络分层模型、核心协议及其实际应用。</p>
 <h2 id="网络分层模型对比">网络分层模型对比</h2>
 <h3 id="osi七层模型">OSI七层模型</h3>
@@ -1538,7 +1586,15 @@ Web服务器（Nginx/Apache）
 <li><strong>安全工程师</strong>：网络安全防护</li>
 </ul>
 <p>掌握这些基础知识将为深入学习更高级的网络技术打下坚实基础。建议结合理论学习和实际操作，通过抓包分析、网络编程等方式加深理解。</p>
-]]></content:encoded></item><item><title>Java缓冲流详解：提升IO性能的关键技术</title><link>https://tyhzxh.github.io/posts/java-buffered-streams/</link><pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-buffered-streams/</guid><description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description><content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Java缓冲流详解：提升IO性能的关键技术</title>
+      <link>http://localhost:1313/posts/java-buffered-streams/</link>
+      <pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-buffered-streams/</guid>
+      <description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description>
+      <content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
 <p><strong>缓冲流（Buffered Stream）</strong> 是Java IO中一种<strong>处理流（Processing Stream）</strong>，它在底层节点流（如文件流、网络流）的基础上，增加<strong>内存缓冲区</strong>，通过<strong>批量读写数据</strong>显著提升IO效率。</p>
 <h2 id="缓冲流的核心作用">缓冲流的核心作用</h2>
 <h3 id="1-减少物理io次数">1. 减少物理IO次数</h3>
@@ -2191,7 +2247,15 @@ Web服务器（Nginx/Apache）
 <li>结合具体的硬件环境（SSD vs HDD）和网络条件进行调优</li>
 </ul>
 <p>掌握缓冲流的使用是Java IO编程的基础技能，它不仅能显著提升程序性能，还能让代码更加简洁和可维护。</p>
-]]></content:encoded></item><item><title>Java类设计详解：Entity类与JavaBean规范</title><link>https://tyhzxh.github.io/posts/java-classes-and-beans/</link><pubDate>Fri, 15 Mar 2024 14:30:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-classes-and-beans/</guid><description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</description><content:encoded><![CDATA[<h2 id="java类设计概述">Java类设计概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Java类设计详解：Entity类与JavaBean规范</title>
+      <link>http://localhost:1313/posts/java-classes-and-beans/</link>
+      <pubDate>Fri, 15 Mar 2024 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-classes-and-beans/</guid>
+      <description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</description>
+      <content:encoded><![CDATA[<h2 id="java类设计概述">Java类设计概述</h2>
 <p>在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。</p>
 <h2 id="entity-class实体类">Entity Class（实体类）</h2>
 <h3 id="什么是实体类">什么是实体类？</h3>
@@ -2546,7 +2610,15 @@ Web服务器（Nginx/Apache）
 <li><strong>遵循命名规范</strong>：使用清晰、有意义的类名和属性名</li>
 </ol>
 <p>通过遵循这些设计原则和最佳实践，可以创建出结构清晰、易于维护的Java类，为整个应用程序的架构奠定坚实的基础。</p>
-]]></content:encoded></item><item><title>数据库基础入门：从概念到实践</title><link>https://tyhzxh.github.io/posts/database-fundamentals/</link><pubDate>Mon, 11 Mar 2024 12:32:05 +0800</pubDate><guid>https://tyhzxh.github.io/posts/database-fundamentals/</guid><description>数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术</description><content:encoded><![CDATA[<h2 id="数据库学习概述">数据库学习概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>数据库基础入门：从概念到实践</title>
+      <link>http://localhost:1313/posts/database-fundamentals/</link>
+      <pubDate>Mon, 11 Mar 2024 12:32:05 +0800</pubDate>
+      <guid>http://localhost:1313/posts/database-fundamentals/</guid>
+      <description>数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术</description>
+      <content:encoded><![CDATA[<h2 id="数据库学习概述">数据库学习概述</h2>
 <p>数据库是现代软件开发的核心技术之一，掌握数据库知识对于任何开发者都至关重要。本文将从基础概念开始，逐步深入数据库的核心技术。</p>
 <h2 id="开发环境搭建">开发环境搭建</h2>
 <h3 id="推荐工具组合">推荐工具组合</h3>
@@ -3017,7 +3089,15 @@ Web服务器（Nginx/Apache）
 <li>确保数据的完整性和安全性</li>
 </ul>
 <p>建议在学习过程中多动手实践，通过实际项目来巩固理论知识，逐步提升数据库应用能力。</p>
-]]></content:encoded></item><item><title>Java接口详解：从基础概念到高级应用</title><link>https://tyhzxh.github.io/posts/java-interfaces-guide/</link><pubDate>Wed, 28 Feb 2024 15:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-interfaces-guide/</guid><description>深入解析Java接口的概念、特性、应用场景和最佳实践，包括标记接口、函数式接口、默认方法等高级特性</description><content:encoded><![CDATA[<h2 id="java接口概述">Java接口概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Java接口详解：从基础概念到高级应用</title>
+      <link>http://localhost:1313/posts/java-interfaces-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 15:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-interfaces-guide/</guid>
+      <description>深入解析Java接口的概念、特性、应用场景和最佳实践，包括标记接口、函数式接口、默认方法等高级特性</description>
+      <content:encoded><![CDATA[<h2 id="java接口概述">Java接口概述</h2>
 <p>**接口（Interface）**是Java中实现多重继承和定义契约的重要机制。接口定义了类必须实现的方法签名，但不提供具体实现（除了默认方法和静态方法）。接口是Java面向对象编程的核心概念之一。</p>
 <h3 id="接口的基本特性">接口的基本特性</h3>
 <table>
@@ -4357,7 +4437,15 @@ Web服务器（Nginx/Apache）
 <li><strong>性能考虑</strong>：注意接口调用的性能开销</li>
 </ul>
 <p>Java接口是实现抽象、多态和解耦的重要工具，掌握其各种特性和应用模式对于编写高质量的Java代码至关重要。随着Java版本的演进，接口功能越来越强大，为现代Java开发提供了更多的设计选择。</p>
-]]></content:encoded></item><item><title>TCP协议深度解析：可靠传输的核心机制</title><link>https://tyhzxh.github.io/posts/tcp-protocol-guide/</link><pubDate>Wed, 28 Feb 2024 14:30:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/tcp-protocol-guide/</guid><description>深入解析TCP协议的工作原理、三次握手、四次挥手、流量控制、拥塞控制等核心机制，以及TCP在现代网络中的应用和优化</description><content:encoded><![CDATA[<h2 id="tcp协议概述">TCP协议概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>TCP协议深度解析：可靠传输的核心机制</title>
+      <link>http://localhost:1313/posts/tcp-protocol-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/tcp-protocol-guide/</guid>
+      <description>深入解析TCP协议的工作原理、三次握手、四次挥手、流量控制、拥塞控制等核心机制，以及TCP在现代网络中的应用和优化</description>
+      <content:encoded><![CDATA[<h2 id="tcp协议概述">TCP协议概述</h2>
 <p>**TCP（Transmission Control Protocol）**是互联网协议套件中的核心协议之一，位于传输层，为应用层提供可靠的、面向连接的字节流服务。TCP确保数据的完整性、顺序性和可靠性，是现代互联网通信的基石。</p>
 <h3 id="tcp的核心特性">TCP的核心特性</h3>
 <table>
@@ -5642,7 +5730,15 @@ Web服务器（Nginx/Apache）
 <li><strong>云原生优化</strong>：针对容器和微服务的TCP优化</li>
 </ul>
 <p>TCP协议作为互联网的基石，其深入理解对于网络编程、系统设计和性能优化都至关重要。随着网络技术的发展，TCP也在不断演进，学习其原理和最新发展趋势将有助于构建更高效、更可靠的网络应用。</p>
-]]></content:encoded></item><item><title>HTTP协议详解：从基础到高级应用</title><link>https://tyhzxh.github.io/posts/http-protocol-guide/</link><pubDate>Wed, 28 Feb 2024 10:15:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/http-protocol-guide/</guid><description>深入解析HTTP协议的工作原理、请求响应机制、状态码、缓存策略、安全机制以及HTTP/2和HTTP/3的新特性，涵盖Web开发中的实际应用</description><content:encoded><![CDATA[<h2 id="http协议概述">HTTP协议概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>HTTP协议详解：从基础到高级应用</title>
+      <link>http://localhost:1313/posts/http-protocol-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 10:15:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/http-protocol-guide/</guid>
+      <description>深入解析HTTP协议的工作原理、请求响应机制、状态码、缓存策略、安全机制以及HTTP/2和HTTP/3的新特性，涵盖Web开发中的实际应用</description>
+      <content:encoded><![CDATA[<h2 id="http协议概述">HTTP协议概述</h2>
 <p>**HTTP（HyperText Transfer Protocol）**是互联网上应用最广泛的网络协议之一，是Web的基础。它定义了客户端和服务器之间如何进行通信，是一个基于请求-响应模式的、无状态的应用层协议。</p>
 <h3 id="http的核心特点">HTTP的核心特点</h3>
 <table>
@@ -7051,7 +7147,15 @@ Web服务器（Nginx/Apache）
 <li><strong>版本控制</strong>：合理管理API版本</li>
 </ul>
 <p>HTTP协议是Web开发的基础，深入理解其工作原理和最佳实践对于构建高质量的Web应用至关重要。随着HTTP/2和HTTP/3的普及，掌握新特性将有助于进一步提升应用性能。</p>
-]]></content:encoded></item><item><title>经典排序算法实现与分析</title><link>https://tyhzxh.github.io/posts/sorting-algorithms-implementation/</link><pubDate>Tue, 27 Feb 2024 22:11:13 +0800</pubDate><guid>https://tyhzxh.github.io/posts/sorting-algorithms-implementation/</guid><description>详细介绍和实现经典排序算法，包括选择排序、插入排序、冒泡排序、快速排序、归并排序和堆排序，并提供性能测试代码</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>经典排序算法实现与分析</title>
+      <link>http://localhost:1313/posts/sorting-algorithms-implementation/</link>
+      <pubDate>Tue, 27 Feb 2024 22:11:13 +0800</pubDate>
+      <guid>http://localhost:1313/posts/sorting-algorithms-implementation/</guid>
+      <description>详细介绍和实现经典排序算法，包括选择排序、插入排序、冒泡排序、快速排序、归并排序和堆排序，并提供性能测试代码</description>
+      <content:encoded><![CDATA[<h2 id="前言">前言</h2>
 <p>这是某次学校数据结构实验中实现的基本排序算法。数据结构这门课的难点在于实现的复杂性，每次实验都需要封装数据结构，编写测试程序，对于初学者来说确实是一个挑战。</p>
 <p>通过这次实验，我深刻体会到了代码质量的重要性。虽然当时的代码可能不够优雅，但这正是学习过程中的宝贵经历。</p>
 <h2 id="基本数据结构封装">基本数据结构封装</h2>
@@ -7417,7 +7521,15 @@ Web服务器（Nginx/Apache）
 <p>学习排序算法不仅仅是为了应付考试，更重要的是理解算法设计的思想和优化策略。每种算法都有其适用的场景，在实际开发中需要根据具体情况选择最合适的算法。</p>
 <blockquote>
 <p>代码质量的提升确实需要大量的练习和思考。虽然当时的代码可能不够完美，但这正是成长过程中的重要一步。</p></blockquote>
-]]></content:encoded></item><item><title>动态规划完全攻略：从入门到精通</title><link>https://tyhzxh.github.io/posts/dynamic-programming-guide/</link><pubDate>Tue, 27 Feb 2024 22:05:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/dynamic-programming-guide/</guid><description>动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南</description><content:encoded><![CDATA[<blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>动态规划完全攻略：从入门到精通</title>
+      <link>http://localhost:1313/posts/dynamic-programming-guide/</link>
+      <pubDate>Tue, 27 Feb 2024 22:05:43 +0800</pubDate>
+      <guid>http://localhost:1313/posts/dynamic-programming-guide/</guid>
+      <description>动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>今天开始！DP！针对动态规划（DP）的系统训练，这是一套完整的训练方案，从<strong>核心思维</strong>到<strong>高频题型</strong>再到<strong>实战技巧</strong>全面覆盖。</p></blockquote>
 <h2 id="一动态规划核心思维训练">一、动态规划核心思维训练</h2>
 <h3 id="1-破除两大误区">1. 破除两大误区</h3>
@@ -7667,7 +7779,15 @@ Web服务器（Nginx/Apache）
 <p>记住：<strong>Practice makes perfect!</strong> 动态规划需要大量的练习来培养直觉，但一旦掌握，它将成为你算法工具箱中最强大的武器之一。</p>
 <hr>
 <p><em>持续更新中，欢迎交流讨论！</em></p>
-]]></content:encoded></item><item><title>搜索算法详解：BFS与DFS的原理和应用</title><link>https://tyhzxh.github.io/posts/search-algorithms-guide/</link><pubDate>Tue, 27 Feb 2024 22:05:13 +0800</pubDate><guid>https://tyhzxh.github.io/posts/search-algorithms-guide/</guid><description>深入解析广度优先搜索(BFS)和深度优先搜索(DFS)算法的原理、实现和应用场景，包括图遍历、最短路径、连通性检测等经典问题的解决方案</description><content:encoded><![CDATA[<h2 id="搜索算法概述">搜索算法概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>搜索算法详解：BFS与DFS的原理和应用</title>
+      <link>http://localhost:1313/posts/search-algorithms-guide/</link>
+      <pubDate>Tue, 27 Feb 2024 22:05:13 +0800</pubDate>
+      <guid>http://localhost:1313/posts/search-algorithms-guide/</guid>
+      <description>深入解析广度优先搜索(BFS)和深度优先搜索(DFS)算法的原理、实现和应用场景，包括图遍历、最短路径、连通性检测等经典问题的解决方案</description>
+      <content:encoded><![CDATA[<h2 id="搜索算法概述">搜索算法概述</h2>
 <p><strong>搜索算法</strong>是计算机科学中的基础算法，用于在数据结构中查找特定元素或路径。在图论和树结构中，最重要的两种搜索算法是<strong>广度优先搜索（BFS）<strong>和</strong>深度优先搜索（DFS）</strong>。</p>
 <h2 id="广度优先搜索bfs">广度优先搜索（BFS）</h2>
 <h3 id="bfs基本原理">BFS基本原理</h3>
@@ -8698,7 +8818,15 @@ Web服务器（Nginx/Apache）
 <li><strong>人工智能</strong>：状态空间搜索、问题求解</li>
 </ul>
 <p>搜索算法是计算机科学的基础，掌握BFS和DFS不仅有助于解决具体问题，更重要的是培养算法思维和问题分析能力。在实际应用中，要根据问题特点选择合适的搜索策略，并考虑性能优化。</p>
-]]></content:encoded></item><item><title>递归与分治算法详解</title><link>https://tyhzxh.github.io/posts/recursion-and-divide-conquer/</link><pubDate>Tue, 27 Feb 2024 22:03:04 +0800</pubDate><guid>https://tyhzxh.github.io/posts/recursion-and-divide-conquer/</guid><description>深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法</description><content:encoded><![CDATA[<h2 id="递归算法概述">递归算法概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>递归与分治算法详解</title>
+      <link>http://localhost:1313/posts/recursion-and-divide-conquer/</link>
+      <pubDate>Tue, 27 Feb 2024 22:03:04 +0800</pubDate>
+      <guid>http://localhost:1313/posts/recursion-and-divide-conquer/</guid>
+      <description>深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法</description>
+      <content:encoded><![CDATA[<h2 id="递归算法概述">递归算法概述</h2>
 <p>递归是一种重要的算法设计思想，它将复杂问题分解为规模更小的同类子问题来解决。递归算法的核心在于找到问题的<strong>递归关系</strong>和<strong>边界条件</strong>。</p>
 <h2 id="经典汉诺塔问题">经典汉诺塔问题</h2>
 <p>汉诺塔是学习递归算法的经典问题。这个问题看似简单，但蕴含着深刻的递归思想。</p>
@@ -8966,7 +9094,15 @@ Web服务器（Nginx/Apache）
 <li>必要时使用记忆化或改为迭代实现</li>
 </ol>
 <p>掌握递归与分治思想对于算法学习和问题解决都具有重要意义，它们是许多高级算法的基础。</p>
-]]></content:encoded></item><item><title>贪心算法详解：从基础概念到经典问题</title><link>https://tyhzxh.github.io/posts/greedy-algorithm-guide/</link><pubDate>Tue, 27 Feb 2024 22:02:23 +0800</pubDate><guid>https://tyhzxh.github.io/posts/greedy-algorithm-guide/</guid><description>深入解析贪心算法的核心思想、设计原则和应用场景，通过经典问题实例掌握贪心策略的选择和证明方法，包括活动选择、背包问题、最短路径等</description><content:encoded><![CDATA[<h2 id="贪心算法概述">贪心算法概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>贪心算法详解：从基础概念到经典问题</title>
+      <link>http://localhost:1313/posts/greedy-algorithm-guide/</link>
+      <pubDate>Tue, 27 Feb 2024 22:02:23 +0800</pubDate>
+      <guid>http://localhost:1313/posts/greedy-algorithm-guide/</guid>
+      <description>深入解析贪心算法的核心思想、设计原则和应用场景，通过经典问题实例掌握贪心策略的选择和证明方法，包括活动选择、背包问题、最短路径等</description>
+      <content:encoded><![CDATA[<h2 id="贪心算法概述">贪心算法概述</h2>
 <p>**贪心算法（Greedy Algorithm）**是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。贪心算法在算法竞赛和实际工程中都有着重要的地位。</p>
 <h2 id="贪心算法的核心思想">贪心算法的核心思想</h2>
 <h3 id="基本原理">基本原理</h3>
@@ -9727,7 +9863,15 @@ Web服务器（Nginx/Apache）
 <li><strong>适用范围</strong>：将贪心算法应用到不适合的问题上</li>
 </ol>
 <p>贪心算法是算法设计中的重要思想，虽然不能解决所有优化问题，但在适用的场景下能够提供简洁高效的解决方案。掌握贪心算法的关键在于理解其适用条件，选择正确的贪心策略，并能够证明算法的正确性。</p>
-]]></content:encoded></item><item><title>前缀和算法详解与应用</title><link>https://tyhzxh.github.io/posts/prefix-sum-algorithm/</link><pubDate>Fri, 23 Feb 2024 13:34:50 +0800</pubDate><guid>https://tyhzxh.github.io/posts/prefix-sum-algorithm/</guid><description>深入讲解前缀和算法的原理和应用，包括累计值前缀数组、累计出现次数前缀数组、累积最大值前缀数组等多种变体</description><content:encoded><![CDATA[<h2 id="前缀和算法概述">前缀和算法概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>前缀和算法详解与应用</title>
+      <link>http://localhost:1313/posts/prefix-sum-algorithm/</link>
+      <pubDate>Fri, 23 Feb 2024 13:34:50 +0800</pubDate>
+      <guid>http://localhost:1313/posts/prefix-sum-algorithm/</guid>
+      <description>深入讲解前缀和算法的原理和应用，包括累计值前缀数组、累计出现次数前缀数组、累积最大值前缀数组等多种变体</description>
+      <content:encoded><![CDATA[<h2 id="前缀和算法概述">前缀和算法概述</h2>
 <p>前缀和是一种重要的算法技巧，主要用于快速计算数组区间内的各种统计信息。通过预处理构建前缀数组，可以将原本需要O(n)时间复杂度的区间查询优化到O(1)。</p>
 <p>前缀和算法的核心思想是：<strong>利用前面已经计算过的结果来快速得出当前的结果</strong>。</p>
 <h2 id="前缀和的基本类型">前缀和的基本类型</h2>
@@ -9951,7 +10095,15 @@ Web服务器（Nginx/Apache）
 <li><strong>与差分结合</strong>：可以高效处理区间更新问题</li>
 </ol>
 <p>前缀和算法在竞赛编程、实际开发中都有广泛应用，是每个程序员都应该掌握的基础算法技巧。</p>
-]]></content:encoded></item><item><title>SpringBoot 核心概念详解</title><link>https://tyhzxh.github.io/posts/springboot-fundamentals/</link><pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate><guid>https://tyhzxh.github.io/posts/springboot-fundamentals/</guid><description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description><content:encoded><![CDATA[<blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>SpringBoot 核心概念详解</title>
+      <link>http://localhost:1313/posts/springboot-fundamentals/</link>
+      <pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate>
+      <guid>http://localhost:1313/posts/springboot-fundamentals/</guid>
+      <description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>SpringBoot是Java最流行的开发框架，它通过解耦代码来提升可维护性和可测试性。本文将深入解析SpringBoot的核心概念。</p></blockquote>
 <h2 id="框架概述">框架概述</h2>
 <p><strong>SpringBoot</strong> 是基于Spring框架的快速开发脚手架，它简化了Spring应用的配置和部署过程，让开发者能够快速构建生产级别的应用程序。</p>
@@ -10222,7 +10374,15 @@ Web服务器（Nginx/Apache）
 <p>这些概念的结合使用，让SpringBoot成为了Java开发中最受欢迎的框架，大大提升了开发效率和代码质量。</p>
 <hr>
 <p><em>理解这些核心概念是掌握SpringBoot的关键，建议通过实际项目来加深理解。</em></p>
-]]></content:encoded></item><item><title>Git 版本控制学习笔记</title><link>https://tyhzxh.github.io/posts/git-notes/</link><pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/git-notes/</guid><description>Git版本控制系统的基础概念和常用操作，包括工作区、暂存区、版本库的概念以及各种Git命令的使用方法</description><content:encoded><![CDATA[<blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Git 版本控制学习笔记</title>
+      <link>http://localhost:1313/posts/git-notes/</link>
+      <pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate>
+      <guid>http://localhost:1313/posts/git-notes/</guid>
+      <description>Git版本控制系统的基础概念和常用操作，包括工作区、暂存区、版本库的概念以及各种Git命令的使用方法</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>本文是学习廖雪峰Git教程的学习笔记，整理了Git的基础概念和常用操作。</p></blockquote>
 <h2 id="基础概念">基础概念</h2>
 <p><em><strong>在.git文件所在目录下进行操作</strong></em></p>
@@ -10368,7 +10528,15 @@ Web服务器（Nginx/Apache）
 </ul>
 <hr>
 <p><em>参考资料：廖雪峰Git教程</em></p>
-]]></content:encoded></item><item><title>Git版本控制基础指南</title><link>https://tyhzxh.github.io/posts/git-fundamentals-guide/</link><pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/git-fundamentals-guide/</guid><description>Git版本控制系统的基础概念和常用操作指南，包括工作区、暂存区、版本库的概念，以及文件操作、版本回退、远程仓库等核心功能</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Git版本控制基础指南</title>
+      <link>http://localhost:1313/posts/git-fundamentals-guide/</link>
+      <pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate>
+      <guid>http://localhost:1313/posts/git-fundamentals-guide/</guid>
+      <description>Git版本控制系统的基础概念和常用操作指南，包括工作区、暂存区、版本库的概念，以及文件操作、版本回退、远程仓库等核心功能</description>
+      <content:encoded><![CDATA[<h2 id="前言">前言</h2>
 <p>本文是学习廖雪峰Git教程的学习笔记，涵盖了Git版本控制系统的基础概念和常用操作。Git是目前最流行的分布式版本控制系统，掌握Git对于软件开发至关重要。</p>
 <blockquote>
 <p><strong>注意</strong>：所有Git操作都需要在.git文件所在目录下进行</p></blockquote>
@@ -10717,7 +10885,15 @@ Web服务器（Nginx/Apache）
 <li><strong>远程协作</strong>：clone、pull、push</li>
 </ol>
 <p>记住这些核心概念和操作，就能够熟练使用Git进行版本控制了！</p>
-]]></content:encoded></item><item><title>使用Hugo和PaperMod主题搭建个人博客</title><link>https://tyhzxh.github.io/posts/hugo-blog-setup/</link><pubDate>Tue, 02 Jan 2024 14:30:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/hugo-blog-setup/</guid><description>详细介绍如何使用Hugo静态站点生成器和PaperMod主题搭建个人博客</description><content:encoded><![CDATA[<h1 id="使用hugo和papermod主题搭建个人博客">使用Hugo和PaperMod主题搭建个人博客</h1>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>使用Hugo和PaperMod主题搭建个人博客</title>
+      <link>http://localhost:1313/posts/hugo-blog-setup/</link>
+      <pubDate>Tue, 02 Jan 2024 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hugo-blog-setup/</guid>
+      <description>详细介绍如何使用Hugo静态站点生成器和PaperMod主题搭建个人博客</description>
+      <content:encoded><![CDATA[<h1 id="使用hugo和papermod主题搭建个人博客">使用Hugo和PaperMod主题搭建个人博客</h1>
 <p>在这篇文章中，我将详细介绍如何使用Hugo静态站点生成器和PaperMod主题来搭建一个功能完整、设计美观的个人博客。</p>
 <h2 id="为什么选择hugo">为什么选择Hugo？</h2>
 <p>Hugo是一个用Go语言编写的静态站点生成器，具有以下优势：</p>
@@ -10974,7 +11150,15 @@ Web服务器（Nginx/Apache）
 <li><a href="https://github.com/adityatelange/hugo-PaperMod">PaperMod主题文档</a></li>
 <li><a href="https://docs.github.com/en/pages">GitHub Pages文档</a></li>
 </ul>
-]]></content:encoded></item><item><title>欢迎来到我的博客！</title><link>https://tyhzxh.github.io/posts/welcome/</link><pubDate>Mon, 01 Jan 2024 10:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/welcome/</guid><description>博客开通的第一篇文章</description><content:encoded><![CDATA[<h1 id="欢迎来到我的博客">欢迎来到我的博客！🎉</h1>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>欢迎来到我的博客！</title>
+      <link>http://localhost:1313/posts/welcome/</link>
+      <pubDate>Mon, 01 Jan 2024 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/welcome/</guid>
+      <description>博客开通的第一篇文章</description>
+      <content:encoded><![CDATA[<h1 id="欢迎来到我的博客">欢迎来到我的博客！🎉</h1>
 <p>大家好！欢迎来到我的个人博客。这是我在这里发布的第一篇文章，我想借此机会向大家介绍一下这个博客的目的和内容。</p>
 <h2 id="为什么要写博客">为什么要写博客？</h2>
 <p>写博客对我来说有几个重要的意义：</p>
@@ -11043,4 +11227,7 @@ Web服务器（Nginx/Apache）
 <p>让我们一起在技术的道路上不断前进！🚀</p>
 <hr>
 <p><em>这篇文章标志着我博客之旅的开始，期待与大家分享更多有价值的内容！</em></p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

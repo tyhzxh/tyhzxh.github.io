@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>计算机网络 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><description>Recent content in 计算机网络 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>TCP协议深度解析：可靠传输的核心机制</title><link>https://tyhzxh.github.io/posts/tcp-protocol-guide/</link><pubDate>Wed, 28 Feb 2024 14:30:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/tcp-protocol-guide/</guid><description>深入解析TCP协议的工作原理、三次握手、四次挥手、流量控制、拥塞控制等核心机制，以及TCP在现代网络中的应用和优化</description><content:encoded><![CDATA[<h2 id="tcp协议概述">TCP协议概述</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>计算机网络 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+    <description>Recent content in 计算机网络 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TCP协议深度解析：可靠传输的核心机制</title>
+      <link>http://localhost:1313/posts/tcp-protocol-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/tcp-protocol-guide/</guid>
+      <description>深入解析TCP协议的工作原理、三次握手、四次挥手、流量控制、拥塞控制等核心机制，以及TCP在现代网络中的应用和优化</description>
+      <content:encoded><![CDATA[<h2 id="tcp协议概述">TCP协议概述</h2>
 <p>**TCP（Transmission Control Protocol）**是互联网协议套件中的核心协议之一，位于传输层，为应用层提供可靠的、面向连接的字节流服务。TCP确保数据的完整性、顺序性和可靠性，是现代互联网通信的基石。</p>
 <h3 id="tcp的核心特性">TCP的核心特性</h3>
 <table>
@@ -1283,7 +1299,15 @@
 <li><strong>云原生优化</strong>：针对容器和微服务的TCP优化</li>
 </ul>
 <p>TCP协议作为互联网的基石，其深入理解对于网络编程、系统设计和性能优化都至关重要。随着网络技术的发展，TCP也在不断演进，学习其原理和最新发展趋势将有助于构建更高效、更可靠的网络应用。</p>
-]]></content:encoded></item><item><title>HTTP协议详解：从基础到高级应用</title><link>https://tyhzxh.github.io/posts/http-protocol-guide/</link><pubDate>Wed, 28 Feb 2024 10:15:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/http-protocol-guide/</guid><description>深入解析HTTP协议的工作原理、请求响应机制、状态码、缓存策略、安全机制以及HTTP/2和HTTP/3的新特性，涵盖Web开发中的实际应用</description><content:encoded><![CDATA[<h2 id="http协议概述">HTTP协议概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>HTTP协议详解：从基础到高级应用</title>
+      <link>http://localhost:1313/posts/http-protocol-guide/</link>
+      <pubDate>Wed, 28 Feb 2024 10:15:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/http-protocol-guide/</guid>
+      <description>深入解析HTTP协议的工作原理、请求响应机制、状态码、缓存策略、安全机制以及HTTP/2和HTTP/3的新特性，涵盖Web开发中的实际应用</description>
+      <content:encoded><![CDATA[<h2 id="http协议概述">HTTP协议概述</h2>
 <p>**HTTP（HyperText Transfer Protocol）**是互联网上应用最广泛的网络协议之一，是Web的基础。它定义了客户端和服务器之间如何进行通信，是一个基于请求-响应模式的、无状态的应用层协议。</p>
 <h3 id="http的核心特点">HTTP的核心特点</h3>
 <table>
@@ -2692,4 +2716,7 @@
 <li><strong>版本控制</strong>：合理管理API版本</li>
 </ul>
 <p>HTTP协议是Web开发的基础，深入理解其工作原理和最佳实践对于构建高质量的Web应用至关重要。随着HTTP/2和HTTP/3的普及，掌握新特性将有助于进一步提升应用性能。</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

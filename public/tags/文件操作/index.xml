@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>文件操作 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</link><description>Recent content in 文件操作 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>Java缓冲流详解：提升IO性能的关键技术</title><link>https://tyhzxh.github.io/posts/java-buffered-streams/</link><pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/java-buffered-streams/</guid><description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description><content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>文件操作 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</link>
+    <description>Recent content in 文件操作 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java缓冲流详解：提升IO性能的关键技术</title>
+      <link>http://localhost:1313/posts/java-buffered-streams/</link>
+      <pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java-buffered-streams/</guid>
+      <description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description>
+      <content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
 <p><strong>缓冲流（Buffered Stream）</strong> 是Java IO中一种<strong>处理流（Processing Stream）</strong>，它在底层节点流（如文件流、网络流）的基础上，增加<strong>内存缓冲区</strong>，通过<strong>批量读写数据</strong>显著提升IO效率。</p>
 <h2 id="缓冲流的核心作用">缓冲流的核心作用</h2>
 <h3 id="1-减少物理io次数">1. 减少物理IO次数</h3>
@@ -651,4 +667,7 @@
 <li>结合具体的硬件环境（SSD vs HDD）和网络条件进行调优</li>
 </ul>
 <p>掌握缓冲流的使用是Java IO编程的基础技能，它不仅能显著提升程序性能，还能让代码更加简洁和可维护。</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

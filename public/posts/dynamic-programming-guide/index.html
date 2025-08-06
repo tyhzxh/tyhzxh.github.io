@@ -1,40 +1,752 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>动态规划完全攻略：从入门到精通 | tyhzxh的个人博客</title><meta name=keywords content="算法,动态规划,DP,LeetCode,编程技巧"><meta name=description content="动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/posts/dynamic-programming-guide/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://tyhzxh.github.io/posts/dynamic-programming-guide/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/posts/dynamic-programming-guide/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="动态规划完全攻略：从入门到精通"><meta property="og:description" content="动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-02-27T22:05:43+08:00"><meta property="article:modified_time" content="2025-08-06T08:51:21+08:00"><meta property="article:tag" content="算法"><meta property="article:tag" content="动态规划"><meta property="article:tag" content="DP"><meta property="article:tag" content="LeetCode"><meta property="article:tag" content="编程技巧"><meta name=twitter:card content="summary"><meta name=twitter:title content="动态规划完全攻略：从入门到精通"><meta name=twitter:description content="动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://tyhzxh.github.io/posts/"},{"@type":"ListItem","position":2,"name":"动态规划完全攻略：从入门到精通","item":"https://tyhzxh.github.io/posts/dynamic-programming-guide/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"动态规划完全攻略：从入门到精通","name":"动态规划完全攻略：从入门到精通","description":"动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南","keywords":["算法","动态规划","DP","LeetCode","编程技巧"],"articleBody":" 今天开始！DP！针对动态规划（DP）的系统训练，这是一套完整的训练方案，从核心思维到高频题型再到实战技巧全面覆盖。\n一、动态规划核心思维训练 1. 破除两大误区 ❌ 误区1：必须找到最优子结构才能用DP\n✅ 正确姿势：先暴力递归 → 发现重叠子问题 → 改记忆化搜索 → 再推导DP方程\n❌ 误区2：DP必须用数组存储状态\n✅ 正确姿势：学会状态压缩（如打家劫舍用两个变量代替数组）\n2. 四步解题法（用爬楼梯问题实践） # 原题：每次爬1或2阶，到n阶有多少种方法？ # 1. 定义状态：dp[i]表示到i阶的方法数 # 2. 初始状态：dp[0]=1, dp[1]=1（注意不是常规的dp[0]=0） # 3. 状态转移：dp[i] = dp[i-1] + dp[i-2] # 4. 优化空间：只需prev和curr两个变量滚动计算 def climbStairs(n): if n \u003c= 1: return 1 prev, curr = 1, 1 for i in range(2, n+1): prev, curr = curr, prev + curr return curr 3. 高频状态转移类型 类型 经典例题 状态转移关键点 单序列线性DP 打家劫舍(198) dp[i] = max(dp[i-1], dp[i-2]+nums[i]) 双序列匹配DP 最长公共子序列(1143) dp[i][j] = 1+dp[i-1][j-1] if s[i]==t[j] 区间DP 最长回文子串(5) dp[i][j] = (s[i]==s[j]) and dp[i+1][j-1] 背包DP 分割等和子集(416) dp[j] = dp[j] or dp[j-num] 状态机DP 买卖股票最佳时机(121/122) 持有/未持有两种状态转换 二、阶梯式训练路线 阶段1：基础模型搭建（1-2周） 题目 训练重点 突破技巧 70. 爬楼梯 斐波那契型DP 空间压缩到O(1) 118. 杨辉三角 二维DP填表逻辑 观察行列关系 121. 买卖股票的最佳时机 状态机模型 维护min_price和max_profit 53. 最大子数组和 决策型DP（选或不选） 用curr_max代替dp数组 746. 使用最小花费爬楼梯 路径成本计算 逆向推导更简单 阶段2：经典题型突破（2-3周） 题目 难点解析 代码模板片段 198. 打家劫舍 相邻不能选 max(dp[i-1], dp[i-2]+nums[i]) 322. 零钱兑换 完全背包最小值 dp[amt] = min(dp[amt], dp[amt-coin]+1) 300. 最长递增子序列 O(n²)与O(nlogn)两种解法 二分查找维护tails数组 1143. 最长公共子序列 双序列匹配 if s[i]==t[j]: dp[i][j]=dp[i-1][j-1]+1 139. 单词拆分 字符串分段判断 dp[i] = any(dp[j] and s[j:i] in dict) 阶段3：高难度挑战（3-4周） 题目 破题关键点 优化技巧 72. 编辑距离 三种操作的状态转移 空间压缩到一维数组 152. 乘积最大子数组 处理负数乘积 同时维护max和min 312. 戳气球 区间DP逆向思维 从最后戳破的气球倒推 10. 正则表达式匹配 星号匹配的特殊处理 分情况讨论pattern的第二个字符 887. 鸡蛋掉落 决策最优化的数学推导 逆向思维+二分查找优化 三、避坑指南与实战技巧 1. 五大常见错误类型 🚫 初始化错误：比如背包问题中dp[0]应该初始化为True 🚫 遍历顺序错误：完全背包要正序循环，01背包要倒序循环 🚫 状态转移遗漏：如编辑距离忘记考虑replace操作 🚫 二维DP行列混淆：把s的长度当作行还是列要统一 🚫 空间压缩陷阱：覆盖未使用的旧值导致错误 2. 三步优化方法论 1. **暴力递归** → 写出基本状态转移 - 斐波那契数列递归版 2. **记忆化搜索** → 添加缓存（@lru_cache） - 用装饰器自动缓存参数 3. **推导DP方程** → 优化空间复杂度 - 观察状态依赖关系，压缩维度 3. 面试应答技巧 💡 先说出暴力解的时间复杂度 💡 明确说出DP数组的定义和维度 💡 在白板上先写状态转移方程再编码 💡 主动讨论空间优化可能性 四、配套训练资源 1. 可视化学习 DPV 算法可视化网站 - 动态展示DP执行过程 VisuAlgo 动态规划专题 - 包含LCS、背包等问题动画 2. 专项题单 LeetCode动态规划分类 → 按通过率排序练习 经典DP问题Top 50 → 涵盖所有DP类型 3. 错题本模板 ## 72. 编辑距离 ### 错误记录 - 初始版本忘记处理空字符串情况 - 误将替换操作的成本计算为2（正确是1） ### 状态转移表 | | \"\" | r | o | s | |-------|----|---|---|---| | \"\" | 0 | 1 | 2 | 3 | | h | 1 | 1 | 2 | 3 | | o | 2 | 2 | 1 | 2 | | r | 3 | 2 | 2 | 2 | | s | 4 | 3 | 3 | 2 | 五、训练计划建议 每日任务 上午：精做1道新DP题（按阶段选择难度） 下午：复习2道旧题，写出空间优化版本 晚上：观看对应题目的讲解视频 每周检验 周赛至少完成2道DP相关题目 整理本周的DP类型思维导图 预期效果 坚持按照这个方案训练2个月后，你会明显发现：\n✅ 中等DP题能在15分钟内找到思路 ✅ 能轻松应对字符串匹配、背包类问题 ✅ 面对hard题时有清晰的拆解策略 总结 动态规划的本质是用空间换时间，核心是找到重叠子问题和最优子结构。多动手画状态转移表，你的大脑会逐渐建立DP的思维模式。\n记住：Practice makes perfect! 动态规划需要大量的练习来培养直觉，但一旦掌握，它将成为你算法工具箱中最强大的武器之一。\n持续更新中，欢迎交流讨论！\n","wordCount":"351","inLanguage":"en","datePublished":"2024-02-27T22:05:43+08:00","dateModified":"2025-08-06T08:51:21+08:00","author":{"@type":"Person","name":"tyhzxh"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://tyhzxh.github.io/posts/dynamic-programming-guide/"},"publisher":{"@type":"Organization","name":"tyhzxh的个人博客","logo":{"@type":"ImageObject","url":"https://tyhzxh.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">动态规划完全攻略：从入门到精通</h1><div class=post-description>动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南</div><div class=post-meta><span title='2024-02-27 22:05:43 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;tyhzxh</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e4%b8%80%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92%e6%a0%b8%e5%bf%83%e6%80%9d%e7%bb%b4%e8%ae%ad%e7%bb%83 aria-label=一、动态规划核心思维训练>一、动态规划核心思维训练</a><ul><li><a href=#1-%e7%a0%b4%e9%99%a4%e4%b8%a4%e5%a4%a7%e8%af%af%e5%8c%ba aria-label="1. 破除两大误区">1. 破除两大误区</a></li><li><a href=#2-%e5%9b%9b%e6%ad%a5%e8%a7%a3%e9%a2%98%e6%b3%95%e7%94%a8%e7%88%ac%e6%a5%bc%e6%a2%af%e9%97%ae%e9%a2%98%e5%ae%9e%e8%b7%b5 aria-label="2. 四步解题法（用爬楼梯问题实践）">2. 四步解题法（用爬楼梯问题实践）</a></li><li><a href=#3-%e9%ab%98%e9%a2%91%e7%8a%b6%e6%80%81%e8%bd%ac%e7%a7%bb%e7%b1%bb%e5%9e%8b aria-label="3. 高频状态转移类型">3. 高频状态转移类型</a></li></ul></li><li><a href=#%e4%ba%8c%e9%98%b6%e6%a2%af%e5%bc%8f%e8%ae%ad%e7%bb%83%e8%b7%af%e7%ba%bf aria-label=二、阶梯式训练路线>二、阶梯式训练路线</a><ul><li><a href=#%e9%98%b6%e6%ae%b51%e5%9f%ba%e7%a1%80%e6%a8%a1%e5%9e%8b%e6%90%ad%e5%bb%ba1-2%e5%91%a8 aria-label=阶段1：基础模型搭建（1-2周）>阶段1：基础模型搭建（1-2周）</a></li><li><a href=#%e9%98%b6%e6%ae%b52%e7%bb%8f%e5%85%b8%e9%a2%98%e5%9e%8b%e7%aa%81%e7%a0%b42-3%e5%91%a8 aria-label=阶段2：经典题型突破（2-3周）>阶段2：经典题型突破（2-3周）</a></li><li><a href=#%e9%98%b6%e6%ae%b53%e9%ab%98%e9%9a%be%e5%ba%a6%e6%8c%91%e6%88%983-4%e5%91%a8 aria-label=阶段3：高难度挑战（3-4周）>阶段3：高难度挑战（3-4周）</a></li></ul></li><li><a href=#%e4%b8%89%e9%81%bf%e5%9d%91%e6%8c%87%e5%8d%97%e4%b8%8e%e5%ae%9e%e6%88%98%e6%8a%80%e5%b7%a7 aria-label=三、避坑指南与实战技巧>三、避坑指南与实战技巧</a><ul><li><a href=#1-%e4%ba%94%e5%a4%a7%e5%b8%b8%e8%a7%81%e9%94%99%e8%af%af%e7%b1%bb%e5%9e%8b aria-label="1. 五大常见错误类型">1. 五大常见错误类型</a></li><li><a href=#2-%e4%b8%89%e6%ad%a5%e4%bc%98%e5%8c%96%e6%96%b9%e6%b3%95%e8%ae%ba aria-label="2. 三步优化方法论">2. 三步优化方法论</a></li><li><a href=#3-%e9%9d%a2%e8%af%95%e5%ba%94%e7%ad%94%e6%8a%80%e5%b7%a7 aria-label="3. 面试应答技巧">3. 面试应答技巧</a></li></ul></li><li><a href=#%e5%9b%9b%e9%85%8d%e5%a5%97%e8%ae%ad%e7%bb%83%e8%b5%84%e6%ba%90 aria-label=四、配套训练资源>四、配套训练资源</a><ul><li><a href=#1-%e5%8f%af%e8%a7%86%e5%8c%96%e5%ad%a6%e4%b9%a0 aria-label="1. 可视化学习">1. 可视化学习</a></li><li><a href=#2-%e4%b8%93%e9%a1%b9%e9%a2%98%e5%8d%95 aria-label="2. 专项题单">2. 专项题单</a></li><li><a href=#3-%e9%94%99%e9%a2%98%e6%9c%ac%e6%a8%a1%e6%9d%bf aria-label="3. 错题本模板">3. 错题本模板</a></li></ul></li><li><a href=#%e4%ba%94%e8%ae%ad%e7%bb%83%e8%ae%a1%e5%88%92%e5%bb%ba%e8%ae%ae aria-label=五、训练计划建议>五、训练计划建议</a><ul><li><a href=#%e6%af%8f%e6%97%a5%e4%bb%bb%e5%8a%a1 aria-label=每日任务>每日任务</a></li><li><a href=#%e6%af%8f%e5%91%a8%e6%a3%80%e9%aa%8c aria-label=每周检验>每周检验</a></li></ul></li><li><a href=#%e9%a2%84%e6%9c%9f%e6%95%88%e6%9e%9c aria-label=预期效果>预期效果</a></li><li><a href=#%e6%80%bb%e7%bb%93 aria-label=总结>总结</a></li></ul></div></details></div><div class=post-content><blockquote><p>今天开始！DP！针对动态规划（DP）的系统训练，这是一套完整的训练方案，从<strong>核心思维</strong>到<strong>高频题型</strong>再到<strong>实战技巧</strong>全面覆盖。</p></blockquote><h2 id=一动态规划核心思维训练>一、动态规划核心思维训练<a hidden class=anchor aria-hidden=true href=#一动态规划核心思维训练>#</a></h2><h3 id=1-破除两大误区>1. 破除两大误区<a hidden class=anchor aria-hidden=true href=#1-破除两大误区>#</a></h3><ul><li><p>❌ <strong>误区1</strong>：必须找到最优子结构才能用DP<br>✅ <strong>正确姿势</strong>：先暴力递归 → 发现重叠子问题 → 改记忆化搜索 → 再推导DP方程</p></li><li><p>❌ <strong>误区2</strong>：DP必须用数组存储状态<br>✅ <strong>正确姿势</strong>：学会状态压缩（如打家劫舍用两个变量代替数组）</p></li></ul><h3 id=2-四步解题法用爬楼梯问题实践>2. 四步解题法（用爬楼梯问题实践）<a hidden class=anchor aria-hidden=true href=#2-四步解题法用爬楼梯问题实践>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 原题：每次爬1或2阶，到n阶有多少种方法？</span>
-</span></span><span class=line><span class=cl><span class=c1># 1. 定义状态：dp[i]表示到i阶的方法数</span>
-</span></span><span class=line><span class=cl><span class=c1># 2. 初始状态：dp[0]=1, dp[1]=1（注意不是常规的dp[0]=0）</span>
-</span></span><span class=line><span class=cl><span class=c1># 3. 状态转移：dp[i] = dp[i-1] + dp[i-2]</span>
-</span></span><span class=line><span class=cl><span class=c1># 4. 优化空间：只需prev和curr两个变量滚动计算</span>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>climbStairs</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=p>:</span> <span class=k>return</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=n>prev</span><span class=p>,</span> <span class=n>curr</span> <span class=o>=</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=n>n</span><span class=o>+</span><span class=mi>1</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>        <span class=n>prev</span><span class=p>,</span> <span class=n>curr</span> <span class=o>=</span> <span class=n>curr</span><span class=p>,</span> <span class=n>prev</span> <span class=o>+</span> <span class=n>curr</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>curr</span>
-</span></span></code></pre></div><h3 id=3-高频状态转移类型>3. 高频状态转移类型<a hidden class=anchor aria-hidden=true href=#3-高频状态转移类型>#</a></h3><table><thead><tr><th>类型</th><th>经典例题</th><th>状态转移关键点</th></tr></thead><tbody><tr><td>单序列线性DP</td><td>打家劫舍(198)</td><td><code>dp[i] = max(dp[i-1], dp[i-2]+nums[i])</code></td></tr><tr><td>双序列匹配DP</td><td>最长公共子序列(1143)</td><td><code>dp[i][j] = 1+dp[i-1][j-1] if s[i]==t[j]</code></td></tr><tr><td>区间DP</td><td>最长回文子串(5)</td><td><code>dp[i][j] = (s[i]==s[j]) and dp[i+1][j-1]</code></td></tr><tr><td>背包DP</td><td>分割等和子集(416)</td><td><code>dp[j] = dp[j] or dp[j-num]</code></td></tr><tr><td>状态机DP</td><td>买卖股票最佳时机(121/122)</td><td>持有/未持有两种状态转换</td></tr></tbody></table><h2 id=二阶梯式训练路线>二、阶梯式训练路线<a hidden class=anchor aria-hidden=true href=#二阶梯式训练路线>#</a></h2><h3 id=阶段1基础模型搭建1-2周>阶段1：基础模型搭建（1-2周）<a hidden class=anchor aria-hidden=true href=#阶段1基础模型搭建1-2周>#</a></h3><table><thead><tr><th>题目</th><th>训练重点</th><th>突破技巧</th></tr></thead><tbody><tr><td>70. 爬楼梯</td><td>斐波那契型DP</td><td>空间压缩到O(1)</td></tr><tr><td>118. 杨辉三角</td><td>二维DP填表逻辑</td><td>观察行列关系</td></tr><tr><td>121. 买卖股票的最佳时机</td><td>状态机模型</td><td>维护min_price和max_profit</td></tr><tr><td>53. 最大子数组和</td><td>决策型DP（选或不选）</td><td>用curr_max代替dp数组</td></tr><tr><td>746. 使用最小花费爬楼梯</td><td>路径成本计算</td><td>逆向推导更简单</td></tr></tbody></table><h3 id=阶段2经典题型突破2-3周>阶段2：经典题型突破（2-3周）<a hidden class=anchor aria-hidden=true href=#阶段2经典题型突破2-3周>#</a></h3><table><thead><tr><th>题目</th><th>难点解析</th><th>代码模板片段</th></tr></thead><tbody><tr><td><strong>198. 打家劫舍</strong></td><td>相邻不能选</td><td><code>max(dp[i-1], dp[i-2]+nums[i])</code></td></tr><tr><td><strong>322. 零钱兑换</strong></td><td>完全背包最小值</td><td><code>dp[amt] = min(dp[amt], dp[amt-coin]+1)</code></td></tr><tr><td><strong>300. 最长递增子序列</strong></td><td>O(n²)与O(nlogn)两种解法</td><td>二分查找维护tails数组</td></tr><tr><td><strong>1143. 最长公共子序列</strong></td><td>双序列匹配</td><td><code>if s[i]==t[j]: dp[i][j]=dp[i-1][j-1]+1</code></td></tr><tr><td><strong>139. 单词拆分</strong></td><td>字符串分段判断</td><td><code>dp[i] = any(dp[j] and s[j:i] in dict)</code></td></tr></tbody></table><h3 id=阶段3高难度挑战3-4周>阶段3：高难度挑战（3-4周）<a hidden class=anchor aria-hidden=true href=#阶段3高难度挑战3-4周>#</a></h3><table><thead><tr><th>题目</th><th>破题关键点</th><th>优化技巧</th></tr></thead><tbody><tr><td><strong>72. 编辑距离</strong></td><td>三种操作的状态转移</td><td>空间压缩到一维数组</td></tr><tr><td><strong>152. 乘积最大子数组</strong></td><td>处理负数乘积</td><td>同时维护max和min</td></tr><tr><td><strong>312. 戳气球</strong></td><td>区间DP逆向思维</td><td>从最后戳破的气球倒推</td></tr><tr><td><strong>10. 正则表达式匹配</strong></td><td>星号匹配的特殊处理</td><td>分情况讨论pattern的第二个字符</td></tr><tr><td><strong>887. 鸡蛋掉落</strong></td><td>决策最优化的数学推导</td><td>逆向思维+二分查找优化</td></tr></tbody></table><h2 id=三避坑指南与实战技巧>三、避坑指南与实战技巧<a hidden class=anchor aria-hidden=true href=#三避坑指南与实战技巧>#</a></h2><h3 id=1-五大常见错误类型>1. 五大常见错误类型<a hidden class=anchor aria-hidden=true href=#1-五大常见错误类型>#</a></h3><ul><li>🚫 <strong>初始化错误</strong>：比如背包问题中dp[0]应该初始化为True</li><li>🚫 <strong>遍历顺序错误</strong>：完全背包要正序循环，01背包要倒序循环</li><li>🚫 <strong>状态转移遗漏</strong>：如编辑距离忘记考虑replace操作</li><li>🚫 <strong>二维DP行列混淆</strong>：把s的长度当作行还是列要统一</li><li>🚫 <strong>空间压缩陷阱</strong>：覆盖未使用的旧值导致错误</li></ul><h3 id=2-三步优化方法论>2. 三步优化方法论<a hidden class=anchor aria-hidden=true href=#2-三步优化方法论>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=k>1.</span> <span class=gs>**暴力递归**</span> → 写出基本状态转移
-</span></span><span class=line><span class=cl>   <span class=k>-</span> 斐波那契数列递归版
-</span></span><span class=line><span class=cl>   
-</span></span><span class=line><span class=cl><span class=k>2.</span> <span class=gs>**记忆化搜索**</span> → 添加缓存（<span class=ni>@lru_cache</span>）
-</span></span><span class=line><span class=cl>   <span class=k>-</span> 用装饰器自动缓存参数
-</span></span><span class=line><span class=cl>   
-</span></span><span class=line><span class=cl><span class=k>3.</span> <span class=gs>**推导DP方程**</span> → 优化空间复杂度
-</span></span><span class=line><span class=cl>   <span class=k>-</span> 观察状态依赖关系，压缩维度
-</span></span></code></pre></div><h3 id=3-面试应答技巧>3. 面试应答技巧<a hidden class=anchor aria-hidden=true href=#3-面试应答技巧>#</a></h3><ul><li>💡 先说出暴力解的时间复杂度</li><li>💡 明确说出DP数组的定义和维度</li><li>💡 在白板上先写状态转移方程再编码</li><li>💡 主动讨论空间优化可能性</li></ul><h2 id=四配套训练资源>四、配套训练资源<a hidden class=anchor aria-hidden=true href=#四配套训练资源>#</a></h2><h3 id=1-可视化学习>1. 可视化学习<a hidden class=anchor aria-hidden=true href=#1-可视化学习>#</a></h3><ul><li><strong>DPV 算法可视化网站</strong> - 动态展示DP执行过程</li><li><strong>VisuAlgo 动态规划专题</strong> - 包含LCS、背包等问题动画</li></ul><h3 id=2-专项题单>2. 专项题单<a hidden class=anchor aria-hidden=true href=#2-专项题单>#</a></h3><ul><li><strong>LeetCode动态规划分类</strong> → 按通过率排序练习</li><li><strong>经典DP问题Top 50</strong> → 涵盖所有DP类型</li></ul><h3 id=3-错题本模板>3. 错题本模板<a hidden class=anchor aria-hidden=true href=#3-错题本模板>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=gu>## 72. 编辑距离
-</span></span></span><span class=line><span class=cl><span class=gu>### 错误记录
-</span></span></span><span class=line><span class=cl><span class=gu></span><span class=k>-</span> 初始版本忘记处理空字符串情况
-</span></span><span class=line><span class=cl><span class=k>-</span> 误将替换操作的成本计算为2（正确是1）
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=gu>### 状态转移表
-</span></span></span><span class=line><span class=cl><span class=gu></span>|       | &#34;&#34; | r | o | s |
-</span></span><span class=line><span class=cl>|-------|----|---|---|---|
-</span></span><span class=line><span class=cl>| &#34;&#34;    | 0 | 1 | 2 | 3 |
-</span></span><span class=line><span class=cl>| h     | 1 | 1 | 2 | 3 | 
-</span></span><span class=line><span class=cl>| o     | 2 | 2 | 1 | 2 |
-</span></span><span class=line><span class=cl>| r     | 3 | 2 | 2 | 2 |
-</span></span><span class=line><span class=cl>| s     | 4 | 3 | 3 | 2 |
-</span></span></code></pre></div><h2 id=五训练计划建议>五、训练计划建议<a hidden class=anchor aria-hidden=true href=#五训练计划建议>#</a></h2><h3 id=每日任务>每日任务<a hidden class=anchor aria-hidden=true href=#每日任务>#</a></h3><ul><li><strong>上午</strong>：精做1道新DP题（按阶段选择难度）</li><li><strong>下午</strong>：复习2道旧题，写出空间优化版本</li><li><strong>晚上</strong>：观看对应题目的讲解视频</li></ul><h3 id=每周检验>每周检验<a hidden class=anchor aria-hidden=true href=#每周检验>#</a></h3><ul><li>周赛至少完成2道DP相关题目</li><li>整理本周的DP类型思维导图</li></ul><h2 id=预期效果>预期效果<a hidden class=anchor aria-hidden=true href=#预期效果>#</a></h2><p>坚持按照这个方案训练<strong>2个月</strong>后，你会明显发现：</p><ol><li>✅ 中等DP题能在15分钟内找到思路</li><li>✅ 能轻松应对字符串匹配、背包类问题</li><li>✅ 面对hard题时有清晰的拆解策略</li></ol><h2 id=总结>总结<a hidden class=anchor aria-hidden=true href=#总结>#</a></h2><blockquote><p>动态规划的本质是用空间换时间，核心是找到<strong>重叠子问题</strong>和<strong>最优子结构</strong>。多动手画状态转移表，你的大脑会逐渐建立DP的思维模式。</p></blockquote><p>记住：<strong>Practice makes perfect!</strong> 动态规划需要大量的练习来培养直觉，但一旦掌握，它将成为你算法工具箱中最强大的武器之一。</p><hr><p><em>持续更新中，欢迎交流讨论！</em></p></div><footer class=post-footer><ul class=post-tags><li><a href=https://tyhzxh.github.io/tags/%E7%AE%97%E6%B3%95/>算法</a></li><li><a href=https://tyhzxh.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/>动态规划</a></li><li><a href=https://tyhzxh.github.io/tags/dp/>DP</a></li><li><a href=https://tyhzxh.github.io/tags/leetcode/>LeetCode</a></li><li><a href=https://tyhzxh.github.io/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/>编程技巧</a></li></ul><nav class=paginav><a class=prev href=https://tyhzxh.github.io/posts/sorting-algorithms-implementation/><span class=title>« Prev</span><br><span>经典排序算法实现与分析</span>
-</a><a class=next href=https://tyhzxh.github.io/posts/search-algorithms-guide/><span class=title>Next »</span><br><span>搜索算法详解：BFS与DFS的原理和应用</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>动态规划完全攻略：从入门到精通 | tyhzxh的个人博客</title>
+<meta name="keywords" content="算法, 动态规划, DP, LeetCode, 编程技巧">
+<meta name="description" content="动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/posts/dynamic-programming-guide/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/dynamic-programming-guide/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      动态规划完全攻略：从入门到精通
+    </h1>
+    <div class="post-description">
+      动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南
+    </div>
+    <div class="post-meta"><span title='2024-02-27 22:05:43 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;tyhzxh
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%80%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92%e6%a0%b8%e5%bf%83%e6%80%9d%e7%bb%b4%e8%ae%ad%e7%bb%83" aria-label="一、动态规划核心思维训练">一、动态规划核心思维训练</a><ul>
+                        
+                <li>
+                    <a href="#1-%e7%a0%b4%e9%99%a4%e4%b8%a4%e5%a4%a7%e8%af%af%e5%8c%ba" aria-label="1. 破除两大误区">1. 破除两大误区</a></li>
+                <li>
+                    <a href="#2-%e5%9b%9b%e6%ad%a5%e8%a7%a3%e9%a2%98%e6%b3%95%e7%94%a8%e7%88%ac%e6%a5%bc%e6%a2%af%e9%97%ae%e9%a2%98%e5%ae%9e%e8%b7%b5" aria-label="2. 四步解题法（用爬楼梯问题实践）">2. 四步解题法（用爬楼梯问题实践）</a></li>
+                <li>
+                    <a href="#3-%e9%ab%98%e9%a2%91%e7%8a%b6%e6%80%81%e8%bd%ac%e7%a7%bb%e7%b1%bb%e5%9e%8b" aria-label="3. 高频状态转移类型">3. 高频状态转移类型</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%8c%e9%98%b6%e6%a2%af%e5%bc%8f%e8%ae%ad%e7%bb%83%e8%b7%af%e7%ba%bf" aria-label="二、阶梯式训练路线">二、阶梯式训练路线</a><ul>
+                        
+                <li>
+                    <a href="#%e9%98%b6%e6%ae%b51%e5%9f%ba%e7%a1%80%e6%a8%a1%e5%9e%8b%e6%90%ad%e5%bb%ba1-2%e5%91%a8" aria-label="阶段1：基础模型搭建（1-2周）">阶段1：基础模型搭建（1-2周）</a></li>
+                <li>
+                    <a href="#%e9%98%b6%e6%ae%b52%e7%bb%8f%e5%85%b8%e9%a2%98%e5%9e%8b%e7%aa%81%e7%a0%b42-3%e5%91%a8" aria-label="阶段2：经典题型突破（2-3周）">阶段2：经典题型突破（2-3周）</a></li>
+                <li>
+                    <a href="#%e9%98%b6%e6%ae%b53%e9%ab%98%e9%9a%be%e5%ba%a6%e6%8c%91%e6%88%983-4%e5%91%a8" aria-label="阶段3：高难度挑战（3-4周）">阶段3：高难度挑战（3-4周）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%b8%89%e9%81%bf%e5%9d%91%e6%8c%87%e5%8d%97%e4%b8%8e%e5%ae%9e%e6%88%98%e6%8a%80%e5%b7%a7" aria-label="三、避坑指南与实战技巧">三、避坑指南与实战技巧</a><ul>
+                        
+                <li>
+                    <a href="#1-%e4%ba%94%e5%a4%a7%e5%b8%b8%e8%a7%81%e9%94%99%e8%af%af%e7%b1%bb%e5%9e%8b" aria-label="1. 五大常见错误类型">1. 五大常见错误类型</a></li>
+                <li>
+                    <a href="#2-%e4%b8%89%e6%ad%a5%e4%bc%98%e5%8c%96%e6%96%b9%e6%b3%95%e8%ae%ba" aria-label="2. 三步优化方法论">2. 三步优化方法论</a></li>
+                <li>
+                    <a href="#3-%e9%9d%a2%e8%af%95%e5%ba%94%e7%ad%94%e6%8a%80%e5%b7%a7" aria-label="3. 面试应答技巧">3. 面试应答技巧</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%9b%9b%e9%85%8d%e5%a5%97%e8%ae%ad%e7%bb%83%e8%b5%84%e6%ba%90" aria-label="四、配套训练资源">四、配套训练资源</a><ul>
+                        
+                <li>
+                    <a href="#1-%e5%8f%af%e8%a7%86%e5%8c%96%e5%ad%a6%e4%b9%a0" aria-label="1. 可视化学习">1. 可视化学习</a></li>
+                <li>
+                    <a href="#2-%e4%b8%93%e9%a1%b9%e9%a2%98%e5%8d%95" aria-label="2. 专项题单">2. 专项题单</a></li>
+                <li>
+                    <a href="#3-%e9%94%99%e9%a2%98%e6%9c%ac%e6%a8%a1%e6%9d%bf" aria-label="3. 错题本模板">3. 错题本模板</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%94%e8%ae%ad%e7%bb%83%e8%ae%a1%e5%88%92%e5%bb%ba%e8%ae%ae" aria-label="五、训练计划建议">五、训练计划建议</a><ul>
+                        
+                <li>
+                    <a href="#%e6%af%8f%e6%97%a5%e4%bb%bb%e5%8a%a1" aria-label="每日任务">每日任务</a></li>
+                <li>
+                    <a href="#%e6%af%8f%e5%91%a8%e6%a3%80%e9%aa%8c" aria-label="每周检验">每周检验</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%a2%84%e6%9c%9f%e6%95%88%e6%9e%9c" aria-label="预期效果">预期效果</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>今天开始！DP！针对动态规划（DP）的系统训练，这是一套完整的训练方案，从<strong>核心思维</strong>到<strong>高频题型</strong>再到<strong>实战技巧</strong>全面覆盖。</p></blockquote>
+<h2 id="一动态规划核心思维训练">一、动态规划核心思维训练<a hidden class="anchor" aria-hidden="true" href="#一动态规划核心思维训练">#</a></h2>
+<h3 id="1-破除两大误区">1. 破除两大误区<a hidden class="anchor" aria-hidden="true" href="#1-破除两大误区">#</a></h3>
+<ul>
+<li>
+<p>❌ <strong>误区1</strong>：必须找到最优子结构才能用DP<br>
+✅ <strong>正确姿势</strong>：先暴力递归 → 发现重叠子问题 → 改记忆化搜索 → 再推导DP方程</p>
+</li>
+<li>
+<p>❌ <strong>误区2</strong>：DP必须用数组存储状态<br>
+✅ <strong>正确姿势</strong>：学会状态压缩（如打家劫舍用两个变量代替数组）</p>
+</li>
+</ul>
+<h3 id="2-四步解题法用爬楼梯问题实践">2. 四步解题法（用爬楼梯问题实践）<a hidden class="anchor" aria-hidden="true" href="#2-四步解题法用爬楼梯问题实践">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 原题：每次爬1或2阶，到n阶有多少种方法？</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 定义状态：dp[i]表示到i阶的方法数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 初始状态：dp[0]=1, dp[1]=1（注意不是常规的dp[0]=0）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 状态转移：dp[i] = dp[i-1] + dp[i-2]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 优化空间：只需prev和curr两个变量滚动计算</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">climbStairs</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prev</span><span class="p">,</span> <span class="n">curr</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">prev</span><span class="p">,</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="p">,</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">curr</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">curr</span>
+</span></span></code></pre></div><h3 id="3-高频状态转移类型">3. 高频状态转移类型<a hidden class="anchor" aria-hidden="true" href="#3-高频状态转移类型">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>经典例题</th>
+          <th>状态转移关键点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>单序列线性DP</td>
+          <td>打家劫舍(198)</td>
+          <td><code>dp[i] = max(dp[i-1], dp[i-2]+nums[i])</code></td>
+      </tr>
+      <tr>
+          <td>双序列匹配DP</td>
+          <td>最长公共子序列(1143)</td>
+          <td><code>dp[i][j] = 1+dp[i-1][j-1] if s[i]==t[j]</code></td>
+      </tr>
+      <tr>
+          <td>区间DP</td>
+          <td>最长回文子串(5)</td>
+          <td><code>dp[i][j] = (s[i]==s[j]) and dp[i+1][j-1]</code></td>
+      </tr>
+      <tr>
+          <td>背包DP</td>
+          <td>分割等和子集(416)</td>
+          <td><code>dp[j] = dp[j] or dp[j-num]</code></td>
+      </tr>
+      <tr>
+          <td>状态机DP</td>
+          <td>买卖股票最佳时机(121/122)</td>
+          <td>持有/未持有两种状态转换</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="二阶梯式训练路线">二、阶梯式训练路线<a hidden class="anchor" aria-hidden="true" href="#二阶梯式训练路线">#</a></h2>
+<h3 id="阶段1基础模型搭建1-2周">阶段1：基础模型搭建（1-2周）<a hidden class="anchor" aria-hidden="true" href="#阶段1基础模型搭建1-2周">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>题目</th>
+          <th>训练重点</th>
+          <th>突破技巧</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>70. 爬楼梯</td>
+          <td>斐波那契型DP</td>
+          <td>空间压缩到O(1)</td>
+      </tr>
+      <tr>
+          <td>118. 杨辉三角</td>
+          <td>二维DP填表逻辑</td>
+          <td>观察行列关系</td>
+      </tr>
+      <tr>
+          <td>121. 买卖股票的最佳时机</td>
+          <td>状态机模型</td>
+          <td>维护min_price和max_profit</td>
+      </tr>
+      <tr>
+          <td>53. 最大子数组和</td>
+          <td>决策型DP（选或不选）</td>
+          <td>用curr_max代替dp数组</td>
+      </tr>
+      <tr>
+          <td>746. 使用最小花费爬楼梯</td>
+          <td>路径成本计算</td>
+          <td>逆向推导更简单</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="阶段2经典题型突破2-3周">阶段2：经典题型突破（2-3周）<a hidden class="anchor" aria-hidden="true" href="#阶段2经典题型突破2-3周">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>题目</th>
+          <th>难点解析</th>
+          <th>代码模板片段</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>198. 打家劫舍</strong></td>
+          <td>相邻不能选</td>
+          <td><code>max(dp[i-1], dp[i-2]+nums[i])</code></td>
+      </tr>
+      <tr>
+          <td><strong>322. 零钱兑换</strong></td>
+          <td>完全背包最小值</td>
+          <td><code>dp[amt] = min(dp[amt], dp[amt-coin]+1)</code></td>
+      </tr>
+      <tr>
+          <td><strong>300. 最长递增子序列</strong></td>
+          <td>O(n²)与O(nlogn)两种解法</td>
+          <td>二分查找维护tails数组</td>
+      </tr>
+      <tr>
+          <td><strong>1143. 最长公共子序列</strong></td>
+          <td>双序列匹配</td>
+          <td><code>if s[i]==t[j]: dp[i][j]=dp[i-1][j-1]+1</code></td>
+      </tr>
+      <tr>
+          <td><strong>139. 单词拆分</strong></td>
+          <td>字符串分段判断</td>
+          <td><code>dp[i] = any(dp[j] and s[j:i] in dict)</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="阶段3高难度挑战3-4周">阶段3：高难度挑战（3-4周）<a hidden class="anchor" aria-hidden="true" href="#阶段3高难度挑战3-4周">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>题目</th>
+          <th>破题关键点</th>
+          <th>优化技巧</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>72. 编辑距离</strong></td>
+          <td>三种操作的状态转移</td>
+          <td>空间压缩到一维数组</td>
+      </tr>
+      <tr>
+          <td><strong>152. 乘积最大子数组</strong></td>
+          <td>处理负数乘积</td>
+          <td>同时维护max和min</td>
+      </tr>
+      <tr>
+          <td><strong>312. 戳气球</strong></td>
+          <td>区间DP逆向思维</td>
+          <td>从最后戳破的气球倒推</td>
+      </tr>
+      <tr>
+          <td><strong>10. 正则表达式匹配</strong></td>
+          <td>星号匹配的特殊处理</td>
+          <td>分情况讨论pattern的第二个字符</td>
+      </tr>
+      <tr>
+          <td><strong>887. 鸡蛋掉落</strong></td>
+          <td>决策最优化的数学推导</td>
+          <td>逆向思维+二分查找优化</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="三避坑指南与实战技巧">三、避坑指南与实战技巧<a hidden class="anchor" aria-hidden="true" href="#三避坑指南与实战技巧">#</a></h2>
+<h3 id="1-五大常见错误类型">1. 五大常见错误类型<a hidden class="anchor" aria-hidden="true" href="#1-五大常见错误类型">#</a></h3>
+<ul>
+<li>🚫 <strong>初始化错误</strong>：比如背包问题中dp[0]应该初始化为True</li>
+<li>🚫 <strong>遍历顺序错误</strong>：完全背包要正序循环，01背包要倒序循环</li>
+<li>🚫 <strong>状态转移遗漏</strong>：如编辑距离忘记考虑replace操作</li>
+<li>🚫 <strong>二维DP行列混淆</strong>：把s的长度当作行还是列要统一</li>
+<li>🚫 <strong>空间压缩陷阱</strong>：覆盖未使用的旧值导致错误</li>
+</ul>
+<h3 id="2-三步优化方法论">2. 三步优化方法论<a hidden class="anchor" aria-hidden="true" href="#2-三步优化方法论">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="k">1.</span> <span class="gs">**暴力递归**</span> → 写出基本状态转移
+</span></span><span class="line"><span class="cl">   <span class="k">-</span> 斐波那契数列递归版
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"><span class="k">2.</span> <span class="gs">**记忆化搜索**</span> → 添加缓存（<span class="ni">@lru_cache</span>）
+</span></span><span class="line"><span class="cl">   <span class="k">-</span> 用装饰器自动缓存参数
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"><span class="k">3.</span> <span class="gs">**推导DP方程**</span> → 优化空间复杂度
+</span></span><span class="line"><span class="cl">   <span class="k">-</span> 观察状态依赖关系，压缩维度
+</span></span></code></pre></div><h3 id="3-面试应答技巧">3. 面试应答技巧<a hidden class="anchor" aria-hidden="true" href="#3-面试应答技巧">#</a></h3>
+<ul>
+<li>💡 先说出暴力解的时间复杂度</li>
+<li>💡 明确说出DP数组的定义和维度</li>
+<li>💡 在白板上先写状态转移方程再编码</li>
+<li>💡 主动讨论空间优化可能性</li>
+</ul>
+<h2 id="四配套训练资源">四、配套训练资源<a hidden class="anchor" aria-hidden="true" href="#四配套训练资源">#</a></h2>
+<h3 id="1-可视化学习">1. 可视化学习<a hidden class="anchor" aria-hidden="true" href="#1-可视化学习">#</a></h3>
+<ul>
+<li><strong>DPV 算法可视化网站</strong> - 动态展示DP执行过程</li>
+<li><strong>VisuAlgo 动态规划专题</strong> - 包含LCS、背包等问题动画</li>
+</ul>
+<h3 id="2-专项题单">2. 专项题单<a hidden class="anchor" aria-hidden="true" href="#2-专项题单">#</a></h3>
+<ul>
+<li><strong>LeetCode动态规划分类</strong> → 按通过率排序练习</li>
+<li><strong>经典DP问题Top 50</strong> → 涵盖所有DP类型</li>
+</ul>
+<h3 id="3-错题本模板">3. 错题本模板<a hidden class="anchor" aria-hidden="true" href="#3-错题本模板">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## 72. 编辑距离
+</span></span></span><span class="line"><span class="cl"><span class="gu">### 错误记录
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span><span class="k">-</span> 初始版本忘记处理空字符串情况
+</span></span><span class="line"><span class="cl"><span class="k">-</span> 误将替换操作的成本计算为2（正确是1）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 状态转移表
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>|       | &#34;&#34; | r | o | s |
+</span></span><span class="line"><span class="cl">|-------|----|---|---|---|
+</span></span><span class="line"><span class="cl">| &#34;&#34;    | 0 | 1 | 2 | 3 |
+</span></span><span class="line"><span class="cl">| h     | 1 | 1 | 2 | 3 | 
+</span></span><span class="line"><span class="cl">| o     | 2 | 2 | 1 | 2 |
+</span></span><span class="line"><span class="cl">| r     | 3 | 2 | 2 | 2 |
+</span></span><span class="line"><span class="cl">| s     | 4 | 3 | 3 | 2 |
+</span></span></code></pre></div><h2 id="五训练计划建议">五、训练计划建议<a hidden class="anchor" aria-hidden="true" href="#五训练计划建议">#</a></h2>
+<h3 id="每日任务">每日任务<a hidden class="anchor" aria-hidden="true" href="#每日任务">#</a></h3>
+<ul>
+<li><strong>上午</strong>：精做1道新DP题（按阶段选择难度）</li>
+<li><strong>下午</strong>：复习2道旧题，写出空间优化版本</li>
+<li><strong>晚上</strong>：观看对应题目的讲解视频</li>
+</ul>
+<h3 id="每周检验">每周检验<a hidden class="anchor" aria-hidden="true" href="#每周检验">#</a></h3>
+<ul>
+<li>周赛至少完成2道DP相关题目</li>
+<li>整理本周的DP类型思维导图</li>
+</ul>
+<h2 id="预期效果">预期效果<a hidden class="anchor" aria-hidden="true" href="#预期效果">#</a></h2>
+<p>坚持按照这个方案训练<strong>2个月</strong>后，你会明显发现：</p>
+<ol>
+<li>✅ 中等DP题能在15分钟内找到思路</li>
+<li>✅ 能轻松应对字符串匹配、背包类问题</li>
+<li>✅ 面对hard题时有清晰的拆解策略</li>
+</ol>
+<h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<blockquote>
+<p>动态规划的本质是用空间换时间，核心是找到<strong>重叠子问题</strong>和<strong>最优子结构</strong>。多动手画状态转移表，你的大脑会逐渐建立DP的思维模式。</p></blockquote>
+<p>记住：<strong>Practice makes perfect!</strong> 动态规划需要大量的练习来培养直觉，但一旦掌握，它将成为你算法工具箱中最强大的武器之一。</p>
+<hr>
+<p><em>持续更新中，欢迎交流讨论！</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95/">算法</a></li>
+      <li><a href="http://localhost:1313/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a></li>
+      <li><a href="http://localhost:1313/tags/dp/">DP</a></li>
+      <li><a href="http://localhost:1313/tags/leetcode/">LeetCode</a></li>
+      <li><a href="http://localhost:1313/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/">编程技巧</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/sorting-algorithms-implementation/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>经典排序算法实现与分析</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/search-algorithms-guide/">
+    <span class="title">Next »</span>
+    <br>
+    <span>搜索算法详解：BFS与DFS的原理和应用</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

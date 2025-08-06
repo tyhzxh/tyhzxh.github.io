@@ -1,180 +1,789 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>递归与分治算法详解 | tyhzxh的个人博客</title><meta name=keywords content="算法,递归,分治,汉诺塔,算法思想"><meta name=description content="深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/posts/recursion-and-divide-conquer/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://tyhzxh.github.io/posts/recursion-and-divide-conquer/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/posts/recursion-and-divide-conquer/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="递归与分治算法详解"><meta property="og:description" content="深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-02-27T22:03:04+08:00"><meta property="article:modified_time" content="2025-08-06T08:51:21+08:00"><meta property="article:tag" content="算法"><meta property="article:tag" content="递归"><meta property="article:tag" content="分治"><meta property="article:tag" content="汉诺塔"><meta property="article:tag" content="算法思想"><meta property="og:image" content="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&amp;h=400&amp;fit=crop"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&amp;h=400&amp;fit=crop"><meta name=twitter:title content="递归与分治算法详解"><meta name=twitter:description content="深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://tyhzxh.github.io/posts/"},{"@type":"ListItem","position":2,"name":"递归与分治算法详解","item":"https://tyhzxh.github.io/posts/recursion-and-divide-conquer/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"递归与分治算法详解","name":"递归与分治算法详解","description":"深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法","keywords":["算法","递归","分治","汉诺塔","算法思想"],"articleBody":"递归算法概述 递归是一种重要的算法设计思想，它将复杂问题分解为规模更小的同类子问题来解决。递归算法的核心在于找到问题的递归关系和边界条件。\n经典汉诺塔问题 汉诺塔是学习递归算法的经典问题。这个问题看似简单，但蕴含着深刻的递归思想。\n问题描述 有三根柱子A、B、C，n个圆盘从下面开始按大小顺序摆放在A柱子上。规则如下：\n任何时候，小圆盘上都不能放大圆盘 三根柱子之间一次只能移动一个圆盘 求将所有圆盘从A柱移动到C柱的最少移动步骤 递归解法 核心思想 要将n个盘子从A移动到C，可以分解为三个步骤：\n将上面的n-1个盘子从A移动到B（以C为辅助） 将最大的盘子从A移动到C 将n-1个盘子从B移动到C（以A为辅助） 递归公式 Hanoi(A, C, B, n) = Hanoi(A, B, C, n-1) + move(A, C, n) + Hanoi(B, C, A, n-1) 其中：\nHanoi(A, C, B, n) 表示将n个盘子从A柱移动到C柱，B柱作为辅助 move(A, C, n) 表示将编号为n的盘子从A移动到C 代码实现 #include using namespace std; void move(char from, char to, int disk) { cout \u003c\u003c \"移动盘子 \" \u003c\u003c disk \u003c\u003c \": \" \u003c\u003c from \u003c\u003c \" --\u003e \" \u003c\u003c to \u003c\u003c endl; } void hanoi(char from, char to, char aux, int n) { if (n == 1) { // 边界条件：只有一个盘子时，直接移动 move(from, to, n); } else { // 递归步骤1：将上面n-1个盘子移动到辅助柱 hanoi(from, aux, to, n - 1); // 递归步骤2：移动最大的盘子 move(from, to, n); // 递归步骤3：将n-1个盘子从辅助柱移动到目标柱 hanoi(aux, to, from, n - 1); } } int main() { int n; cout \u003c\u003c \"请输入盘子数量: \"; cin \u003e\u003e n; cout \u003c\u003c \"汉诺塔移动步骤：\" \u003c\u003c endl; hanoi('A', 'C', 'B', n); return 0; } Python版本实现 def move(from_pole, to_pole, disk): \"\"\"移动单个盘子\"\"\" print(f\"移动盘子 {disk}: {from_pole} --\u003e {to_pole}\") def hanoi(from_pole, to_pole, aux_pole, n): \"\"\" 汉诺塔递归解法 from_pole: 起始柱 to_pole: 目标柱 aux_pole: 辅助柱 n: 盘子数量 \"\"\" if n == 1: # 边界条件：只有一个盘子时，直接移动 move(from_pole, to_pole, n) else: # 步骤1：将上面n-1个盘子移动到辅助柱 hanoi(from_pole, aux_pole, to_pole, n - 1) # 步骤2：移动最大的盘子到目标柱 move(from_pole, to_pole, n) # 步骤3：将n-1个盘子从辅助柱移动到目标柱 hanoi(aux_pole, to_pole, from_pole, n - 1) def count_moves(n): \"\"\"计算移动次数\"\"\" return 2**n - 1 # 示例使用 if __name__ == \"__main__\": n = int(input(\"请输入盘子数量: \")) print(f\"\\n{n}个盘子的汉诺塔移动步骤：\") hanoi('A', 'C', 'B', n) print(f\"\\n总移动次数: {count_moves(n)}\") 递归的本质理解 1. 递归是一种树形结构 递归算法的执行过程可以看作是一棵树：\n每个节点代表一个子问题 叶子节点是最小的子问题（边界条件） 从根节点到叶子节点的路径就是问题的分解过程 2. 最小化问题思想 递归的核心是将复杂问题不断分解，直到变成最简单的情况：\n最小化问题：只有一个盘子时，直接移动 子问题：将n个盘子的问题分解为两个n-1个盘子的子问题 组合解：子问题的解组合起来就是原问题的解 3. 递归三要素 递归关系：大问题如何分解为小问题 边界条件：递归的终止条件 递归假设：假设子问题已经正确解决 汉诺塔的迭代解法 除了递归解法，汉诺塔还有基于二进制的迭代解法：\ndef hanoi_iterative(n): \"\"\"汉诺塔的迭代解法\"\"\" total_moves = 2**n - 1 # 定义柱子 poles = ['A', 'B', 'C'] # 根据n的奇偶性确定移动方向 if n % 2 == 0: # n为偶数时，按 A-\u003eB-\u003eC-\u003eA 的顺序 direction = [1, 2, 0] else: # n为奇数时，按 A-\u003eC-\u003eB-\u003eA 的顺序 direction = [2, 1, 0] for i in range(1, total_moves + 1): # 找到二进制表示中最右边的1的位置 disk = (i \u0026 -i).bit_length() # 确定移动方向 from_pole = poles[(i \u003e\u003e (disk - 1)) % 3] to_pole = poles[direction[(i \u003e\u003e (disk - 1)) % 3]] print(f\"移动盘子 {disk}: {from_pole} --\u003e {to_pole}\") # 示例使用 print(\"3个盘子的汉诺塔迭代解法：\") hanoi_iterative(3) 分治算法思想 分治算法是递归思想的重要应用，它将问题分解为若干个规模较小的同类子问题，递归地解决这些子问题，然后合并结果。\n分治算法的基本步骤 分解（Divide）：将原问题分解为若干个规模较小的子问题 解决（Conquer）：递归地解决各个子问题 合并（Combine）：将子问题的解合并为原问题的解 经典分治算法示例 归并排序 def merge_sort(arr): \"\"\"归并排序 - 分治算法的经典应用\"\"\" if len(arr) \u003c= 1: return arr # 分解：将数组分为两半 mid = len(arr) // 2 left = merge_sort(arr[:mid]) right = merge_sort(arr[mid:]) # 合并：将两个有序数组合并 return merge(left, right) def merge(left, right): \"\"\"合并两个有序数组\"\"\" result = [] i = j = 0 while i \u003c len(left) and j \u003c len(right): if left[i] \u003c= right[j]: result.append(left[i]) i += 1 else: result.append(right[j]) j += 1 # 添加剩余元素 result.extend(left[i:]) result.extend(right[j:]) return result # 示例使用 arr = [64, 34, 25, 12, 22, 11, 90] print(f\"原数组: {arr}\") sorted_arr = merge_sort(arr) print(f\"排序后: {sorted_arr}\") 快速幂算法 def quick_power(base, exp): \"\"\"快速幂算法 - 分治思想的应用\"\"\" if exp == 0: return 1 if exp == 1: return base # 分解：将指数分为两半 if exp % 2 == 0: half = quick_power(base, exp // 2) return half * half else: return base * quick_power(base, exp - 1) # 示例使用 result = quick_power(2, 10) print(f\"2^10 = {result}\") 递归算法的优化 1. 记忆化递归 对于有重复子问题的递归，可以使用记忆化来避免重复计算：\ndef fibonacci_memo(n, memo={}): \"\"\"带记忆化的斐波那契数列\"\"\" if n in memo: return memo[n] if n \u003c= 1: return n memo[n] = fibonacci_memo(n-1, memo) + fibonacci_memo(n-2, memo) return memo[n] # 示例使用 print(f\"fibonacci(40) = {fibonacci_memo(40)}\") 2. 尾递归优化 尾递归可以被编译器优化为循环：\ndef factorial_tail(n, acc=1): \"\"\"尾递归实现阶乘\"\"\" if n == 0: return acc return factorial_tail(n-1, acc * n) # 示例使用 print(f\"5! = {factorial_tail(5)}\") 递归算法的应用场景 树和图的遍历：深度优先搜索 分治算法：归并排序、快速排序 动态规划：最优子结构问题 回溯算法：N皇后问题、数独求解 数学计算：阶乘、斐波那契数列 总结 递归与分治是算法设计中的重要思想：\n递归算法的优点 代码简洁，逻辑清晰 自然地表达问题的递归结构 易于理解和实现 递归算法的缺点 可能存在重复计算 空间复杂度较高（函数调用栈） 可能导致栈溢出 使用建议 明确递归关系和边界条件 考虑是否存在重复子问题 注意递归深度，避免栈溢出 必要时使用记忆化或改为迭代实现 掌握递归与分治思想对于算法学习和问题解决都具有重要意义，它们是许多高级算法的基础。\n","wordCount":"562","inLanguage":"en","image":"https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800\u0026h=400\u0026fit=crop","datePublished":"2024-02-27T22:03:04+08:00","dateModified":"2025-08-06T08:51:21+08:00","author":{"@type":"Person","name":"tyhzxh"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://tyhzxh.github.io/posts/recursion-and-divide-conquer/"},"publisher":{"@type":"Organization","name":"tyhzxh的个人博客","logo":{"@type":"ImageObject","url":"https://tyhzxh.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">递归与分治算法详解</h1><div class=post-description>深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法</div><div class=post-meta><span title='2024-02-27 22:03:04 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh</div></header><figure class=entry-cover><img loading=eager src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&amp;h=400&amp;fit=crop" alt=汉诺塔问题示意图></figure><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e6%a6%82%e8%bf%b0 aria-label=递归算法概述>递归算法概述</a></li><li><a href=#%e7%bb%8f%e5%85%b8%e6%b1%89%e8%af%ba%e5%a1%94%e9%97%ae%e9%a2%98 aria-label=经典汉诺塔问题>经典汉诺塔问题</a><ul><li><a href=#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0 aria-label=问题描述>问题描述</a></li><li><a href=#%e9%80%92%e5%bd%92%e8%a7%a3%e6%b3%95 aria-label=递归解法>递归解法</a><ul><li><a href=#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3 aria-label=核心思想>核心思想</a></li><li><a href=#%e9%80%92%e5%bd%92%e5%85%ac%e5%bc%8f aria-label=递归公式>递归公式</a></li><li><a href=#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0 aria-label=代码实现>代码实现</a></li><li><a href=#python%e7%89%88%e6%9c%ac%e5%ae%9e%e7%8e%b0 aria-label=Python版本实现>Python版本实现</a></li></ul></li><li><a href=#%e9%80%92%e5%bd%92%e7%9a%84%e6%9c%ac%e8%b4%a8%e7%90%86%e8%a7%a3 aria-label=递归的本质理解>递归的本质理解</a><ul><li><a href=#1-%e9%80%92%e5%bd%92%e6%98%af%e4%b8%80%e7%a7%8d%e6%a0%91%e5%bd%a2%e7%bb%93%e6%9e%84 aria-label="1. 递归是一种树形结构">1. 递归是一种树形结构</a></li><li><a href=#2-%e6%9c%80%e5%b0%8f%e5%8c%96%e9%97%ae%e9%a2%98%e6%80%9d%e6%83%b3 aria-label="2. 最小化问题思想">2. 最小化问题思想</a></li><li><a href=#3-%e9%80%92%e5%bd%92%e4%b8%89%e8%a6%81%e7%b4%a0 aria-label="3. 递归三要素">3. 递归三要素</a></li></ul></li><li><a href=#%e6%b1%89%e8%af%ba%e5%a1%94%e7%9a%84%e8%bf%ad%e4%bb%a3%e8%a7%a3%e6%b3%95 aria-label=汉诺塔的迭代解法>汉诺塔的迭代解法</a></li></ul></li><li><a href=#%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e6%80%9d%e6%83%b3 aria-label=分治算法思想>分治算法思想</a><ul><li><a href=#%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%ad%a5%e9%aa%a4 aria-label=分治算法的基本步骤>分治算法的基本步骤</a></li><li><a href=#%e7%bb%8f%e5%85%b8%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e7%a4%ba%e4%be%8b aria-label=经典分治算法示例>经典分治算法示例</a><ul><li><a href=#%e5%bd%92%e5%b9%b6%e6%8e%92%e5%ba%8f aria-label=归并排序>归并排序</a></li><li><a href=#%e5%bf%ab%e9%80%9f%e5%b9%82%e7%ae%97%e6%b3%95 aria-label=快速幂算法>快速幂算法</a></li></ul></li></ul></li><li><a href=#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e4%bc%98%e5%8c%96 aria-label=递归算法的优化>递归算法的优化</a><ul><li><a href=#1-%e8%ae%b0%e5%bf%86%e5%8c%96%e9%80%92%e5%bd%92 aria-label="1. 记忆化递归">1. 记忆化递归</a></li><li><a href=#2-%e5%b0%be%e9%80%92%e5%bd%92%e4%bc%98%e5%8c%96 aria-label="2. 尾递归优化">2. 尾递归优化</a></li></ul></li><li><a href=#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af aria-label=递归算法的应用场景>递归算法的应用场景</a></li><li><a href=#%e6%80%bb%e7%bb%93 aria-label=总结>总结</a><ul><li><a href=#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e4%bc%98%e7%82%b9 aria-label=递归算法的优点>递归算法的优点</a></li><li><a href=#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e7%bc%ba%e7%82%b9 aria-label=递归算法的缺点>递归算法的缺点</a></li><li><a href=#%e4%bd%bf%e7%94%a8%e5%bb%ba%e8%ae%ae aria-label=使用建议>使用建议</a></li></ul></li></ul></div></details></div><div class=post-content><h2 id=递归算法概述>递归算法概述<a hidden class=anchor aria-hidden=true href=#递归算法概述>#</a></h2><p>递归是一种重要的算法设计思想，它将复杂问题分解为规模更小的同类子问题来解决。递归算法的核心在于找到问题的<strong>递归关系</strong>和<strong>边界条件</strong>。</p><h2 id=经典汉诺塔问题>经典汉诺塔问题<a hidden class=anchor aria-hidden=true href=#经典汉诺塔问题>#</a></h2><p>汉诺塔是学习递归算法的经典问题。这个问题看似简单，但蕴含着深刻的递归思想。</p><h3 id=问题描述>问题描述<a hidden class=anchor aria-hidden=true href=#问题描述>#</a></h3><p>有三根柱子A、B、C，n个圆盘从下面开始按大小顺序摆放在A柱子上。规则如下：</p><ol><li>任何时候，小圆盘上都不能放大圆盘</li><li>三根柱子之间一次只能移动一个圆盘</li><li>求将所有圆盘从A柱移动到C柱的最少移动步骤</li></ol><h3 id=递归解法>递归解法<a hidden class=anchor aria-hidden=true href=#递归解法>#</a></h3><h4 id=核心思想>核心思想<a hidden class=anchor aria-hidden=true href=#核心思想>#</a></h4><p>要将n个盘子从A移动到C，可以分解为三个步骤：</p><ol><li>将上面的n-1个盘子从A移动到B（以C为辅助）</li><li>将最大的盘子从A移动到C</li><li>将n-1个盘子从B移动到C（以A为辅助）</li></ol><h4 id=递归公式>递归公式<a hidden class=anchor aria-hidden=true href=#递归公式>#</a></h4><pre tabindex=0><code>Hanoi(A, C, B, n) = Hanoi(A, B, C, n-1) + move(A, C, n) + Hanoi(B, C, A, n-1)
-</code></pre><p>其中：</p><ul><li><code>Hanoi(A, C, B, n)</code> 表示将n个盘子从A柱移动到C柱，B柱作为辅助</li><li><code>move(A, C, n)</code> 表示将编号为n的盘子从A移动到C</li></ul><h4 id=代码实现>代码实现<a hidden class=anchor aria-hidden=true href=#代码实现>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
-</span></span></span><span class=line><span class=cl><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>move</span><span class=p>(</span><span class=kt>char</span> <span class=n>from</span><span class=p>,</span> <span class=kt>char</span> <span class=n>to</span><span class=p>,</span> <span class=kt>int</span> <span class=n>disk</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;移动盘子 &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>disk</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>from</span> <span class=o>&lt;&lt;</span> <span class=s>&#34; --&gt; &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>to</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>hanoi</span><span class=p>(</span><span class=kt>char</span> <span class=n>from</span><span class=p>,</span> <span class=kt>char</span> <span class=n>to</span><span class=p>,</span> <span class=kt>char</span> <span class=n>aux</span><span class=p>,</span> <span class=kt>int</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 边界条件：只有一个盘子时，直接移动
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>move</span><span class=p>(</span><span class=n>from</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>n</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 递归步骤1：将上面n-1个盘子移动到辅助柱
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>hanoi</span><span class=p>(</span><span class=n>from</span><span class=p>,</span> <span class=n>aux</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=c1>// 递归步骤2：移动最大的盘子
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>move</span><span class=p>(</span><span class=n>from</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>n</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=c1>// 递归步骤3：将n-1个盘子从辅助柱移动到目标柱
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>hanoi</span><span class=p>(</span><span class=n>aux</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>from</span><span class=p>,</span> <span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>n</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;请输入盘子数量: &#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>n</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;汉诺塔移动步骤：&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=n>hanoi</span><span class=p>(</span><span class=sc>&#39;A&#39;</span><span class=p>,</span> <span class=sc>&#39;C&#39;</span><span class=p>,</span> <span class=sc>&#39;B&#39;</span><span class=p>,</span> <span class=n>n</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><h4 id=python版本实现>Python版本实现<a hidden class=anchor aria-hidden=true href=#python版本实现>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>move</span><span class=p>(</span><span class=n>from_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>disk</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;移动单个盘子&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;移动盘子 </span><span class=si>{</span><span class=n>disk</span><span class=si>}</span><span class=s2>: </span><span class=si>{</span><span class=n>from_pole</span><span class=si>}</span><span class=s2> --&gt; </span><span class=si>{</span><span class=n>to_pole</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>hanoi</span><span class=p>(</span><span class=n>from_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>aux_pole</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
-</span></span></span><span class=line><span class=cl><span class=s2>    汉诺塔递归解法
-</span></span></span><span class=line><span class=cl><span class=s2>    from_pole: 起始柱
-</span></span></span><span class=line><span class=cl><span class=s2>    to_pole: 目标柱
-</span></span></span><span class=line><span class=cl><span class=s2>    aux_pole: 辅助柱
-</span></span></span><span class=line><span class=cl><span class=s2>    n: 盘子数量
-</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=c1># 边界条件：只有一个盘子时，直接移动</span>
-</span></span><span class=line><span class=cl>        <span class=n>move</span><span class=p>(</span><span class=n>from_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=c1># 步骤1：将上面n-1个盘子移动到辅助柱</span>
-</span></span><span class=line><span class=cl>        <span class=n>hanoi</span><span class=p>(</span><span class=n>from_pole</span><span class=p>,</span> <span class=n>aux_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=c1># 步骤2：移动最大的盘子到目标柱</span>
-</span></span><span class=line><span class=cl>        <span class=n>move</span><span class=p>(</span><span class=n>from_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=c1># 步骤3：将n-1个盘子从辅助柱移动到目标柱</span>
-</span></span><span class=line><span class=cl>        <span class=n>hanoi</span><span class=p>(</span><span class=n>aux_pole</span><span class=p>,</span> <span class=n>to_pole</span><span class=p>,</span> <span class=n>from_pole</span><span class=p>,</span> <span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>count_moves</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;计算移动次数&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>2</span><span class=o>**</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    <span class=n>n</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=nb>input</span><span class=p>(</span><span class=s2>&#34;请输入盘子数量: &#34;</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=se>\n</span><span class=si>{</span><span class=n>n</span><span class=si>}</span><span class=s2>个盘子的汉诺塔移动步骤：&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=n>hanoi</span><span class=p>(</span><span class=s1>&#39;A&#39;</span><span class=p>,</span> <span class=s1>&#39;C&#39;</span><span class=p>,</span> <span class=s1>&#39;B&#39;</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>总移动次数: </span><span class=si>{</span><span class=n>count_moves</span><span class=p>(</span><span class=n>n</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span></code></pre></div><h3 id=递归的本质理解>递归的本质理解<a hidden class=anchor aria-hidden=true href=#递归的本质理解>#</a></h3><h4 id=1-递归是一种树形结构>1. 递归是一种树形结构<a hidden class=anchor aria-hidden=true href=#1-递归是一种树形结构>#</a></h4><p>递归算法的执行过程可以看作是一棵树：</p><ul><li>每个节点代表一个子问题</li><li>叶子节点是最小的子问题（边界条件）</li><li>从根节点到叶子节点的路径就是问题的分解过程</li></ul><h4 id=2-最小化问题思想>2. 最小化问题思想<a hidden class=anchor aria-hidden=true href=#2-最小化问题思想>#</a></h4><p>递归的核心是将复杂问题不断分解，直到变成最简单的情况：</p><ul><li><strong>最小化问题</strong>：只有一个盘子时，直接移动</li><li><strong>子问题</strong>：将n个盘子的问题分解为两个n-1个盘子的子问题</li><li><strong>组合解</strong>：子问题的解组合起来就是原问题的解</li></ul><h4 id=3-递归三要素>3. 递归三要素<a hidden class=anchor aria-hidden=true href=#3-递归三要素>#</a></h4><ol><li><strong>递归关系</strong>：大问题如何分解为小问题</li><li><strong>边界条件</strong>：递归的终止条件</li><li><strong>递归假设</strong>：假设子问题已经正确解决</li></ol><h3 id=汉诺塔的迭代解法>汉诺塔的迭代解法<a hidden class=anchor aria-hidden=true href=#汉诺塔的迭代解法>#</a></h3><p>除了递归解法，汉诺塔还有基于二进制的迭代解法：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>hanoi_iterative</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;汉诺塔的迭代解法&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=n>total_moves</span> <span class=o>=</span> <span class=mi>2</span><span class=o>**</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 定义柱子</span>
-</span></span><span class=line><span class=cl>    <span class=n>poles</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;A&#39;</span><span class=p>,</span> <span class=s1>&#39;B&#39;</span><span class=p>,</span> <span class=s1>&#39;C&#39;</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 根据n的奇偶性确定移动方向</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=c1># n为偶数时，按 A-&gt;B-&gt;C-&gt;A 的顺序</span>
-</span></span><span class=line><span class=cl>        <span class=n>direction</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>0</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=c1># n为奇数时，按 A-&gt;C-&gt;B-&gt;A 的顺序</span>
-</span></span><span class=line><span class=cl>        <span class=n>direction</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>total_moves</span> <span class=o>+</span> <span class=mi>1</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>        <span class=c1># 找到二进制表示中最右边的1的位置</span>
-</span></span><span class=line><span class=cl>        <span class=n>disk</span> <span class=o>=</span> <span class=p>(</span><span class=n>i</span> <span class=o>&amp;</span> <span class=o>-</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>bit_length</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=c1># 确定移动方向</span>
-</span></span><span class=line><span class=cl>        <span class=n>from_pole</span> <span class=o>=</span> <span class=n>poles</span><span class=p>[(</span><span class=n>i</span> <span class=o>&gt;&gt;</span> <span class=p>(</span><span class=n>disk</span> <span class=o>-</span> <span class=mi>1</span><span class=p>))</span> <span class=o>%</span> <span class=mi>3</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>        <span class=n>to_pole</span> <span class=o>=</span> <span class=n>poles</span><span class=p>[</span><span class=n>direction</span><span class=p>[(</span><span class=n>i</span> <span class=o>&gt;&gt;</span> <span class=p>(</span><span class=n>disk</span> <span class=o>-</span> <span class=mi>1</span><span class=p>))</span> <span class=o>%</span> <span class=mi>3</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>        
-</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;移动盘子 </span><span class=si>{</span><span class=n>disk</span><span class=si>}</span><span class=s2>: </span><span class=si>{</span><span class=n>from_pole</span><span class=si>}</span><span class=s2> --&gt; </span><span class=si>{</span><span class=n>to_pole</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;3个盘子的汉诺塔迭代解法：&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>hanoi_iterative</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
-</span></span></code></pre></div><h2 id=分治算法思想>分治算法思想<a hidden class=anchor aria-hidden=true href=#分治算法思想>#</a></h2><p>分治算法是递归思想的重要应用，它将问题分解为若干个规模较小的同类子问题，递归地解决这些子问题，然后合并结果。</p><h3 id=分治算法的基本步骤>分治算法的基本步骤<a hidden class=anchor aria-hidden=true href=#分治算法的基本步骤>#</a></h3><ol><li><strong>分解（Divide）</strong>：将原问题分解为若干个规模较小的子问题</li><li><strong>解决（Conquer）</strong>：递归地解决各个子问题</li><li><strong>合并（Combine）</strong>：将子问题的解合并为原问题的解</li></ol><h3 id=经典分治算法示例>经典分治算法示例<a hidden class=anchor aria-hidden=true href=#经典分治算法示例>#</a></h3><h4 id=归并排序>归并排序<a hidden class=anchor aria-hidden=true href=#归并排序>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>merge_sort</span><span class=p>(</span><span class=n>arr</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;归并排序 - 分治算法的经典应用&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>arr</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>arr</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 分解：将数组分为两半</span>
-</span></span><span class=line><span class=cl>    <span class=n>mid</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>arr</span><span class=p>)</span> <span class=o>//</span> <span class=mi>2</span>
-</span></span><span class=line><span class=cl>    <span class=n>left</span> <span class=o>=</span> <span class=n>merge_sort</span><span class=p>(</span><span class=n>arr</span><span class=p>[:</span><span class=n>mid</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>    <span class=n>right</span> <span class=o>=</span> <span class=n>merge_sort</span><span class=p>(</span><span class=n>arr</span><span class=p>[</span><span class=n>mid</span><span class=p>:])</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 合并：将两个有序数组合并</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>merge</span><span class=p>(</span><span class=n>left</span><span class=p>,</span> <span class=n>right</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>merge</span><span class=p>(</span><span class=n>left</span><span class=p>,</span> <span class=n>right</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;合并两个有序数组&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=n>result</span> <span class=o>=</span> <span class=p>[]</span>
-</span></span><span class=line><span class=cl>    <span class=n>i</span> <span class=o>=</span> <span class=n>j</span> <span class=o>=</span> <span class=mi>0</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>left</span><span class=p>)</span> <span class=ow>and</span> <span class=n>j</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>right</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>left</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=n>right</span><span class=p>[</span><span class=n>j</span><span class=p>]:</span>
-</span></span><span class=line><span class=cl>            <span class=n>result</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>left</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>            <span class=n>i</span> <span class=o>+=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>            <span class=n>result</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>right</span><span class=p>[</span><span class=n>j</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>            <span class=n>j</span> <span class=o>+=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 添加剩余元素</span>
-</span></span><span class=line><span class=cl>    <span class=n>result</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>left</span><span class=p>[</span><span class=n>i</span><span class=p>:])</span>
-</span></span><span class=line><span class=cl>    <span class=n>result</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>right</span><span class=p>[</span><span class=n>j</span><span class=p>:])</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>result</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=n>arr</span> <span class=o>=</span> <span class=p>[</span><span class=mi>64</span><span class=p>,</span> <span class=mi>34</span><span class=p>,</span> <span class=mi>25</span><span class=p>,</span> <span class=mi>12</span><span class=p>,</span> <span class=mi>22</span><span class=p>,</span> <span class=mi>11</span><span class=p>,</span> <span class=mi>90</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;原数组: </span><span class=si>{</span><span class=n>arr</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>sorted_arr</span> <span class=o>=</span> <span class=n>merge_sort</span><span class=p>(</span><span class=n>arr</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;排序后: </span><span class=si>{</span><span class=n>sorted_arr</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span></code></pre></div><h4 id=快速幂算法>快速幂算法<a hidden class=anchor aria-hidden=true href=#快速幂算法>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>quick_power</span><span class=p>(</span><span class=n>base</span><span class=p>,</span> <span class=n>exp</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;快速幂算法 - 分治思想的应用&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>exp</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>exp</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>base</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=c1># 分解：将指数分为两半</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>exp</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=n>half</span> <span class=o>=</span> <span class=n>quick_power</span><span class=p>(</span><span class=n>base</span><span class=p>,</span> <span class=n>exp</span> <span class=o>//</span> <span class=mi>2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>half</span> <span class=o>*</span> <span class=n>half</span>
-</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>base</span> <span class=o>*</span> <span class=n>quick_power</span><span class=p>(</span><span class=n>base</span><span class=p>,</span> <span class=n>exp</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=n>result</span> <span class=o>=</span> <span class=n>quick_power</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>10</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;2^10 = </span><span class=si>{</span><span class=n>result</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span></code></pre></div><h2 id=递归算法的优化>递归算法的优化<a hidden class=anchor aria-hidden=true href=#递归算法的优化>#</a></h2><h3 id=1-记忆化递归>1. 记忆化递归<a hidden class=anchor aria-hidden=true href=#1-记忆化递归>#</a></h3><p>对于有重复子问题的递归，可以使用记忆化来避免重复计算：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>fibonacci_memo</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>memo</span><span class=o>=</span><span class=p>{}):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;带记忆化的斐波那契数列&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=ow>in</span> <span class=n>memo</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>memo</span><span class=p>[</span><span class=n>n</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span>
-</span></span><span class=line><span class=cl>    
-</span></span><span class=line><span class=cl>    <span class=n>memo</span><span class=p>[</span><span class=n>n</span><span class=p>]</span> <span class=o>=</span> <span class=n>fibonacci_memo</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span> <span class=o>+</span> <span class=n>fibonacci_memo</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>memo</span><span class=p>[</span><span class=n>n</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;fibonacci(40) = </span><span class=si>{</span><span class=n>fibonacci_memo</span><span class=p>(</span><span class=mi>40</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span></code></pre></div><h3 id=2-尾递归优化>2. 尾递归优化<a hidden class=anchor aria-hidden=true href=#2-尾递归优化>#</a></h3><p>尾递归可以被编译器优化为循环：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>factorial_tail</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>acc</span><span class=o>=</span><span class=mi>1</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;尾递归实现阶乘&#34;&#34;&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>acc</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>factorial_tail</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=n>acc</span> <span class=o>*</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># 示例使用</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;5! = </span><span class=si>{</span><span class=n>factorial_tail</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</span></span></code></pre></div><h2 id=递归算法的应用场景>递归算法的应用场景<a hidden class=anchor aria-hidden=true href=#递归算法的应用场景>#</a></h2><ol><li><strong>树和图的遍历</strong>：深度优先搜索</li><li><strong>分治算法</strong>：归并排序、快速排序</li><li><strong>动态规划</strong>：最优子结构问题</li><li><strong>回溯算法</strong>：N皇后问题、数独求解</li><li><strong>数学计算</strong>：阶乘、斐波那契数列</li></ol><h2 id=总结>总结<a hidden class=anchor aria-hidden=true href=#总结>#</a></h2><p>递归与分治是算法设计中的重要思想：</p><h3 id=递归算法的优点>递归算法的优点<a hidden class=anchor aria-hidden=true href=#递归算法的优点>#</a></h3><ul><li>代码简洁，逻辑清晰</li><li>自然地表达问题的递归结构</li><li>易于理解和实现</li></ul><h3 id=递归算法的缺点>递归算法的缺点<a hidden class=anchor aria-hidden=true href=#递归算法的缺点>#</a></h3><ul><li>可能存在重复计算</li><li>空间复杂度较高（函数调用栈）</li><li>可能导致栈溢出</li></ul><h3 id=使用建议>使用建议<a hidden class=anchor aria-hidden=true href=#使用建议>#</a></h3><ol><li>明确递归关系和边界条件</li><li>考虑是否存在重复子问题</li><li>注意递归深度，避免栈溢出</li><li>必要时使用记忆化或改为迭代实现</li></ol><p>掌握递归与分治思想对于算法学习和问题解决都具有重要意义，它们是许多高级算法的基础。</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://tyhzxh.github.io/tags/%E7%AE%97%E6%B3%95/>算法</a></li><li><a href=https://tyhzxh.github.io/tags/%E9%80%92%E5%BD%92/>递归</a></li><li><a href=https://tyhzxh.github.io/tags/%E5%88%86%E6%B2%BB/>分治</a></li><li><a href=https://tyhzxh.github.io/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/>汉诺塔</a></li><li><a href=https://tyhzxh.github.io/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/>算法思想</a></li></ul><nav class=paginav><a class=prev href=https://tyhzxh.github.io/posts/search-algorithms-guide/><span class=title>« Prev</span><br><span>搜索算法详解：BFS与DFS的原理和应用</span>
-</a><a class=next href=https://tyhzxh.github.io/posts/greedy-algorithm-guide/><span class=title>Next »</span><br><span>贪心算法详解：从基础概念到经典问题</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>递归与分治算法详解 | tyhzxh的个人博客</title>
+<meta name="keywords" content="算法, 递归, 分治, 汉诺塔, 算法思想">
+<meta name="description" content="深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/posts/recursion-and-divide-conquer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/recursion-and-divide-conquer/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      递归与分治算法详解
+    </h1>
+    <div class="post-description">
+      深入解析递归与分治算法的核心思想，以经典汉诺塔问题为例，详细讲解递归算法的设计思路和实现方法
+    </div>
+    <div class="post-meta"><span title='2024-02-27 22:03:04 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&amp;h=400&amp;fit=crop" alt="汉诺塔问题示意图">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e6%a6%82%e8%bf%b0" aria-label="递归算法概述">递归算法概述</a></li>
+                <li>
+                    <a href="#%e7%bb%8f%e5%85%b8%e6%b1%89%e8%af%ba%e5%a1%94%e9%97%ae%e9%a2%98" aria-label="经典汉诺塔问题">经典汉诺塔问题</a><ul>
+                        
+                <li>
+                    <a href="#%e9%97%ae%e9%a2%98%e6%8f%8f%e8%bf%b0" aria-label="问题描述">问题描述</a></li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e8%a7%a3%e6%b3%95" aria-label="递归解法">递归解法</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3" aria-label="核心思想">核心思想</a></li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e5%85%ac%e5%bc%8f" aria-label="递归公式">递归公式</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0" aria-label="代码实现">代码实现</a></li>
+                <li>
+                    <a href="#python%e7%89%88%e6%9c%ac%e5%ae%9e%e7%8e%b0" aria-label="Python版本实现">Python版本实现</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%9a%84%e6%9c%ac%e8%b4%a8%e7%90%86%e8%a7%a3" aria-label="递归的本质理解">递归的本质理解</a><ul>
+                        
+                <li>
+                    <a href="#1-%e9%80%92%e5%bd%92%e6%98%af%e4%b8%80%e7%a7%8d%e6%a0%91%e5%bd%a2%e7%bb%93%e6%9e%84" aria-label="1. 递归是一种树形结构">1. 递归是一种树形结构</a></li>
+                <li>
+                    <a href="#2-%e6%9c%80%e5%b0%8f%e5%8c%96%e9%97%ae%e9%a2%98%e6%80%9d%e6%83%b3" aria-label="2. 最小化问题思想">2. 最小化问题思想</a></li>
+                <li>
+                    <a href="#3-%e9%80%92%e5%bd%92%e4%b8%89%e8%a6%81%e7%b4%a0" aria-label="3. 递归三要素">3. 递归三要素</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%b1%89%e8%af%ba%e5%a1%94%e7%9a%84%e8%bf%ad%e4%bb%a3%e8%a7%a3%e6%b3%95" aria-label="汉诺塔的迭代解法">汉诺塔的迭代解法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e6%80%9d%e6%83%b3" aria-label="分治算法思想">分治算法思想</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%ad%a5%e9%aa%a4" aria-label="分治算法的基本步骤">分治算法的基本步骤</a></li>
+                <li>
+                    <a href="#%e7%bb%8f%e5%85%b8%e5%88%86%e6%b2%bb%e7%ae%97%e6%b3%95%e7%a4%ba%e4%be%8b" aria-label="经典分治算法示例">经典分治算法示例</a><ul>
+                        
+                <li>
+                    <a href="#%e5%bd%92%e5%b9%b6%e6%8e%92%e5%ba%8f" aria-label="归并排序">归并排序</a></li>
+                <li>
+                    <a href="#%e5%bf%ab%e9%80%9f%e5%b9%82%e7%ae%97%e6%b3%95" aria-label="快速幂算法">快速幂算法</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e4%bc%98%e5%8c%96" aria-label="递归算法的优化">递归算法的优化</a><ul>
+                        
+                <li>
+                    <a href="#1-%e8%ae%b0%e5%bf%86%e5%8c%96%e9%80%92%e5%bd%92" aria-label="1. 记忆化递归">1. 记忆化递归</a></li>
+                <li>
+                    <a href="#2-%e5%b0%be%e9%80%92%e5%bd%92%e4%bc%98%e5%8c%96" aria-label="2. 尾递归优化">2. 尾递归优化</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" aria-label="递归算法的应用场景">递归算法的应用场景</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a><ul>
+                        
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e4%bc%98%e7%82%b9" aria-label="递归算法的优点">递归算法的优点</a></li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e7%ae%97%e6%b3%95%e7%9a%84%e7%bc%ba%e7%82%b9" aria-label="递归算法的缺点">递归算法的缺点</a></li>
+                <li>
+                    <a href="#%e4%bd%bf%e7%94%a8%e5%bb%ba%e8%ae%ae" aria-label="使用建议">使用建议</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="递归算法概述">递归算法概述<a hidden class="anchor" aria-hidden="true" href="#递归算法概述">#</a></h2>
+<p>递归是一种重要的算法设计思想，它将复杂问题分解为规模更小的同类子问题来解决。递归算法的核心在于找到问题的<strong>递归关系</strong>和<strong>边界条件</strong>。</p>
+<h2 id="经典汉诺塔问题">经典汉诺塔问题<a hidden class="anchor" aria-hidden="true" href="#经典汉诺塔问题">#</a></h2>
+<p>汉诺塔是学习递归算法的经典问题。这个问题看似简单，但蕴含着深刻的递归思想。</p>
+<h3 id="问题描述">问题描述<a hidden class="anchor" aria-hidden="true" href="#问题描述">#</a></h3>
+<p>有三根柱子A、B、C，n个圆盘从下面开始按大小顺序摆放在A柱子上。规则如下：</p>
+<ol>
+<li>任何时候，小圆盘上都不能放大圆盘</li>
+<li>三根柱子之间一次只能移动一个圆盘</li>
+<li>求将所有圆盘从A柱移动到C柱的最少移动步骤</li>
+</ol>
+<h3 id="递归解法">递归解法<a hidden class="anchor" aria-hidden="true" href="#递归解法">#</a></h3>
+<h4 id="核心思想">核心思想<a hidden class="anchor" aria-hidden="true" href="#核心思想">#</a></h4>
+<p>要将n个盘子从A移动到C，可以分解为三个步骤：</p>
+<ol>
+<li>将上面的n-1个盘子从A移动到B（以C为辅助）</li>
+<li>将最大的盘子从A移动到C</li>
+<li>将n-1个盘子从B移动到C（以A为辅助）</li>
+</ol>
+<h4 id="递归公式">递归公式<a hidden class="anchor" aria-hidden="true" href="#递归公式">#</a></h4>
+<pre tabindex="0"><code>Hanoi(A, C, B, n) = Hanoi(A, B, C, n-1) + move(A, C, n) + Hanoi(B, C, A, n-1)
+</code></pre><p>其中：</p>
+<ul>
+<li><code>Hanoi(A, C, B, n)</code> 表示将n个盘子从A柱移动到C柱，B柱作为辅助</li>
+<li><code>move(A, C, n)</code> 表示将编号为n的盘子从A移动到C</li>
+</ul>
+<h4 id="代码实现">代码实现<a hidden class="anchor" aria-hidden="true" href="#代码实现">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">move</span><span class="p">(</span><span class="kt">char</span> <span class="n">from</span><span class="p">,</span> <span class="kt">char</span> <span class="n">to</span><span class="p">,</span> <span class="kt">int</span> <span class="n">disk</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;移动盘子 &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">disk</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">from</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; --&gt; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">to</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">hanoi</span><span class="p">(</span><span class="kt">char</span> <span class="n">from</span><span class="p">,</span> <span class="kt">char</span> <span class="n">to</span><span class="p">,</span> <span class="kt">char</span> <span class="n">aux</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 边界条件：只有一个盘子时，直接移动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">move</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 递归步骤1：将上面n-1个盘子移动到辅助柱
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">hanoi</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">aux</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// 递归步骤2：移动最大的盘子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">move</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// 递归步骤3：将n-1个盘子从辅助柱移动到目标柱
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">hanoi</span><span class="p">(</span><span class="n">aux</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;请输入盘子数量: &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;汉诺塔移动步骤：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hanoi</span><span class="p">(</span><span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="python版本实现">Python版本实现<a hidden class="anchor" aria-hidden="true" href="#python版本实现">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="n">from_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">disk</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;移动单个盘子&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;移动盘子 </span><span class="si">{</span><span class="n">disk</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">from_pole</span><span class="si">}</span><span class="s2"> --&gt; </span><span class="si">{</span><span class="n">to_pole</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hanoi</span><span class="p">(</span><span class="n">from_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">aux_pole</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    汉诺塔递归解法
+</span></span></span><span class="line"><span class="cl"><span class="s2">    from_pole: 起始柱
+</span></span></span><span class="line"><span class="cl"><span class="s2">    to_pole: 目标柱
+</span></span></span><span class="line"><span class="cl"><span class="s2">    aux_pole: 辅助柱
+</span></span></span><span class="line"><span class="cl"><span class="s2">    n: 盘子数量
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 边界条件：只有一个盘子时，直接移动</span>
+</span></span><span class="line"><span class="cl">        <span class="n">move</span><span class="p">(</span><span class="n">from_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 步骤1：将上面n-1个盘子移动到辅助柱</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hanoi</span><span class="p">(</span><span class="n">from_pole</span><span class="p">,</span> <span class="n">aux_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 步骤2：移动最大的盘子到目标柱</span>
+</span></span><span class="line"><span class="cl">        <span class="n">move</span><span class="p">(</span><span class="n">from_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 步骤3：将n-1个盘子从辅助柱移动到目标柱</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hanoi</span><span class="p">(</span><span class="n">aux_pole</span><span class="p">,</span> <span class="n">to_pole</span><span class="p">,</span> <span class="n">from_pole</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">count_moves</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;计算移动次数&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入盘子数量: &#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">个盘子的汉诺塔移动步骤：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hanoi</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">总移动次数: </span><span class="si">{</span><span class="n">count_moves</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="递归的本质理解">递归的本质理解<a hidden class="anchor" aria-hidden="true" href="#递归的本质理解">#</a></h3>
+<h4 id="1-递归是一种树形结构">1. 递归是一种树形结构<a hidden class="anchor" aria-hidden="true" href="#1-递归是一种树形结构">#</a></h4>
+<p>递归算法的执行过程可以看作是一棵树：</p>
+<ul>
+<li>每个节点代表一个子问题</li>
+<li>叶子节点是最小的子问题（边界条件）</li>
+<li>从根节点到叶子节点的路径就是问题的分解过程</li>
+</ul>
+<h4 id="2-最小化问题思想">2. 最小化问题思想<a hidden class="anchor" aria-hidden="true" href="#2-最小化问题思想">#</a></h4>
+<p>递归的核心是将复杂问题不断分解，直到变成最简单的情况：</p>
+<ul>
+<li><strong>最小化问题</strong>：只有一个盘子时，直接移动</li>
+<li><strong>子问题</strong>：将n个盘子的问题分解为两个n-1个盘子的子问题</li>
+<li><strong>组合解</strong>：子问题的解组合起来就是原问题的解</li>
+</ul>
+<h4 id="3-递归三要素">3. 递归三要素<a hidden class="anchor" aria-hidden="true" href="#3-递归三要素">#</a></h4>
+<ol>
+<li><strong>递归关系</strong>：大问题如何分解为小问题</li>
+<li><strong>边界条件</strong>：递归的终止条件</li>
+<li><strong>递归假设</strong>：假设子问题已经正确解决</li>
+</ol>
+<h3 id="汉诺塔的迭代解法">汉诺塔的迭代解法<a hidden class="anchor" aria-hidden="true" href="#汉诺塔的迭代解法">#</a></h3>
+<p>除了递归解法，汉诺塔还有基于二进制的迭代解法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hanoi_iterative</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;汉诺塔的迭代解法&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total_moves</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 定义柱子</span>
+</span></span><span class="line"><span class="cl">    <span class="n">poles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据n的奇偶性确定移动方向</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># n为偶数时，按 A-&gt;B-&gt;C-&gt;A 的顺序</span>
+</span></span><span class="line"><span class="cl">        <span class="n">direction</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># n为奇数时，按 A-&gt;C-&gt;B-&gt;A 的顺序</span>
+</span></span><span class="line"><span class="cl">        <span class="n">direction</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_moves</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 找到二进制表示中最右边的1的位置</span>
+</span></span><span class="line"><span class="cl">        <span class="n">disk</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 确定移动方向</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from_pole</span> <span class="o">=</span> <span class="n">poles</span><span class="p">[(</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">disk</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">%</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">to_pole</span> <span class="o">=</span> <span class="n">poles</span><span class="p">[</span><span class="n">direction</span><span class="p">[(</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">disk</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">%</span> <span class="mi">3</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;移动盘子 </span><span class="si">{</span><span class="n">disk</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">from_pole</span><span class="si">}</span><span class="s2"> --&gt; </span><span class="si">{</span><span class="n">to_pole</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;3个盘子的汉诺塔迭代解法：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">hanoi_iterative</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="分治算法思想">分治算法思想<a hidden class="anchor" aria-hidden="true" href="#分治算法思想">#</a></h2>
+<p>分治算法是递归思想的重要应用，它将问题分解为若干个规模较小的同类子问题，递归地解决这些子问题，然后合并结果。</p>
+<h3 id="分治算法的基本步骤">分治算法的基本步骤<a hidden class="anchor" aria-hidden="true" href="#分治算法的基本步骤">#</a></h3>
+<ol>
+<li><strong>分解（Divide）</strong>：将原问题分解为若干个规模较小的子问题</li>
+<li><strong>解决（Conquer）</strong>：递归地解决各个子问题</li>
+<li><strong>合并（Combine）</strong>：将子问题的解合并为原问题的解</li>
+</ol>
+<h3 id="经典分治算法示例">经典分治算法示例<a hidden class="anchor" aria-hidden="true" href="#经典分治算法示例">#</a></h3>
+<h4 id="归并排序">归并排序<a hidden class="anchor" aria-hidden="true" href="#归并排序">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;归并排序 - 分治算法的经典应用&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">arr</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 分解：将数组分为两半</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="n">left</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[:</span><span class="n">mid</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">right</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">:])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 合并：将两个有序数组合并</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;合并两个有序数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 添加剩余元素</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">:])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;原数组: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sorted_arr</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;排序后: </span><span class="si">{</span><span class="n">sorted_arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="快速幂算法">快速幂算法<a hidden class="anchor" aria-hidden="true" href="#快速幂算法">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">quick_power</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;快速幂算法 - 分治思想的应用&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">base</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 分解：将指数分为两半</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">exp</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">half</span> <span class="o">=</span> <span class="n">quick_power</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exp</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">half</span> <span class="o">*</span> <span class="n">half</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">base</span> <span class="o">*</span> <span class="n">quick_power</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exp</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">quick_power</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;2^10 = </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="递归算法的优化">递归算法的优化<a hidden class="anchor" aria-hidden="true" href="#递归算法的优化">#</a></h2>
+<h3 id="1-记忆化递归">1. 记忆化递归<a hidden class="anchor" aria-hidden="true" href="#1-记忆化递归">#</a></h3>
+<p>对于有重复子问题的递归，可以使用记忆化来避免重复计算：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fibonacci_memo</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="p">{}):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;带记忆化的斐波那契数列&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">fibonacci_memo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci_memo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;fibonacci(40) = </span><span class="si">{</span><span class="n">fibonacci_memo</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="2-尾递归优化">2. 尾递归优化<a hidden class="anchor" aria-hidden="true" href="#2-尾递归优化">#</a></h3>
+<p>尾递归可以被编译器优化为循环：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">factorial_tail</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;尾递归实现阶乘&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">acc</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">factorial_tail</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">acc</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;5! = </span><span class="si">{</span><span class="n">factorial_tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="递归算法的应用场景">递归算法的应用场景<a hidden class="anchor" aria-hidden="true" href="#递归算法的应用场景">#</a></h2>
+<ol>
+<li><strong>树和图的遍历</strong>：深度优先搜索</li>
+<li><strong>分治算法</strong>：归并排序、快速排序</li>
+<li><strong>动态规划</strong>：最优子结构问题</li>
+<li><strong>回溯算法</strong>：N皇后问题、数独求解</li>
+<li><strong>数学计算</strong>：阶乘、斐波那契数列</li>
+</ol>
+<h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>递归与分治是算法设计中的重要思想：</p>
+<h3 id="递归算法的优点">递归算法的优点<a hidden class="anchor" aria-hidden="true" href="#递归算法的优点">#</a></h3>
+<ul>
+<li>代码简洁，逻辑清晰</li>
+<li>自然地表达问题的递归结构</li>
+<li>易于理解和实现</li>
+</ul>
+<h3 id="递归算法的缺点">递归算法的缺点<a hidden class="anchor" aria-hidden="true" href="#递归算法的缺点">#</a></h3>
+<ul>
+<li>可能存在重复计算</li>
+<li>空间复杂度较高（函数调用栈）</li>
+<li>可能导致栈溢出</li>
+</ul>
+<h3 id="使用建议">使用建议<a hidden class="anchor" aria-hidden="true" href="#使用建议">#</a></h3>
+<ol>
+<li>明确递归关系和边界条件</li>
+<li>考虑是否存在重复子问题</li>
+<li>注意递归深度，避免栈溢出</li>
+<li>必要时使用记忆化或改为迭代实现</li>
+</ol>
+<p>掌握递归与分治思想对于算法学习和问题解决都具有重要意义，它们是许多高级算法的基础。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95/">算法</a></li>
+      <li><a href="http://localhost:1313/tags/%E9%80%92%E5%BD%92/">递归</a></li>
+      <li><a href="http://localhost:1313/tags/%E5%88%86%E6%B2%BB/">分治</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%B1%89%E8%AF%BA%E5%A1%94/">汉诺塔</a></li>
+      <li><a href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/">算法思想</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/search-algorithms-guide/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>搜索算法详解：BFS与DFS的原理和应用</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/greedy-algorithm-guide/">
+    <span class="title">Next »</span>
+    <br>
+    <span>贪心算法详解：从基础概念到经典问题</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

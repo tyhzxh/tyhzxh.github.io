@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>BFS on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/bfs/</link><description>Recent content in BFS on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/bfs/index.xml" rel="self" type="application/rss+xml"/><item><title>搜索算法详解：BFS与DFS的原理和应用</title><link>https://tyhzxh.github.io/posts/search-algorithms-guide/</link><pubDate>Tue, 27 Feb 2024 22:05:13 +0800</pubDate><guid>https://tyhzxh.github.io/posts/search-algorithms-guide/</guid><description>深入解析广度优先搜索(BFS)和深度优先搜索(DFS)算法的原理、实现和应用场景，包括图遍历、最短路径、连通性检测等经典问题的解决方案</description><content:encoded><![CDATA[<h2 id="搜索算法概述">搜索算法概述</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>BFS on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/bfs/</link>
+    <description>Recent content in BFS on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/bfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>搜索算法详解：BFS与DFS的原理和应用</title>
+      <link>http://localhost:1313/posts/search-algorithms-guide/</link>
+      <pubDate>Tue, 27 Feb 2024 22:05:13 +0800</pubDate>
+      <guid>http://localhost:1313/posts/search-algorithms-guide/</guid>
+      <description>深入解析广度优先搜索(BFS)和深度优先搜索(DFS)算法的原理、实现和应用场景，包括图遍历、最短路径、连通性检测等经典问题的解决方案</description>
+      <content:encoded><![CDATA[<h2 id="搜索算法概述">搜索算法概述</h2>
 <p><strong>搜索算法</strong>是计算机科学中的基础算法，用于在数据结构中查找特定元素或路径。在图论和树结构中，最重要的两种搜索算法是<strong>广度优先搜索（BFS）<strong>和</strong>深度优先搜索（DFS）</strong>。</p>
 <h2 id="广度优先搜索bfs">广度优先搜索（BFS）</h2>
 <h3 id="bfs基本原理">BFS基本原理</h3>
@@ -1029,4 +1045,7 @@
 <li><strong>人工智能</strong>：状态空间搜索、问题求解</li>
 </ul>
 <p>搜索算法是计算机科学的基础，掌握BFS和DFS不仅有助于解决具体问题，更重要的是培养算法思维和问题分析能力。在实际应用中，要根据问题特点选择合适的搜索策略，并考虑性能优化。</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

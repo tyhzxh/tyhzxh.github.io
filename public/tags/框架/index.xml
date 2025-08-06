@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>框架 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E6%A1%86%E6%9E%B6/</link><description>Recent content in 框架 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>SpringBoot 核心概念详解</title><link>https://tyhzxh.github.io/posts/springboot-fundamentals/</link><pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate><guid>https://tyhzxh.github.io/posts/springboot-fundamentals/</guid><description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description><content:encoded><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>框架 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/%E6%A1%86%E6%9E%B6/</link>
+    <description>Recent content in 框架 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringBoot 核心概念详解</title>
+      <link>http://localhost:1313/posts/springboot-fundamentals/</link>
+      <pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate>
+      <guid>http://localhost:1313/posts/springboot-fundamentals/</guid>
+      <description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>SpringBoot是Java最流行的开发框架，它通过解耦代码来提升可维护性和可测试性。本文将深入解析SpringBoot的核心概念。</p></blockquote>
 <h2 id="框架概述">框架概述</h2>
 <p><strong>SpringBoot</strong> 是基于Spring框架的快速开发脚手架，它简化了Spring应用的配置和部署过程，让开发者能够快速构建生产级别的应用程序。</p>
@@ -269,4 +285,7 @@
 <p>这些概念的结合使用，让SpringBoot成为了Java开发中最受欢迎的框架，大大提升了开发效率和代码质量。</p>
 <hr>
 <p><em>理解这些核心概念是掌握SpringBoot的关键，建议通过实际项目来加深理解。</em></p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

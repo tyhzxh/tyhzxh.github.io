@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>数据库技术 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/</link><description>Recent content in 数据库技术 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>LevelDB源码阅读指南</title><link>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</link><pubDate>Sat, 12 Oct 2024 10:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</guid><description>深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>数据库技术 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 数据库技术 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LevelDB源码阅读指南</title>
+      <link>http://localhost:1313/posts/leveldb-source-code-guide/</link>
+      <pubDate>Sat, 12 Oct 2024 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/leveldb-source-code-guide/</guid>
+      <description>深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容</description>
+      <content:encoded><![CDATA[<h2 id="前言">前言</h2>
 <p>阅读LevelDB源码是一项很好的学习机会，因为它的代码质量高、设计简洁而高效。LevelDB是Google开发的一个高性能键值存储数据库，采用LSM Tree数据结构，广泛应用于各种存储系统中。</p>
 <h2 id="基本概念">基本概念</h2>
 <p>在阅读源码之前，确保你熟悉LevelDB的基本概念和术语：</p>
@@ -189,7 +205,15 @@
 <li><a href="https://github.com/google/leveldb/blob/main/doc/index.md">LevelDB设计文档</a></li>
 <li><a href="https://www.cs.umb.edu/~poneil/lsmtree.pdf">LSM Tree论文</a></li>
 </ul>
-]]></content:encoded></item><item><title>数据库基础入门：从概念到实践</title><link>https://tyhzxh.github.io/posts/database-fundamentals/</link><pubDate>Mon, 11 Mar 2024 12:32:05 +0800</pubDate><guid>https://tyhzxh.github.io/posts/database-fundamentals/</guid><description>数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术</description><content:encoded><![CDATA[<h2 id="数据库学习概述">数据库学习概述</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>数据库基础入门：从概念到实践</title>
+      <link>http://localhost:1313/posts/database-fundamentals/</link>
+      <pubDate>Mon, 11 Mar 2024 12:32:05 +0800</pubDate>
+      <guid>http://localhost:1313/posts/database-fundamentals/</guid>
+      <description>数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术</description>
+      <content:encoded><![CDATA[<h2 id="数据库学习概述">数据库学习概述</h2>
 <p>数据库是现代软件开发的核心技术之一，掌握数据库知识对于任何开发者都至关重要。本文将从基础概念开始，逐步深入数据库的核心技术。</p>
 <h2 id="开发环境搭建">开发环境搭建</h2>
 <h3 id="推荐工具组合">推荐工具组合</h3>
@@ -660,4 +684,7 @@
 <li>确保数据的完整性和安全性</li>
 </ul>
 <p>建议在学习过程中多动手实践，通过实际项目来巩固理论知识，逐步提升数据库应用能力。</p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

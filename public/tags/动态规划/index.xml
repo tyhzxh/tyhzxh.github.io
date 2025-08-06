@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>动态规划 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link><description>Recent content in 动态规划 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.xml" rel="self" type="application/rss+xml"/><item><title>动态规划完全攻略：从入门到精通</title><link>https://tyhzxh.github.io/posts/dynamic-programming-guide/</link><pubDate>Tue, 27 Feb 2024 22:05:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/dynamic-programming-guide/</guid><description>动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南</description><content:encoded><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>动态规划 on tyhzxh的个人博客</title>
+    <link>http://localhost:1313/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+    <description>Recent content in 动态规划 on tyhzxh的个人博客</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>动态规划完全攻略：从入门到精通</title>
+      <link>http://localhost:1313/posts/dynamic-programming-guide/</link>
+      <pubDate>Tue, 27 Feb 2024 22:05:43 +0800</pubDate>
+      <guid>http://localhost:1313/posts/dynamic-programming-guide/</guid>
+      <description>动态规划系统训练方案，从核心思维到高频题型再到实战技巧的全面覆盖，包含完整的学习路线和避坑指南</description>
+      <content:encoded><![CDATA[<blockquote>
 <p>今天开始！DP！针对动态规划（DP）的系统训练，这是一套完整的训练方案，从<strong>核心思维</strong>到<strong>高频题型</strong>再到<strong>实战技巧</strong>全面覆盖。</p></blockquote>
 <h2 id="一动态规划核心思维训练">一、动态规划核心思维训练</h2>
 <h3 id="1-破除两大误区">1. 破除两大误区</h3>
@@ -248,4 +264,7 @@
 <p>记住：<strong>Practice makes perfect!</strong> 动态规划需要大量的练习来培养直觉，但一旦掌握，它将成为你算法工具箱中最强大的武器之一。</p>
 <hr>
 <p><em>持续更新中，欢迎交流讨论！</em></p>
-]]></content:encoded></item></channel></rss>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>

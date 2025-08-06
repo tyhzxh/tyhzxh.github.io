@@ -29,16 +29,30 @@
 │       └── hugo.yml          # GitHub Actions工作流
 ├── archetypes/
 │   └── default.md           # 文章模板
+├── assets/
+│   └── css/                # 自定义CSS样式
 ├── content/
 │   ├── posts/               # 博客文章
 │   ├── about.md            # 关于页面
-│   ├── archives.md         # 归档页面
+│   ├── archives/           # 归档页面
 │   └── search.md           # 搜索页面
+├── data/                    # 数据文件
+├── i18n/                    # 国际化文件
+├── layouts/                 # 自定义布局模板
+│   ├── _default/           # 默认布局
+│   ├── index.html          # 首页布局
+│   └── partials/         # 页面组件
 ├── static/                  # 静态文件
+│   ├── favicon.svg         # 网站图标
+│   └── images/             # 图片资源
 ├── themes/
 │   └── PaperMod/           # 主题文件
+├── .gitignore              # Git忽略文件
+├── .gitmodules            # Git子模块配置
 ├── hugo.toml               # Hugo配置文件
-└── README.md
+├── LICENSE                 # 许可证文件
+├── README.md               # 项目说明
+└── UPLOAD_GUIDE.md         # 上传指南
 ```
 
 ## 🚀 本地开发
@@ -125,7 +139,7 @@ hugo --minify
 ## 📞 联系方式
 
 - GitHub: [@tyhzxh](https://github.com/tyhzxh)
-- Email: your-email@example.com
+- Email: wintepear5816@gmail.com
 
 ---
 

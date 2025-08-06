@@ -1,10 +1,374 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>IO流 | tyhzxh的个人博客</title><meta name=keywords content><meta name=description content="分享技术、思考与生活的个人博客"><meta name=author content="tyhzxh"><link rel=canonical href=https://tyhzxh.github.io/tags/io%E6%B5%81/><link crossorigin=anonymous href=/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as=style><link rel=icon href=https://tyhzxh.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tyhzxh.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://tyhzxh.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tyhzxh.github.io/apple-touch-icon.png><link rel=mask-icon href=https://tyhzxh.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://tyhzxh.github.io/tags/io%E6%B5%81/index.xml><link rel=alternate hreflang=en href=https://tyhzxh.github.io/tags/io%E6%B5%81/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><style>.archive-summary{margin-bottom:2rem;padding:1rem;background:var(--theme);border-radius:8px;border:1px solid var(--border);text-align:center;color:var(--secondary);font-size:.9rem}.pagination{display:flex !important;justify-content:center;align-items:center;gap:1rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--border)}.pagination a.pagination-prev,.pagination a.pagination-next{padding:.75rem 1.5rem !important;background:var(--entry) !important;border:1px solid var(--border) !important;border-radius:6px !important;text-decoration:none !important;color:var(--primary) !important;font-weight:500 !important;transition:all .3s ease !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important;font-size:14px !important;line-height:normal !important}.pagination a.pagination-prev:hover,.pagination a.pagination-next:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:translateY(-2px) !important;box-shadow:0 4px 12px rgba(0,0,0,.1) !important;border-color:var(--tertiary) !important}.pagination-numbers{display:flex;gap:.5rem;align-items:center}.pagination a.pagination-number,.pagination-current{display:inline-flex !important;align-items:center !important;justify-content:center !important;width:2.5rem !important;height:2.5rem !important;border-radius:50% !important;text-decoration:none !important;font-weight:500 !important;transition:all .3s ease !important;font-size:14px !important;line-height:normal !important;padding:0 !important}.pagination a.pagination-number{background:var(--entry) !important;border:1px solid var(--border) !important;color:var(--primary) !important;box-shadow:0 2px 4px rgba(0,0,0,5%) !important}.pagination a.pagination-number:hover{background:var(--hljs-bg) !important;color:var(--primary) !important;transform:scale(1.1) !important;border-color:var(--tertiary) !important}.pagination-current{background:var(--tertiary) !important;color:var(--primary) !important;border:1px solid var(--tertiary) !important;font-weight:600 !important;box-shadow:0 2px 4px rgba(0,0,0,.1) !important}@media(max-width:768px){.pagination{flex-direction:column;gap:1rem}.pagination-prev,.pagination-next{width:100%;text-align:center}.pagination-numbers{order:-1}.archive-summary{font-size:.8rem;padding:.75rem}}[data-theme=dark] .archive-summary{background:var(--entry)}[data-theme=dark] .pagination-prev,[data-theme=dark] .pagination-next,[data-theme=dark] .pagination-number{background:var(--entry);border-color:var(--border);box-shadow:0 2px 4px rgba(0,0,0,.2)}[data-theme=dark] .pagination-prev:hover,[data-theme=dark] .pagination-next:hover,[data-theme=dark] .pagination-number:hover{background:var(--hljs-bg);border-color:var(--tertiary)}[data-theme=dark] .pagination-current{background:var(--tertiary);border-color:var(--tertiary);box-shadow:0 2px 4px rgba(0,0,0,.3)}</style><meta property="og:url" content="https://tyhzxh.github.io/tags/io%E6%B5%81/"><meta property="og:site_name" content="tyhzxh的个人博客"><meta property="og:title" content="IO流"><meta property="og:description" content="分享技术、思考与生活的个人博客"><meta property="og:locale" content="zh-cn"><meta property="og:type" content="website"><meta name=twitter:card content="summary"><meta name=twitter:title content="IO流"><meta name=twitter:description content="分享技术、思考与生活的个人博客"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tyhzxh.github.io/ accesskey=h title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tyhzxh.github.io/ title=首页><span>首页</span></a></li><li><a href=https://tyhzxh.github.io/posts/ title=文章><span>文章</span></a></li><li><a href=https://tyhzxh.github.io/archives/ title=归档><span>归档</span></a></li><li><a href=https://tyhzxh.github.io/tags/ title=标签><span>标签</span></a></li><li><a href=https://tyhzxh.github.io/search/ title="搜索 (Alt + /)" accesskey=/><span>搜索</span></a></li><li><a href=https://tyhzxh.github.io/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><header class=page-header><div class=breadcrumbs><a href=https://tyhzxh.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://tyhzxh.github.io/tags/>Tags</a></div><h1>IO流</h1></header><article class="post-entry tag-entry"><figure class=entry-cover><img loading=lazy src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&amp;h=400&amp;fit=crop" alt="Java IO流处理"></figure><header class=entry-header><h2 class=entry-hint-parent>Java缓冲流详解：提升IO性能的关键技术</h2></header><div class=entry-content><p>缓冲流概述 缓冲流（Buffered Stream） 是Java IO中一种处理流（Processing Stream），它在底层节点流（如文件流、网络流）的基础上，增加内存缓冲区，通过批量读写数据显著提升IO效率。
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>IO流 | tyhzxh的个人博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="分享技术、思考与生活的个人博客">
+<meta name="author" content="tyhzxh">
+<link rel="canonical" href="http://localhost:1313/tags/io%E6%B5%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/io%E6%B5%81/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/io%E6%B5%81/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<style>
+/* 归档页面摘要样式 */
+.archive-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* 分页导航样式 */
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 覆盖主题默认样式 */
+.pagination a.pagination-prev,
+.pagination a.pagination-next {
+  padding: 0.75rem 1.5rem !important;
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+}
+
+.pagination a.pagination-prev:hover,
+.pagination a.pagination-next:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination a.pagination-number,
+.pagination-current {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  padding: 0 !important;
+}
+
+.pagination a.pagination-number {
+  background: var(--entry) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.pagination a.pagination-number:hover {
+  background: var(--hljs-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.1) !important;
+  border-color: var(--tertiary) !important;
+}
+
+.pagination-current {
+  background: var(--tertiary) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--tertiary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .pagination-numbers {
+    order: -1;
+  }
+  
+  .archive-summary {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .archive-summary {
+  background: var(--entry);
+}
+
+[data-theme="dark"] .pagination-prev,
+[data-theme="dark"] .pagination-next,
+[data-theme="dark"] .pagination-number {
+  background: var(--entry);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pagination-prev:hover,
+[data-theme="dark"] .pagination-next:hover,
+[data-theme="dark"] .pagination-number:hover {
+  background: var(--hljs-bg);
+  border-color: var(--tertiary);
+}
+
+[data-theme="dark"] .pagination-current {
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+</style>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
+  <h1>
+    IO流
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&amp;h=400&amp;fit=crop" alt="Java IO流处理">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java缓冲流详解：提升IO性能的关键技术
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>缓冲流概述 缓冲流（Buffered Stream） 是Java IO中一种处理流（Processing Stream），它在底层节点流（如文件流、网络流）的基础上，增加内存缓冲区，通过批量读写数据显著提升IO效率。
 缓冲流的核心作用 1. 减少物理IO次数 这是缓冲流最重要的作用。让我们通过对比来理解：
-无缓冲流的问题 // 每次读取1字节（性能极差） try (FileInputStream fis = new FileInputStream("largefile.bin")) { int data; while ((data = fis.read()) != -1) { // 每读1字节触发一次磁盘IO操作 // 读取1GB文件需要约10亿次磁盘访问 } } 使用缓冲流的优势 // 默认缓冲区8KB（一次性读取8KB到内存） try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream("largefile.bin"))) { int data; while ((data = bis.read()) != -1) { // 从内存缓冲区读取，缓冲区空了才会触发磁盘IO // 读取1GB文件只需要约128,000次磁盘访问 } } 2. 性能对比数据 场景 物理IO次数 耗时 性能提升 读取1GB文件（无缓冲） 约10亿次操作 >60秒 - 读取1GB文件（8KB缓冲） 约128,000次操作 &lt;1秒 60倍以上 读取1GB文件（64KB缓冲） 约16,000次操作 &lt;0.5秒 120倍以上 Java中的缓冲流类型 缓冲流家族 类型 对应节点流 功能说明 默认缓冲区大小 BufferedInputStream FileInputStream 字节输入缓冲流 8KB BufferedOutputStream FileOutputStream 字节输出缓冲流 8KB BufferedReader FileReader 字符输入缓冲流（支持按行读） 8KB BufferedWriter FileWriter 字符输出缓冲流 8KB 缓冲流的底层原理 1. 读取缓冲机制 public class BufferedInputStreamDemo { public static void demonstrateBuffering() { try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream("data.txt"), 1024)) { // 1KB缓冲区 // 工作流程： // 1. 初始化：创建1KB缓冲区 // 2. 首次读取：一次性从磁盘读取1KB数据到缓冲区 // 3. 后续读取：直接从缓冲区返回数据（不触发磁盘IO） // 4. 缓冲区耗尽：再次自动读取下一批1KB数据 int data; while ((data = bis.read()) != -1) { // 这里的read()大部分时候是从内存缓冲区读取 System.out.print((char) data); } } catch (IOException e) { e.printStackTrace(); } } } 2. 写入缓冲机制 public class BufferedOutputStreamDemo { public static void demonstrateBuffering() { try (BufferedOutputStream bos = new BufferedOutputStream( new FileOutputStream("output.txt"), 1024)) { // 1KB缓冲区 // 工作流程： String data = "Hello, Buffered Stream!"; for (char c : data.toCharArray()) { bos.write(c); // 数据先写入缓冲区（不立即写入磁盘） } // 缓冲区满时：自动将缓冲区内容写入磁盘 // 手动刷新：通过flush()强制立即写入 bos.flush(); // 关闭流时：自动刷新缓冲区 } catch (IOException e) { e.printStackTrace(); } } } 缓冲流的使用方法 1. 字节缓冲流基础用法 public class ByteBufferedStreamExample { /** * 使用缓冲流复制文件 */ public static void copyFileWithBuffer(String sourcePath, String targetPath) { try ( // 创建输入缓冲流 FileInputStream fis = new FileInputStream(sourcePath); BufferedInputStream bis = new BufferedInputStream(fis, 16384); // 16KB缓冲区 // 创建输出缓冲流 FileOutputStream fos = new FileOutputStream(targetPath); BufferedOutputStream bos = new BufferedOutputStream(fos, 16384) ) { byte[] buffer = new byte[1024]; // 额外的读取缓冲区 int bytesRead; while ((bytesRead = bis.read(buffer)) != -1) { bos.write(buffer, 0, bytesRead); } // 确保所有数据都写入磁盘 bos.flush(); } catch (IOException e) { System.err.println("文件复制失败: " + e.getMessage()); } } /** * 性能测试：对比有无缓冲流的性能差异 */ public static void performanceTest(String filePath) { // 测试无缓冲流 long startTime = System.currentTimeMillis(); try (FileInputStream fis = new FileInputStream(filePath)) { while (fis.read() != -1) { // 逐字节读取 } } catch (IOException e) { e.printStackTrace(); } long unbufferedTime = System.currentTimeMillis() - startTime; // 测试缓冲流 startTime = System.currentTimeMillis(); try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(filePath))) { while (bis.read() != -1) { // 逐字节读取（但有缓冲） } } catch (IOException e) { e.printStackTrace(); } long bufferedTime = System.currentTimeMillis() - startTime; System.out.println("无缓冲流耗时: " + unbufferedTime + "ms"); System.out.println("缓冲流耗时: " + bufferedTime + "ms"); System.out.println("性能提升: " + (unbufferedTime / (double) bufferedTime) + "倍"); } } 2. 字符缓冲流高级功能 public class CharBufferedStreamExample { /** * 使用BufferedReader按行读取文本文件 */ public static void readFileByLines(String filePath) { try ( FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr, 8192) // 8KB缓冲区 ) { String line; int lineNumber = 1; // 按行读取，这是BufferedReader的特色功能 while ((line = br.readLine()) != null) { System.out.println(lineNumber + ": " + line); lineNumber++; } } catch (IOException e) { System.err.println("读取文件失败: " + e.getMessage()); } } /** * 使用BufferedWriter写入文本文件 */ public static void writeFileWithBuffer(String filePath, List&lt;String> lines) { try ( FileWriter fw = new FileWriter(filePath); BufferedWriter bw = new BufferedWriter(fw, 8192) ) { for (String line : lines) { bw.write(line); bw.newLine(); // 写入系统相关的行分隔符 } // 手动刷新确保数据写入 bw.flush(); } catch (IOException e) { System.err.println("写入文件失败: " + e.getMessage()); } } /** * 处理大文件的流式读取 */ public static void processLargeFile(String filePath) { try ( FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr, 65536) // 64KB缓冲区 ) { String line; long lineCount = 0; long totalChars = 0; while ((line = br.readLine()) != null) { lineCount++; totalChars += line.length(); // 每处理10000行输出一次进度 if (lineCount % 10000 == 0) { System.out.println("已处理 " + lineCount + " 行"); } // 这里可以添加具体的业务逻辑 processLine(line); } System.out.println("文件处理完成:"); System.out.println("总行数: " + lineCount); System.out.println("总字符数: " + totalChars); } catch (IOException e) { System.err.println("处理文件失败: " + e.getMessage()); } } private static void processLine(String line) { // 具体的行处理逻辑 // 例如：数据清洗、格式转换、统计分析等 } } 3. 自定义缓冲区大小 public class CustomBufferSizeExample { /** * 根据文件大小动态调整缓冲区大小 */ public static void copyWithOptimalBuffer(String sourcePath, String targetPath) { File sourceFile = new File(sourcePath); long fileSize = sourceFile.length(); // 根据文件大小选择合适的缓冲区大小 int bufferSize; if (fileSize &lt; 1024 * 1024) { // 小于1MB bufferSize = 4096; // 4KB缓冲区 } else if (fileSize &lt; 100 * 1024 * 1024) { // 小于100MB bufferSize = 65536; // 64KB缓冲区 } else { // 大于100MB bufferSize = 1024 * 1024; // 1MB缓冲区 } try ( BufferedInputStream bis = new BufferedInputStream( new FileInputStream(sourcePath), bufferSize); BufferedOutputStream bos = new BufferedOutputStream( new FileOutputStream(targetPath), bufferSize) ) { byte[] buffer = new byte[bufferSize / 4]; // 读取缓冲区为缓冲流的1/4 int bytesRead; while ((bytesRead = bis.read(buffer)) != -1) { bos.write(buffer, 0, bytesRead); } } catch (IOException e) { System.err.println("文件复制失败: " + e.getMessage()); } } } 缓冲流的注意事项和最佳实践 1. 缓冲区大小选择 public class BufferSizeOptimization { /** * 测试不同缓冲区大小的性能 */ public static void testBufferSizes(String filePath) { int[] bufferSizes = {1024, 4096, 8192, 16384, 32768, 65536}; for (int bufferSize : bufferSizes) { long startTime = System.currentTimeMillis(); try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(filePath), bufferSize)) { byte[] buffer = new byte[1024]; while (bis.read(buffer) != -1) { // 读取数据 } } catch (IOException e) { e.printStackTrace(); } long endTime = System.currentTimeMillis(); System.out.println("缓冲区大小 " + bufferSize + " 字节，耗时: " + (endTime - startTime) + "ms"); } } } 2. 正确的资源管理 public class ResourceManagementExample { /** * 正确的资源管理方式 */ public static void correctResourceManagement(String inputPath, String outputPath) { // 使用try-with-resources确保资源正确关闭 try ( // 只需要关闭最外层的缓冲流，内部的节点流会自动关闭 BufferedReader reader = new BufferedReader( new FileReader(inputPath), 16384); BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 16384) ) { String line; while ((line = reader.readLine()) != null) { writer.write(line); writer.newLine(); } // 写入流需要手动flush确保数据完全写入 writer.flush(); } catch (IOException e) { System.err.println("文件操作失败: " + e.getMessage()); } // 资源会在这里自动关闭 } /** * 错误的资源管理方式（仅作示例，不要这样做） */ public static void incorrectResourceManagement(String inputPath, String outputPath) { BufferedReader reader = null; BufferedWriter writer = null; try { reader = new BufferedReader(new FileReader(inputPath)); writer = new BufferedWriter(new FileWriter(outputPath)); String line; while ((line = reader.readLine()) != null) { writer.write(line); writer.newLine(); } } catch (IOException e) { e.printStackTrace(); } finally { // 手动关闭资源，容易出错 try { if (reader != null) reader.close(); if (writer != null) writer.close(); } catch (IOException e) { e.printStackTrace(); } } } } 3. 强制刷新缓冲区 public class FlushExample { /** * 演示何时需要手动刷新缓冲区 */ public static void demonstrateFlush(String logPath) { try (BufferedWriter logWriter = new BufferedWriter( new FileWriter(logPath, true))) { // 追加模式 // 写入日志 logWriter.write("[" + new Date() + "] 应用启动"); logWriter.newLine(); // 重要：立即刷新确保日志写入磁盘 // 如果程序崩溃，没有flush的数据可能丢失 logWriter.flush(); // 模拟一些操作 Thread.sleep(1000); logWriter.write("[" + new Date() + "] 处理用户请求"); logWriter.newLine(); logWriter.flush(); // 再次刷新 } catch (IOException | InterruptedException e) { e.printStackTrace(); } } /** * 批量写入时的刷新策略 */ public static void batchWriteWithFlush(String outputPath, List&lt;String> data) { try (BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 32768)) { // 32KB缓冲区 int count = 0; for (String item : data) { writer.write(item); writer.newLine(); count++; // 每写入1000条记录就刷新一次 if (count % 1000 == 0) { writer.flush(); System.out.println("已写入 " + count + " 条记录"); } } // 最后确保所有数据都写入 writer.flush(); } catch (IOException e) { e.printStackTrace(); } } } 实际应用场景 1. 日志文件处理 public class LogFileProcessor { /** * 分析大型日志文件 */ public static void analyzeLogFile(String logPath) { Map&lt;String, Integer> errorCounts = new HashMap&lt;>(); try (BufferedReader reader = new BufferedReader( new FileReader(logPath), 65536)) { // 64KB缓冲区 String line; while ((line = reader.readLine()) != null) { if (line.contains("ERROR")) { // 提取错误类型 String errorType = extractErrorType(line); errorCounts.merge(errorType, 1, Integer::sum); } } } catch (IOException e) { e.printStackTrace(); } // 输出统计结果 errorCounts.forEach((error, count) -> System.out.println(error + ": " + count + " 次")); } private static String extractErrorType(String logLine) { // 简单的错误类型提取逻辑 if (logLine.contains("NullPointerException")) { return "NullPointerException"; } else if (logLine.contains("SQLException")) { return "SQLException"; } else { return "Other"; } } } 2. 数据文件转换 public class DataFileConverter { /** * CSV文件格式转换 */ public static void convertCsvFormat(String inputPath, String outputPath) { try ( BufferedReader reader = new BufferedReader( new FileReader(inputPath), 32768); BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 32768) ) { String line; boolean isFirstLine = true; while ((line = reader.readLine()) != null) { if (isFirstLine) { // 处理表头 writer.write(convertHeader(line)); isFirstLine = false; } else { // 处理数据行 writer.write(convertDataLine(line)); } writer.newLine(); } } catch (IOException e) { e.printStackTrace(); } } private static String convertHeader(String header) { // 表头转换逻辑 return header.replace(",", "\t"); // CSV转TSV } private static String convertDataLine(String dataLine) { // 数据行转换逻辑 return dataLine.replace(",", "\t"); // CSV转TSV } } 性能优化建议 1. 缓冲区大小优化指南 文件大小 推荐缓冲区大小 说明 &lt; 1MB 4KB - 8KB 小文件不需要太大缓冲区 1MB - 100MB 16KB - 64KB 平衡内存使用和性能 > 100MB 64KB - 1MB 大文件可以使用更大缓冲区 网络流 8KB - 32KB 考虑网络延迟和带宽 2. 选择合适的缓冲流类型 public class StreamTypeSelection { /** * 根据使用场景选择合适的流类型 */ public static void chooseAppropriateStream() { // 场景1：处理二进制文件（图片、视频、压缩包等） // 使用字节缓冲流 try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream("image.jpg"), 32768)) { // 处理二进制数据 } catch (IOException e) { e.printStackTrace(); } // 场景2：处理文本文件，需要按行读取 // 使用字符缓冲流 try (BufferedReader reader = new BufferedReader( new FileReader("data.txt"), 16384)) { String line; while ((line = reader.readLine()) != null) { // 按行处理文本 } } catch (IOException e) { e.printStackTrace(); } // 场景3：网络数据传输 // 使用较小的缓冲区，及时响应 try (BufferedOutputStream bos = new BufferedOutputStream( socket.getOutputStream(), 8192)) { // 网络数据传输 } catch (IOException e) { e.printStackTrace(); } } } 总结 缓冲流的核心价值 性能提升：通过内存缓冲区减少物理IO次数，显著提升读写性能 使用简单：只需要包装现有的节点流，API使用方式基本不变 适用广泛：文件操作、网络传输、日志处理等IO密集型场景 最佳实践要点 始终优先使用缓冲流：除非有特殊需求，否则总是用缓冲流包装节点流 合理设置缓冲区大小：根据文件大小和使用场景选择合适的缓冲区大小 正确管理资源：使用try-with-resources确保流正确关闭 及时刷新缓冲区：对于重要数据，及时调用flush()确保数据写入 选择合适的流类型：根据数据类型选择字节流或字符流 性能优化建议 对于大文件操作，缓冲流能带来数十倍甚至上百倍的性能提升 合理的缓冲区大小通常在8KB到64KB之间 结合具体的硬件环境（SSD vs HDD）和网络条件进行调优 掌握缓冲流的使用是Java IO编程的基础技能，它不仅能显著提升程序性能，还能让代码更加简洁和可维护。
-...</p></div><footer class=entry-footer><span title='2024-03-20 16:45:00 +0800 CST'>March 20, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;tyhzxh</footer><a class=entry-link aria-label="post link to Java缓冲流详解：提升IO性能的关键技术" href=https://tyhzxh.github.io/posts/java-buffered-streams/></a></article></main><footer class=footer><span>&copy; 2025 <a href=https://tyhzxh.github.io/>tyhzxh的个人博客</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+无缓冲流的问题 // 每次读取1字节（性能极差） try (FileInputStream fis = new FileInputStream(&#34;largefile.bin&#34;)) { int data; while ((data = fis.read()) != -1) { // 每读1字节触发一次磁盘IO操作 // 读取1GB文件需要约10亿次磁盘访问 } } 使用缓冲流的优势 // 默认缓冲区8KB（一次性读取8KB到内存） try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(&#34;largefile.bin&#34;))) { int data; while ((data = bis.read()) != -1) { // 从内存缓冲区读取，缓冲区空了才会触发磁盘IO // 读取1GB文件只需要约128,000次磁盘访问 } } 2. 性能对比数据 场景 物理IO次数 耗时 性能提升 读取1GB文件（无缓冲） 约10亿次操作 &gt;60秒 - 读取1GB文件（8KB缓冲） 约128,000次操作 &lt;1秒 60倍以上 读取1GB文件（64KB缓冲） 约16,000次操作 &lt;0.5秒 120倍以上 Java中的缓冲流类型 缓冲流家族 类型 对应节点流 功能说明 默认缓冲区大小 BufferedInputStream FileInputStream 字节输入缓冲流 8KB BufferedOutputStream FileOutputStream 字节输出缓冲流 8KB BufferedReader FileReader 字符输入缓冲流（支持按行读） 8KB BufferedWriter FileWriter 字符输出缓冲流 8KB 缓冲流的底层原理 1. 读取缓冲机制 public class BufferedInputStreamDemo { public static void demonstrateBuffering() { try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(&#34;data.txt&#34;), 1024)) { // 1KB缓冲区 // 工作流程： // 1. 初始化：创建1KB缓冲区 // 2. 首次读取：一次性从磁盘读取1KB数据到缓冲区 // 3. 后续读取：直接从缓冲区返回数据（不触发磁盘IO） // 4. 缓冲区耗尽：再次自动读取下一批1KB数据 int data; while ((data = bis.read()) != -1) { // 这里的read()大部分时候是从内存缓冲区读取 System.out.print((char) data); } } catch (IOException e) { e.printStackTrace(); } } } 2. 写入缓冲机制 public class BufferedOutputStreamDemo { public static void demonstrateBuffering() { try (BufferedOutputStream bos = new BufferedOutputStream( new FileOutputStream(&#34;output.txt&#34;), 1024)) { // 1KB缓冲区 // 工作流程： String data = &#34;Hello, Buffered Stream!&#34;; for (char c : data.toCharArray()) { bos.write(c); // 数据先写入缓冲区（不立即写入磁盘） } // 缓冲区满时：自动将缓冲区内容写入磁盘 // 手动刷新：通过flush()强制立即写入 bos.flush(); // 关闭流时：自动刷新缓冲区 } catch (IOException e) { e.printStackTrace(); } } } 缓冲流的使用方法 1. 字节缓冲流基础用法 public class ByteBufferedStreamExample { /** * 使用缓冲流复制文件 */ public static void copyFileWithBuffer(String sourcePath, String targetPath) { try ( // 创建输入缓冲流 FileInputStream fis = new FileInputStream(sourcePath); BufferedInputStream bis = new BufferedInputStream(fis, 16384); // 16KB缓冲区 // 创建输出缓冲流 FileOutputStream fos = new FileOutputStream(targetPath); BufferedOutputStream bos = new BufferedOutputStream(fos, 16384) ) { byte[] buffer = new byte[1024]; // 额外的读取缓冲区 int bytesRead; while ((bytesRead = bis.read(buffer)) != -1) { bos.write(buffer, 0, bytesRead); } // 确保所有数据都写入磁盘 bos.flush(); } catch (IOException e) { System.err.println(&#34;文件复制失败: &#34; &#43; e.getMessage()); } } /** * 性能测试：对比有无缓冲流的性能差异 */ public static void performanceTest(String filePath) { // 测试无缓冲流 long startTime = System.currentTimeMillis(); try (FileInputStream fis = new FileInputStream(filePath)) { while (fis.read() != -1) { // 逐字节读取 } } catch (IOException e) { e.printStackTrace(); } long unbufferedTime = System.currentTimeMillis() - startTime; // 测试缓冲流 startTime = System.currentTimeMillis(); try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(filePath))) { while (bis.read() != -1) { // 逐字节读取（但有缓冲） } } catch (IOException e) { e.printStackTrace(); } long bufferedTime = System.currentTimeMillis() - startTime; System.out.println(&#34;无缓冲流耗时: &#34; &#43; unbufferedTime &#43; &#34;ms&#34;); System.out.println(&#34;缓冲流耗时: &#34; &#43; bufferedTime &#43; &#34;ms&#34;); System.out.println(&#34;性能提升: &#34; &#43; (unbufferedTime / (double) bufferedTime) &#43; &#34;倍&#34;); } } 2. 字符缓冲流高级功能 public class CharBufferedStreamExample { /** * 使用BufferedReader按行读取文本文件 */ public static void readFileByLines(String filePath) { try ( FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr, 8192) // 8KB缓冲区 ) { String line; int lineNumber = 1; // 按行读取，这是BufferedReader的特色功能 while ((line = br.readLine()) != null) { System.out.println(lineNumber &#43; &#34;: &#34; &#43; line); lineNumber&#43;&#43;; } } catch (IOException e) { System.err.println(&#34;读取文件失败: &#34; &#43; e.getMessage()); } } /** * 使用BufferedWriter写入文本文件 */ public static void writeFileWithBuffer(String filePath, List&lt;String&gt; lines) { try ( FileWriter fw = new FileWriter(filePath); BufferedWriter bw = new BufferedWriter(fw, 8192) ) { for (String line : lines) { bw.write(line); bw.newLine(); // 写入系统相关的行分隔符 } // 手动刷新确保数据写入 bw.flush(); } catch (IOException e) { System.err.println(&#34;写入文件失败: &#34; &#43; e.getMessage()); } } /** * 处理大文件的流式读取 */ public static void processLargeFile(String filePath) { try ( FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr, 65536) // 64KB缓冲区 ) { String line; long lineCount = 0; long totalChars = 0; while ((line = br.readLine()) != null) { lineCount&#43;&#43;; totalChars &#43;= line.length(); // 每处理10000行输出一次进度 if (lineCount % 10000 == 0) { System.out.println(&#34;已处理 &#34; &#43; lineCount &#43; &#34; 行&#34;); } // 这里可以添加具体的业务逻辑 processLine(line); } System.out.println(&#34;文件处理完成:&#34;); System.out.println(&#34;总行数: &#34; &#43; lineCount); System.out.println(&#34;总字符数: &#34; &#43; totalChars); } catch (IOException e) { System.err.println(&#34;处理文件失败: &#34; &#43; e.getMessage()); } } private static void processLine(String line) { // 具体的行处理逻辑 // 例如：数据清洗、格式转换、统计分析等 } } 3. 自定义缓冲区大小 public class CustomBufferSizeExample { /** * 根据文件大小动态调整缓冲区大小 */ public static void copyWithOptimalBuffer(String sourcePath, String targetPath) { File sourceFile = new File(sourcePath); long fileSize = sourceFile.length(); // 根据文件大小选择合适的缓冲区大小 int bufferSize; if (fileSize &lt; 1024 * 1024) { // 小于1MB bufferSize = 4096; // 4KB缓冲区 } else if (fileSize &lt; 100 * 1024 * 1024) { // 小于100MB bufferSize = 65536; // 64KB缓冲区 } else { // 大于100MB bufferSize = 1024 * 1024; // 1MB缓冲区 } try ( BufferedInputStream bis = new BufferedInputStream( new FileInputStream(sourcePath), bufferSize); BufferedOutputStream bos = new BufferedOutputStream( new FileOutputStream(targetPath), bufferSize) ) { byte[] buffer = new byte[bufferSize / 4]; // 读取缓冲区为缓冲流的1/4 int bytesRead; while ((bytesRead = bis.read(buffer)) != -1) { bos.write(buffer, 0, bytesRead); } } catch (IOException e) { System.err.println(&#34;文件复制失败: &#34; &#43; e.getMessage()); } } } 缓冲流的注意事项和最佳实践 1. 缓冲区大小选择 public class BufferSizeOptimization { /** * 测试不同缓冲区大小的性能 */ public static void testBufferSizes(String filePath) { int[] bufferSizes = {1024, 4096, 8192, 16384, 32768, 65536}; for (int bufferSize : bufferSizes) { long startTime = System.currentTimeMillis(); try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(filePath), bufferSize)) { byte[] buffer = new byte[1024]; while (bis.read(buffer) != -1) { // 读取数据 } } catch (IOException e) { e.printStackTrace(); } long endTime = System.currentTimeMillis(); System.out.println(&#34;缓冲区大小 &#34; &#43; bufferSize &#43; &#34; 字节，耗时: &#34; &#43; (endTime - startTime) &#43; &#34;ms&#34;); } } } 2. 正确的资源管理 public class ResourceManagementExample { /** * 正确的资源管理方式 */ public static void correctResourceManagement(String inputPath, String outputPath) { // 使用try-with-resources确保资源正确关闭 try ( // 只需要关闭最外层的缓冲流，内部的节点流会自动关闭 BufferedReader reader = new BufferedReader( new FileReader(inputPath), 16384); BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 16384) ) { String line; while ((line = reader.readLine()) != null) { writer.write(line); writer.newLine(); } // 写入流需要手动flush确保数据完全写入 writer.flush(); } catch (IOException e) { System.err.println(&#34;文件操作失败: &#34; &#43; e.getMessage()); } // 资源会在这里自动关闭 } /** * 错误的资源管理方式（仅作示例，不要这样做） */ public static void incorrectResourceManagement(String inputPath, String outputPath) { BufferedReader reader = null; BufferedWriter writer = null; try { reader = new BufferedReader(new FileReader(inputPath)); writer = new BufferedWriter(new FileWriter(outputPath)); String line; while ((line = reader.readLine()) != null) { writer.write(line); writer.newLine(); } } catch (IOException e) { e.printStackTrace(); } finally { // 手动关闭资源，容易出错 try { if (reader != null) reader.close(); if (writer != null) writer.close(); } catch (IOException e) { e.printStackTrace(); } } } } 3. 强制刷新缓冲区 public class FlushExample { /** * 演示何时需要手动刷新缓冲区 */ public static void demonstrateFlush(String logPath) { try (BufferedWriter logWriter = new BufferedWriter( new FileWriter(logPath, true))) { // 追加模式 // 写入日志 logWriter.write(&#34;[&#34; &#43; new Date() &#43; &#34;] 应用启动&#34;); logWriter.newLine(); // 重要：立即刷新确保日志写入磁盘 // 如果程序崩溃，没有flush的数据可能丢失 logWriter.flush(); // 模拟一些操作 Thread.sleep(1000); logWriter.write(&#34;[&#34; &#43; new Date() &#43; &#34;] 处理用户请求&#34;); logWriter.newLine(); logWriter.flush(); // 再次刷新 } catch (IOException | InterruptedException e) { e.printStackTrace(); } } /** * 批量写入时的刷新策略 */ public static void batchWriteWithFlush(String outputPath, List&lt;String&gt; data) { try (BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 32768)) { // 32KB缓冲区 int count = 0; for (String item : data) { writer.write(item); writer.newLine(); count&#43;&#43;; // 每写入1000条记录就刷新一次 if (count % 1000 == 0) { writer.flush(); System.out.println(&#34;已写入 &#34; &#43; count &#43; &#34; 条记录&#34;); } } // 最后确保所有数据都写入 writer.flush(); } catch (IOException e) { e.printStackTrace(); } } } 实际应用场景 1. 日志文件处理 public class LogFileProcessor { /** * 分析大型日志文件 */ public static void analyzeLogFile(String logPath) { Map&lt;String, Integer&gt; errorCounts = new HashMap&lt;&gt;(); try (BufferedReader reader = new BufferedReader( new FileReader(logPath), 65536)) { // 64KB缓冲区 String line; while ((line = reader.readLine()) != null) { if (line.contains(&#34;ERROR&#34;)) { // 提取错误类型 String errorType = extractErrorType(line); errorCounts.merge(errorType, 1, Integer::sum); } } } catch (IOException e) { e.printStackTrace(); } // 输出统计结果 errorCounts.forEach((error, count) -&gt; System.out.println(error &#43; &#34;: &#34; &#43; count &#43; &#34; 次&#34;)); } private static String extractErrorType(String logLine) { // 简单的错误类型提取逻辑 if (logLine.contains(&#34;NullPointerException&#34;)) { return &#34;NullPointerException&#34;; } else if (logLine.contains(&#34;SQLException&#34;)) { return &#34;SQLException&#34;; } else { return &#34;Other&#34;; } } } 2. 数据文件转换 public class DataFileConverter { /** * CSV文件格式转换 */ public static void convertCsvFormat(String inputPath, String outputPath) { try ( BufferedReader reader = new BufferedReader( new FileReader(inputPath), 32768); BufferedWriter writer = new BufferedWriter( new FileWriter(outputPath), 32768) ) { String line; boolean isFirstLine = true; while ((line = reader.readLine()) != null) { if (isFirstLine) { // 处理表头 writer.write(convertHeader(line)); isFirstLine = false; } else { // 处理数据行 writer.write(convertDataLine(line)); } writer.newLine(); } } catch (IOException e) { e.printStackTrace(); } } private static String convertHeader(String header) { // 表头转换逻辑 return header.replace(&#34;,&#34;, &#34;\t&#34;); // CSV转TSV } private static String convertDataLine(String dataLine) { // 数据行转换逻辑 return dataLine.replace(&#34;,&#34;, &#34;\t&#34;); // CSV转TSV } } 性能优化建议 1. 缓冲区大小优化指南 文件大小 推荐缓冲区大小 说明 &lt; 1MB 4KB - 8KB 小文件不需要太大缓冲区 1MB - 100MB 16KB - 64KB 平衡内存使用和性能 &gt; 100MB 64KB - 1MB 大文件可以使用更大缓冲区 网络流 8KB - 32KB 考虑网络延迟和带宽 2. 选择合适的缓冲流类型 public class StreamTypeSelection { /** * 根据使用场景选择合适的流类型 */ public static void chooseAppropriateStream() { // 场景1：处理二进制文件（图片、视频、压缩包等） // 使用字节缓冲流 try (BufferedInputStream bis = new BufferedInputStream( new FileInputStream(&#34;image.jpg&#34;), 32768)) { // 处理二进制数据 } catch (IOException e) { e.printStackTrace(); } // 场景2：处理文本文件，需要按行读取 // 使用字符缓冲流 try (BufferedReader reader = new BufferedReader( new FileReader(&#34;data.txt&#34;), 16384)) { String line; while ((line = reader.readLine()) != null) { // 按行处理文本 } } catch (IOException e) { e.printStackTrace(); } // 场景3：网络数据传输 // 使用较小的缓冲区，及时响应 try (BufferedOutputStream bos = new BufferedOutputStream( socket.getOutputStream(), 8192)) { // 网络数据传输 } catch (IOException e) { e.printStackTrace(); } } } 总结 缓冲流的核心价值 性能提升：通过内存缓冲区减少物理IO次数，显著提升读写性能 使用简单：只需要包装现有的节点流，API使用方式基本不变 适用广泛：文件操作、网络传输、日志处理等IO密集型场景 最佳实践要点 始终优先使用缓冲流：除非有特殊需求，否则总是用缓冲流包装节点流 合理设置缓冲区大小：根据文件大小和使用场景选择合适的缓冲区大小 正确管理资源：使用try-with-resources确保流正确关闭 及时刷新缓冲区：对于重要数据，及时调用flush()确保数据写入 选择合适的流类型：根据数据类型选择字节流或字符流 性能优化建议 对于大文件操作，缓冲流能带来数十倍甚至上百倍的性能提升 合理的缓冲区大小通常在8KB到64KB之间 结合具体的硬件环境（SSD vs HDD）和网络条件进行调优 掌握缓冲流的使用是Java IO编程的基础技能，它不仅能显著提升程序性能，还能让代码更加简洁和可维护。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-20 16:45:00 +0800 CST'>March 20, 2024</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to Java缓冲流详解：提升IO性能的关键技术" href="http://localhost:1313/posts/java-buffered-streams/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
