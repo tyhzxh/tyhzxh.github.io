@@ -5,10 +5,6 @@ draft: false
 tags: ["LevelDB", "数据库", "源码分析", "存储引擎", "LSM Tree"]
 categories: ["数据库技术", "源码学习"]
 description: "深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容"
-cover:
-  image: "/images/leveldb-architecture.svg"
-  alt: "LevelDB架构图"
-  caption: "LevelDB存储引擎架构"
 ---
 
 ## 前言

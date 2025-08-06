@@ -5,9 +5,6 @@ draft: false
 tags: ["算法", "双指针", "数据结构", "编程技巧"]
 categories: ["算法与数据结构"]
 description: "深入解析双指针算法的原理、应用场景和实现技巧，包括对撞指针、快慢指针、滑动窗口等经典模式"
-cover:
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop"
-    alt: "双指针算法示意图"
 ---
 
 ## 介绍

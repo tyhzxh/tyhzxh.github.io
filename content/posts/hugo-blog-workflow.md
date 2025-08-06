@@ -5,10 +5,6 @@ draft: false
 tags: ["Hugo", "博客", "静态网站", "GitHub Pages", "工作流程"]
 categories: ["网站建设", "技术教程"]
 description: "Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程"
-cover:
-  image: "/images/hugo-workflow.svg"
-  alt: "Hugo博客工作流程"
-  caption: "Hugo静态博客发布流程"
 ---
 
 ## 前言
