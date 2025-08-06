@@ -1,0 +1,7 @@
+{{- /* 自定义CSS样式 */ -}}
+{{- $pagination := resources.Get "css/pagination.css" }}
+{{- if $pagination }}
+<style>
+{{ $pagination.Content | safeCSS }}
+</style>
+{{- end }}

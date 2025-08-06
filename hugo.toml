@@ -16,7 +16,7 @@ buildFuture = false
 
 # 分页设置
 [pagination]
-  pagerSize = 10
+  pagerSize = 8
 
 # 代码高亮设置
 [markup]
