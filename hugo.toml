@@ -37,6 +37,8 @@ buildFuture = false
 [params]
   # 主要内容区域
   mainSections = ["posts"]
+  # 归档页面显示所有文章
+  ShowAllPagesInArchive = true
   # 网站描述
   description = "分享技术、思考与生活的个人博客"
   # 作者
