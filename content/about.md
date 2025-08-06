@@ -2,7 +2,7 @@
 title: "关于我"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "关于博主的介绍"
+description: ""
 ShowReadingTime: false
 ShowBreadCrumbs: false
 ShowPostNavLinks: false

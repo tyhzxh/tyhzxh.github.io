@@ -51,7 +51,7 @@ buildFuture = false
   # 显示阅读时间
   ShowReadingTime = true
   # 显示分享按钮
-  ShowShareButtons = true
+  ShowShareButtons = false
   # 显示文章导航
   ShowPostNavLinks = true
   # 显示面包屑导航
@@ -96,14 +96,7 @@ buildFuture = false
     imageHeight = 120
     imageTitle = "tyhzxh"
 
-  # 社交链接
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/tyhzxh"
-
-  [[params.socialIcons]]
-    name = "email"
-    url = "mailto:your-email@example.com"
+  # 社交链接已删除以精简页面
 
   # 搜索配置
   [params.fuseOpts]
