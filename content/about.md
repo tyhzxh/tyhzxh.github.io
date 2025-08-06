@@ -5,10 +5,6 @@ draft: false
 description: "关于博主的介绍"
 ---
 
-# 关于我 👋
-
-欢迎来到我的个人博客！
-
 ## 个人简介
 
 <div align="center">
