@@ -3,7 +3,19 @@ title: "关于我"
 date: 2024-01-01T00:00:00+08:00
 draft: false
 description: "关于博主的介绍"
+ShowReadingTime: false
+ShowBreadCrumbs: false
+ShowPostNavLinks: false
+ShowWordCount: false
+ShowRssButtonInSectionTermList: false
+UseHugoToc: false
+disableShare: true
+hideMeta: true
 ---
+
+# 关于我 👋
+
+欢迎来到我的个人博客！
 
 ## 个人简介
 
