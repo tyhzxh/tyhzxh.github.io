@@ -1,0 +1,45 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#f5576c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4facfe;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 主背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰圆形 -->
+  <circle cx="300" cy="200" r="150" fill="url(#circleGradient)"/>
+  <circle cx="1600" cy="300" r="200" fill="url(#circleGradient)"/>
+  <circle cx="800" cy="800" r="180" fill="url(#circleGradient)"/>
+  <circle cx="1400" cy="900" r="120" fill="url(#circleGradient)"/>
+  <circle cx="100" cy="600" r="100" fill="url(#circleGradient)"/>
+  
+  <!-- 几何装饰 -->
+  <polygon points="1700,100 1800,100 1750,50" fill="#ffffff" opacity="0.05"/>
+  <polygon points="200,900 300,900 250,850" fill="#ffffff" opacity="0.05"/>
+  <polygon points="1500,700 1600,700 1550,650" fill="#ffffff" opacity="0.05"/>
+  
+  <!-- 点状装饰 -->
+  <circle cx="500" cy="150" r="3" fill="#ffffff" opacity="0.3"/>
+  <circle cx="1200" cy="200" r="2" fill="#ffffff" opacity="0.3"/>
+  <circle cx="700" cy="300" r="2.5" fill="#ffffff" opacity="0.3"/>
+  <circle cx="1600" cy="500" r="3" fill="#ffffff" opacity="0.3"/>
+  <circle cx="300" cy="700" r="2" fill="#ffffff" opacity="0.3"/>
+  <circle cx="1100" cy="800" r="2.5" fill="#ffffff" opacity="0.3"/>
+  <circle cx="1800" cy="800" r="2" fill="#ffffff" opacity="0.3"/>
+  <circle cx="400" cy="400" r="1.5" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- 线条装饰 -->
+  <line x1="0" y1="540" x2="1920" y2="540" stroke="#ffffff" stroke-width="1" opacity="0.1"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#ffffff" stroke-width="1" opacity="0.1"/>
+</svg>

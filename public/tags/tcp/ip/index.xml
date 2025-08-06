@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>TCP/IP on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/tcp/ip/</link><description>Recent content in TCP/IP on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Mon, 25 Mar 2024 22:24:11 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/tcp/ip/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机网络概述：从OSI模型到TCP/IP协议栈</title><link>https://tyhzxh.github.io/posts/computer-network-overview/</link><pubDate>Mon, 25 Mar 2024 22:24:11 +0800</pubDate><guid>https://tyhzxh.github.io/posts/computer-network-overview/</guid><description>深入解析计算机网络的核心概念，包括OSI七层模型和TCP/IP四层模型的对比，以及HTTP、TCP、IP等重要协议的工作原理和应用场景</description><content:encoded><![CDATA[<h2 id="计算机网络基础概述">计算机网络基础概述</h2>
+<p>计算机网络是现代信息技术的基础设施，理解网络模型和协议对于任何IT从业者都至关重要。本文将深入探讨网络分层模型、核心协议及其实际应用。</p>
+<h2 id="网络分层模型对比">网络分层模型对比</h2>
+<h3 id="osi七层模型">OSI七层模型</h3>
+<p><strong>OSI（Open Systems Interconnection）模型</strong>是国际标准化组织制定的网络通信标准模型，将网络通信分为七个层次：</p>
+<table>
+  <thead>
+      <tr>
+          <th>层次</th>
+          <th>名称</th>
+          <th>功能描述</th>
+          <th>典型协议/技术</th>
+          <th>数据单位</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>第7层</strong></td>
+          <td>应用层</td>
+          <td>为应用程序提供网络服务</td>
+          <td>HTTP、HTTPS、FTP、SMTP、DNS</td>
+          <td>数据</td>
+      </tr>
+      <tr>
+          <td><strong>第6层</strong></td>
+          <td>表示层</td>
+          <td>数据格式转换、加密解密、压缩</td>
+          <td>SSL/TLS、JPEG、MPEG</td>
+          <td>数据</td>
+      </tr>
+      <tr>
+          <td><strong>第5层</strong></td>
+          <td>会话层</td>
+          <td>建立、管理、终止会话连接</td>
+          <td>NetBIOS、RPC、SQL</td>
+          <td>数据</td>
+      </tr>
+      <tr>
+          <td><strong>第4层</strong></td>
+          <td>传输层</td>
+          <td>端到端的可靠数据传输</td>
+          <td>TCP、UDP</td>
+          <td>段（Segment）</td>
+      </tr>
+      <tr>
+          <td><strong>第3层</strong></td>
+          <td>网络层</td>
+          <td>路径选择和逻辑地址</td>
+          <td>IP、ICMP、OSPF、BGP</td>
+          <td>包（Packet）</td>
+      </tr>
+      <tr>
+          <td><strong>第2层</strong></td>
+          <td>数据链路层</td>
+          <td>物理地址和错误检测</td>
+          <td>Ethernet、WiFi、PPP</td>
+          <td>帧（Frame）</td>
+      </tr>
+      <tr>
+          <td><strong>第1层</strong></td>
+          <td>物理层</td>
+          <td>电气、物理、功能和过程特性</td>
+          <td>双绞线、光纤、无线电波</td>
+          <td>比特（Bit）</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="tcpip四层模型">TCP/IP四层模型</h3>
+<p><strong>TCP/IP模型</strong>是互联网实际使用的网络模型，更加实用和简化：</p>
+<table>
+  <thead>
+      <tr>
+          <th>TCP/IP层次</th>
+          <th>功能描述</th>
+          <th>对应OSI层</th>
+          <th>主要协议</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>应用层</strong></td>
+          <td>应用程序接口和服务</td>
+          <td>应用层+表示层+会话层</td>
+          <td>HTTP、HTTPS、FTP、SMTP、DNS、SSH</td>
+      </tr>
+      <tr>
+          <td><strong>传输层</strong></td>
+          <td>端到端通信和数据完整性</td>
+          <td>传输层</td>
+          <td>TCP、UDP</td>
+      </tr>
+      <tr>
+          <td><strong>网络层</strong></td>
+          <td>路由和寻址</td>
+          <td>网络层</td>
+          <td>IP、ICMP、ARP</td>
+      </tr>
+      <tr>
+          <td><strong>网络接口层</strong></td>
+          <td>物理网络访问</td>
+          <td>数据链路层+物理层</td>
+          <td>Ethernet、WiFi、PPP</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="两种模型的对比">两种模型的对比</h3>
+<pre tabindex="0"><code>OSI七层模型                    TCP/IP四层模型
+┌─────────────┐               ┌─────────────┐
+│   应用层    │               │             │
+├─────────────┤               │   应用层    │
+│   表示层    │               │             │
+├─────────────┤               │             │
+│   会话层    │               │             │
+├─────────────┤               ├─────────────┤
+│   传输层    │  ────────────  │   传输层    │
+├─────────────┤               ├─────────────┤
+│   网络层    │  ────────────  │   网络层    │
+├─────────────┤               ├─────────────┤
+│ 数据链路层  │               │ 网络接口层  │
+├─────────────┤               │             │
+│   物理层    │               │             │
+└─────────────┘               └─────────────┘
+</code></pre><h2 id="核心协议详解">核心协议详解</h2>
+<h3 id="http协议超文本传输协议">HTTP协议（超文本传输协议）</h3>
+<h4 id="http基本概念">HTTP基本概念</h4>
+<p>**HTTP（HyperText Transfer Protocol）**是应用层协议，用于在Web浏览器和Web服务器之间传输数据。</p>
+<h4 id="http工作原理">HTTP工作原理</h4>
+<pre tabindex="0"><code>客户端                                    服务器
+   │                                        │
+   │ ──── HTTP请求（Request） ────────────→ │
+   │                                        │
+   │ ←──── HTTP响应（Response） ─────────── │
+   │                                        │
+</code></pre><h4 id="http请求结构">HTTP请求结构</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="nf">GET</span> <span class="nn">/api/users/123</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">www.example.com</span>
+</span></span><span class="line"><span class="cl"><span class="n">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</span></span><span class="line"><span class="cl"><span class="n">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Length</span><span class="o">:</span> <span class="l">85</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;张三&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;zhangsan@example.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="http响应结构">HTTP响应结构</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</span></span><span class="line"><span class="cl"><span class="n">Date</span><span class="o">:</span> <span class="l">Mon, 25 Mar 2024 10:30:00 GMT</span>
+</span></span><span class="line"><span class="cl"><span class="n">Server</span><span class="o">:</span> <span class="l">nginx/1.18.0</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Length</span><span class="o">:</span> <span class="l">156</span>
+</span></span><span class="line"><span class="cl"><span class="n">Cache-Control</span><span class="o">:</span> <span class="l">no-cache</span>
+</span></span><span class="line"><span class="cl"><span class="n">Set-Cookie</span><span class="o">:</span> <span class="l">sessionid=abc123; Path=/; HttpOnly</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;张三&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;zhangsan@example.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2024-03-25T10:30:00Z&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="http方法详解">HTTP方法详解</h4>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>用途</th>
+          <th>幂等性</th>
+          <th>安全性</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>GET</strong></td>
+          <td>获取资源</td>
+          <td>✓</td>
+          <td>✓</td>
+          <td><code>GET /api/users</code></td>
+      </tr>
+      <tr>
+          <td><strong>POST</strong></td>
+          <td>创建资源</td>
+          <td>✗</td>
+          <td>✗</td>
+          <td><code>POST /api/users</code></td>
+      </tr>
+      <tr>
+          <td><strong>PUT</strong></td>
+          <td>更新/创建资源</td>
+          <td>✓</td>
+          <td>✗</td>
+          <td><code>PUT /api/users/123</code></td>
+      </tr>
+      <tr>
+          <td><strong>PATCH</strong></td>
+          <td>部分更新资源</td>
+          <td>✗</td>
+          <td>✗</td>
+          <td><code>PATCH /api/users/123</code></td>
+      </tr>
+      <tr>
+          <td><strong>DELETE</strong></td>
+          <td>删除资源</td>
+          <td>✓</td>
+          <td>✗</td>
+          <td><code>DELETE /api/users/123</code></td>
+      </tr>
+      <tr>
+          <td><strong>HEAD</strong></td>
+          <td>获取响应头</td>
+          <td>✓</td>
+          <td>✓</td>
+          <td><code>HEAD /api/users/123</code></td>
+      </tr>
+      <tr>
+          <td><strong>OPTIONS</strong></td>
+          <td>获取支持的方法</td>
+          <td>✓</td>
+          <td>✓</td>
+          <td><code>OPTIONS /api/users</code></td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="http状态码">HTTP状态码</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 1xx 信息性状态码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">100</span> <span class="nx">Continue</span>              <span class="c1">// 继续请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">101</span> <span class="nx">Switching</span> <span class="nx">Protocols</span>   <span class="c1">// 切换协议
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2xx 成功状态码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">200</span> <span class="nx">OK</span>                    <span class="c1">// 请求成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">201</span> <span class="nx">Created</span>              <span class="c1">// 资源创建成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">204</span> <span class="nx">No</span> <span class="nx">Content</span>           <span class="c1">// 成功但无内容返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 3xx 重定向状态码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">301</span> <span class="nx">Moved</span> <span class="nx">Permanently</span>    <span class="c1">// 永久重定向
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">302</span> <span class="nx">Found</span>               <span class="c1">// 临时重定向
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">304</span> <span class="nx">Not</span> <span class="nx">Modified</span>        <span class="c1">// 资源未修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 4xx 客户端错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">400</span> <span class="nx">Bad</span> <span class="nx">Request</span>         <span class="c1">// 请求语法错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">401</span> <span class="nx">Unauthorized</span>        <span class="c1">// 未授权
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">403</span> <span class="nx">Forbidden</span>          <span class="c1">// 禁止访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">404</span> <span class="nx">Not</span> <span class="nx">Found</span>          <span class="c1">// 资源不存在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">429</span> <span class="nx">Too</span> <span class="nx">Many</span> <span class="nx">Requests</span>  <span class="c1">// 请求过多
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 5xx 服务器错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">500</span> <span class="nx">Internal</span> <span class="nx">Server</span> <span class="nb">Error</span>  <span class="c1">// 服务器内部错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">502</span> <span class="nx">Bad</span> <span class="nx">Gateway</span>           <span class="c1">// 网关错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">503</span> <span class="nx">Service</span> <span class="nx">Unavailable</span>   <span class="c1">// 服务不可用
+</span></span></span></code></pre></div><h4 id="https安全增强">HTTPS安全增强</h4>
+<pre tabindex="0"><code>HTTP + SSL/TLS = HTTPS
+
+客户端                                    服务器
+   │                                        │
+   │ ──── SSL握手（建立安全连接） ────────→ │
+   │ ←──── 证书验证 ─────────────────────── │
+   │ ──── 加密的HTTP请求 ─────────────────→ │
+   │ ←──── 加密的HTTP响应 ────────────────── │
+   │                                        │
+</code></pre><h3 id="tcp协议传输控制协议">TCP协议（传输控制协议）</h3>
+<h4 id="tcp基本特性">TCP基本特性</h4>
+<p>**TCP（Transmission Control Protocol）**是面向连接的、可靠的传输层协议。</p>
+<h4 id="tcp核心特性">TCP核心特性</h4>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>描述</th>
+          <th>实现机制</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>面向连接</strong></td>
+          <td>通信前需建立连接</td>
+          <td>三次握手建立连接</td>
+      </tr>
+      <tr>
+          <td><strong>可靠传输</strong></td>
+          <td>保证数据完整性</td>
+          <td>序列号、确认应答、重传</td>
+      </tr>
+      <tr>
+          <td><strong>流量控制</strong></td>
+          <td>防止发送方过快</td>
+          <td>滑动窗口机制</td>
+      </tr>
+      <tr>
+          <td><strong>拥塞控制</strong></td>
+          <td>防止网络拥塞</td>
+          <td>慢启动、拥塞避免</td>
+      </tr>
+      <tr>
+          <td><strong>全双工通信</strong></td>
+          <td>双向数据传输</td>
+          <td>独立的发送和接收缓冲区</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="tcp三次握手">TCP三次握手</h4>
+<pre tabindex="0"><code>客户端                                    服务器
+   │                                        │
+   │ ──── SYN（seq=x） ──────────────────→ │  第一次握手
+   │                                        │
+   │ ←──── SYN+ACK（seq=y, ack=x+1） ───── │  第二次握手
+   │                                        │
+   │ ──── ACK（seq=x+1, ack=y+1） ───────→ │  第三次握手
+   │                                        │
+   │ ═══════ 连接建立，开始数据传输 ═══════ │
+</code></pre><h4 id="tcp四次挥手">TCP四次挥手</h4>
+<pre tabindex="0"><code>客户端                                    服务器
+   │                                        │
+   │ ──── FIN（seq=u） ──────────────────→ │  第一次挥手
+   │                                        │
+   │ ←──── ACK（ack=u+1） ────────────────── │  第二次挥手
+   │                                        │
+   │ ←──── FIN（seq=v） ────────────────── │  第三次挥手
+   │                                        │
+   │ ──── ACK（ack=v+1） ────────────────→ │  第四次挥手
+   │                                        │
+   │ ═══════ 连接关闭 ═══════════════════ │
+</code></pre><h4 id="tcp-vs-udp对比">TCP vs UDP对比</h4>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>TCP</th>
+          <th>UDP</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>连接性</strong></td>
+          <td>面向连接</td>
+          <td>无连接</td>
+      </tr>
+      <tr>
+          <td><strong>可靠性</strong></td>
+          <td>可靠传输</td>
+          <td>不可靠传输</td>
+      </tr>
+      <tr>
+          <td><strong>速度</strong></td>
+          <td>较慢（开销大）</td>
+          <td>较快（开销小）</td>
+      </tr>
+      <tr>
+          <td><strong>数据边界</strong></td>
+          <td>字节流</td>
+          <td>数据报</td>
+      </tr>
+      <tr>
+          <td><strong>应用场景</strong></td>
+          <td>HTTP、FTP、邮件</td>
+          <td>DNS、视频流、游戏</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="ip协议网际协议">IP协议（网际协议）</h3>
+<h4 id="ip协议概述">IP协议概述</h4>
+<p>**IP（Internet Protocol）**是网络层协议，负责在网络中路由数据包。</p>
+<h4 id="ipv4地址结构">IPv4地址结构</h4>
+<pre tabindex="0"><code>IPv4地址：32位，分为4个8位字节
+示例：192.168.1.100
+
+二进制表示：
+11000000.10101000.00000001.01100100
+
+地址分类：
+A类：1.0.0.0    - 126.255.255.255  （/8）
+B类：128.0.0.0  - 191.255.255.255  （/16）
+C类：192.0.0.0  - 223.255.255.255  （/24）
+</code></pre><h4 id="私有ip地址范围">私有IP地址范围</h4>
+<table>
+  <thead>
+      <tr>
+          <th>类别</th>
+          <th>地址范围</th>
+          <th>子网掩码</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A类私有</td>
+          <td>10.0.0.0 - 10.255.255.255</td>
+          <td>255.0.0.0</td>
+          <td>大型企业网络</td>
+      </tr>
+      <tr>
+          <td>B类私有</td>
+          <td>172.16.0.0 - 172.31.255.255</td>
+          <td>255.240.0.0</td>
+          <td>中型企业网络</td>
+      </tr>
+      <tr>
+          <td>C类私有</td>
+          <td>192.168.0.0 - 192.168.255.255</td>
+          <td>255.255.0.0</td>
+          <td>家庭/小型网络</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="ipv6地址结构">IPv6地址结构</h4>
+<pre tabindex="0"><code>IPv6地址：128位，分为8组，每组4个十六进制数字
+示例：2001:0db8:85a3:0000:0000:8a2e:0370:7334
+
+简化表示：
+2001:db8:85a3::8a2e:370:7334
+
+地址类型：
+单播地址：一对一通信
+组播地址：一对多通信
+任播地址：一对最近一个通信
+</code></pre><h2 id="网络通信实例">网络通信实例</h2>
+<h3 id="完整的http请求过程">完整的HTTP请求过程</h3>
+<pre tabindex="0"><code>1. DNS解析
+   www.example.com → 93.184.216.34
+
+2. TCP连接建立（三次握手）
+   客户端:1234 ←→ 服务器:80
+
+3. HTTP请求发送
+   GET / HTTP/1.1
+   Host: www.example.com
+
+4. HTTP响应接收
+   HTTP/1.1 200 OK
+   Content-Type: text/html
+
+5. TCP连接关闭（四次挥手）
+</code></pre><h3 id="数据包封装过程">数据包封装过程</h3>
+<pre tabindex="0"><code>应用层：HTTP数据
+    ↓
+传输层：TCP头部 + HTTP数据
+    ↓
+网络层：IP头部 + TCP头部 + HTTP数据
+    ↓
+数据链路层：以太网头部 + IP头部 + TCP头部 + HTTP数据 + 以太网尾部
+    ↓
+物理层：电信号/光信号
+</code></pre><h2 id="网络安全基础">网络安全基础</h2>
+<h3 id="常见网络攻击">常见网络攻击</h3>
+<table>
+  <thead>
+      <tr>
+          <th>攻击类型</th>
+          <th>描述</th>
+          <th>防护措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>DDoS攻击</strong></td>
+          <td>分布式拒绝服务</td>
+          <td>流量清洗、CDN</td>
+      </tr>
+      <tr>
+          <td><strong>中间人攻击</strong></td>
+          <td>截获通信内容</td>
+          <td>HTTPS、证书验证</td>
+      </tr>
+      <tr>
+          <td><strong>SQL注入</strong></td>
+          <td>恶意SQL代码</td>
+          <td>参数化查询、输入验证</td>
+      </tr>
+      <tr>
+          <td><strong>XSS攻击</strong></td>
+          <td>跨站脚本攻击</td>
+          <td>输入过滤、CSP策略</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="网络安全协议">网络安全协议</h3>
+<pre tabindex="0"><code>SSL/TLS：传输层安全
+IPSec：网络层安全
+WPA/WPA2：无线网络安全
+SSH：安全远程访问
+</code></pre><h2 id="网络性能优化">网络性能优化</h2>
+<h3 id="常见优化技术">常见优化技术</h3>
+<ol>
+<li>
+<p><strong>CDN（内容分发网络）</strong></p>
+<ul>
+<li>就近访问，减少延迟</li>
+<li>分担源服务器压力</li>
+</ul>
+</li>
+<li>
+<p><strong>负载均衡</strong></p>
+<ul>
+<li>分散请求到多台服务器</li>
+<li>提高系统可用性</li>
+</ul>
+</li>
+<li>
+<p><strong>缓存策略</strong></p>
+<ul>
+<li>浏览器缓存</li>
+<li>代理服务器缓存</li>
+<li>应用层缓存</li>
+</ul>
+</li>
+<li>
+<p><strong>压缩技术</strong></p>
+<ul>
+<li>Gzip压缩</li>
+<li>Brotli压缩</li>
+<li>图片压缩</li>
+</ul>
+</li>
+</ol>
+<h3 id="网络监控指标">网络监控指标</h3>
+<table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>描述</th>
+          <th>正常范围</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>延迟（Latency）</strong></td>
+          <td>数据传输时间</td>
+          <td>&lt; 100ms</td>
+      </tr>
+      <tr>
+          <td><strong>带宽（Bandwidth）</strong></td>
+          <td>数据传输速率</td>
+          <td>根据需求</td>
+      </tr>
+      <tr>
+          <td><strong>丢包率（Packet Loss）</strong></td>
+          <td>数据包丢失比例</td>
+          <td>&lt; 1%</td>
+      </tr>
+      <tr>
+          <td><strong>吞吐量（Throughput）</strong></td>
+          <td>实际数据传输量</td>
+          <td>接近带宽</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="实际应用场景">实际应用场景</h2>
+<h3 id="web应用架构">Web应用架构</h3>
+<pre tabindex="0"><code>用户浏览器
+    ↓ HTTP/HTTPS
+负载均衡器
+    ↓ HTTP
+Web服务器（Nginx/Apache）
+    ↓ HTTP/FastCGI
+应用服务器（Node.js/Java/Python）
+    ↓ TCP/IP
+数据库服务器（MySQL/PostgreSQL）
+</code></pre><h3 id="微服务通信">微服务通信</h3>
+<pre tabindex="0"><code>服务A ←─ HTTP/REST ─→ 服务B
+  │                      │
+  └─ gRPC/TCP ─→ 服务C ←─┘
+  │                      │
+  └─ Message Queue ─→ 服务D
+</code></pre><h2 id="学习建议">学习建议</h2>
+<h3 id="理论学习路径">理论学习路径</h3>
+<ol>
+<li><strong>基础概念</strong>：理解网络分层模型</li>
+<li><strong>协议原理</strong>：深入学习TCP/IP、HTTP</li>
+<li><strong>网络编程</strong>：Socket编程实践</li>
+<li><strong>安全知识</strong>：网络安全基础</li>
+<li><strong>性能优化</strong>：网络调优技术</li>
+</ol>
+<h3 id="实践项目建议">实践项目建议</h3>
+<ol>
+<li><strong>搭建简单Web服务器</strong></li>
+<li><strong>实现HTTP客户端</strong></li>
+<li><strong>网络抓包分析</strong></li>
+<li><strong>配置负载均衡</strong></li>
+<li><strong>部署HTTPS证书</strong></li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>计算机网络是现代信息技术的基础，理解网络模型和协议对于：</p>
+<ul>
+<li><strong>开发人员</strong>：编写网络应用程序</li>
+<li><strong>运维人员</strong>：网络故障排查和优化</li>
+<li><strong>架构师</strong>：设计分布式系统</li>
+<li><strong>安全工程师</strong>：网络安全防护</li>
+</ul>
+<p>掌握这些基础知识将为深入学习更高级的网络技术打下坚实基础。建议结合理论学习和实际操作，通过抓包分析、网络编程等方式加深理解。</p>
+]]></content:encoded></item></channel></rss>

@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>数据库技术 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/</link><description>Recent content in 数据库技术 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Sat, 12 Oct 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>LevelDB源码阅读指南</title><link>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</link><pubDate>Sat, 12 Oct 2024 10:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/posts/leveldb-source-code-guide/</guid><description>深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+<p>阅读LevelDB源码是一项很好的学习机会，因为它的代码质量高、设计简洁而高效。LevelDB是Google开发的一个高性能键值存储数据库，采用LSM Tree数据结构，广泛应用于各种存储系统中。</p>
+<h2 id="基本概念">基本概念</h2>
+<p>在阅读源码之前，确保你熟悉LevelDB的基本概念和术语：</p>
+<h3 id="核心概念">核心概念</h3>
+<ul>
+<li><strong>SSTable（Sorted String Table）</strong>：不可变的、排序的键值存储文件，是LevelDB持久化数据的基本单位</li>
+<li><strong>LSM Tree（Log-Structured Merge Tree）</strong>：一种数据结构，LevelDB使用它来管理存储在磁盘上的数据</li>
+<li><strong>MemTable和Immutable MemTable</strong>：内存中存储的数据结构，数据首先写入MemTable，然后在其达到一定大小时，转换成Immutable MemTable并持久化到磁盘中</li>
+<li><strong>WAL（Write-Ahead Log）</strong>：每个写入操作都会被记录到WAL中，用于恢复未持久化的数据</li>
+</ul>
+<p>了解这些基础知识能帮助你在代码中更容易识别和理解这些概念。</p>
+<h2 id="项目结构详解">项目结构详解</h2>
+<p>LevelDB的源码结构清晰，模块化程度高：</p>
+<h3 id="1-db---核心数据库操作">1. db/ - 核心数据库操作</h3>
+<p>包含LevelDB数据库的核心实现，处理数据的存储、读取、更新、删除等主要功能。</p>
+<p><strong>重要文件</strong>：</p>
+<ul>
+<li><code>db_impl.cc</code>：主要数据库操作的实现（Get、Put、Delete等接口）</li>
+<li><code>version_set.cc</code>：管理SSTable文件的版本控制以及文件合并（Compaction）操作</li>
+<li><code>write_batch.cc</code>：处理批量写操作（WriteBatch）的实现</li>
+<li><code>log_writer.cc</code> 和 <code>log_reader.cc</code>：写前日志（WAL）的读写功能实现</li>
+</ul>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li>数据读写接口的实现</li>
+<li>日志恢复和数据恢复</li>
+<li>数据的存储组织形式管理</li>
+</ul>
+<h3 id="2-table---sstable实现">2. table/ - SSTable实现</h3>
+<p>SSTable是LevelDB持久化存储的基本单位，这个目录包含了SSTable的生成、读取以及与其他数据库结构的交互。</p>
+<p><strong>重要文件</strong>：</p>
+<ul>
+<li><code>block_builder.cc</code>：构建SSTable中的Block（小的存储单元）</li>
+<li><code>table_builder.cc</code>：构建SSTable文件的逻辑</li>
+<li><code>block.cc</code> 和 <code>block_reader.cc</code>：从SSTable中读取Block的逻辑</li>
+<li><code>filter_block.cc</code>：实现布隆过滤器，用于快速查找键是否存在</li>
+</ul>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li>SSTable文件的生成与读取</li>
+<li>数据的组织方式（分块存储、布隆过滤器、压缩等）</li>
+<li>保证SSTable中的数据是有序的</li>
+</ul>
+<h3 id="3-util---通用工具和辅助类">3. util/ - 通用工具和辅助类</h3>
+<p>包含LevelDB中的通用工具，辅助处理常见的操作。</p>
+<p><strong>重要文件</strong>：</p>
+<ul>
+<li><code>status.cc</code>：提供状态类Status，用于表示操作成功或失败的结果</li>
+<li><code>coding.cc</code>：提供基本的编码、解码功能</li>
+<li><code>env.cc</code>：提供文件系统相关的抽象</li>
+<li><code>crc32c.cc</code>：实现CRC32C校验，用于数据完整性校验</li>
+<li><code>compression.cc</code>：处理数据压缩与解压缩</li>
+</ul>
+<h3 id="4-port---跨平台支持">4. port/ - 跨平台支持</h3>
+<p>确保LevelDB可以在不同的操作系统和硬件架构下运行。</p>
+<p><strong>重要文件</strong>：</p>
+<ul>
+<li><code>port_posix.cc</code>：为POSIX系统实现的线程、文件、锁等操作</li>
+<li><code>port_win.cc</code>：为Windows系统提供与POSIX等效的功能</li>
+<li><code>port_stdcxx.cc</code>：为C++标准库提供跨平台支持</li>
+</ul>
+<h3 id="5-include---公共头文件">5. include/ - 公共头文件</h3>
+<p>包含LevelDB库对外暴露的接口文件。</p>
+<p><strong>重要文件</strong>：</p>
+<ul>
+<li><code>db.h</code>：定义主要数据库接口</li>
+<li><code>options.h</code>：定义数据库操作时的可选项</li>
+<li><code>write_batch.h</code>：定义批量写入接口</li>
+</ul>
+<h3 id="6-doc---文档和设计说明">6. doc/ - 文档和设计说明</h3>
+<p>包含LevelDB的设计文档和相关说明文档。</p>
+<h2 id="源码阅读策略">源码阅读策略</h2>
+<h3 id="推荐阅读顺序">推荐阅读顺序</h3>
+<ol>
+<li><strong>公开接口</strong>：从<code>include/</code>目录开始，了解对外提供的功能</li>
+<li><strong>核心入口</strong>：阅读DB类、WriteBatch类、Iterator类</li>
+<li><strong>核心模块</strong>：深入MemTable、SSTable、Compaction机制、WAL</li>
+<li><strong>工具类</strong>：了解<code>util/</code>中的辅助功能</li>
+</ol>
+<h3 id="学习方法">学习方法</h3>
+<ol>
+<li><strong>理解项目结构</strong>：先从公共接口开始阅读</li>
+<li><strong>从主要入口开始</strong>：从用户最常调用的接口开始</li>
+<li><strong>重点阅读核心模块</strong>：深入到LevelDB的内部实现</li>
+<li><strong>使用调试工具</strong>：通过gdb等工具进行单步调试</li>
+<li><strong>阅读代码注释和文档</strong>：LevelDB的代码注释比较丰富</li>
+<li><strong>结合实际项目和测试</strong>：通过测试代码理解用法和行为</li>
+<li><strong>查阅资料和社区讨论</strong>：遇到困难时查阅相关资料</li>
+<li><strong>循序渐进，逐步深入</strong>：先把握整体结构，再深入细节</li>
+</ol>
+<h2 id="基本使用">基本使用</h2>
+<p>LevelDB提供了简洁的键值存储接口：</p>
+<h3 id="核心接口">核心接口</h3>
+<h4 id="1-db接口">1. DB接口</h4>
+<p>DB是LevelDB的核心接口，代表一个数据库实例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 打开数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">leveldb</span><span class="o">::</span><span class="n">DB</span><span class="o">*</span> <span class="n">db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Options</span> <span class="n">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">create_if_missing</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Status</span> <span class="n">status</span> <span class="o">=</span> <span class="n">leveldb</span><span class="o">::</span><span class="n">DB</span><span class="o">::</span><span class="n">Open</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s">&#34;/tmp/testdb&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 写入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Put</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span><span class="p">(),</span> <span class="s">&#34;key1&#34;</span><span class="p">,</span> <span class="s">&#34;value1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 读取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Get</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">ReadOptions</span><span class="p">(),</span> <span class="s">&#34;key1&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 删除数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span><span class="p">(),</span> <span class="s">&#34;key1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 关闭数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="n">db</span><span class="p">;</span>
+</span></span></code></pre></div><h4 id="2-iterator接口">2. Iterator接口</h4>
+<p>用于遍历数据库中的键值对：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Iterator</span><span class="o">*</span> <span class="n">it</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">NewIterator</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">ReadOptions</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 遍历所有键值对
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">SeekToFirst</span><span class="p">();</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">Valid</span><span class="p">();</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">Next</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">().</span><span class="n">ToString</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">().</span><span class="n">ToString</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找特定键
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">it</span><span class="o">-&gt;</span><span class="n">Seek</span><span class="p">(</span><span class="s">&#34;key1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">Valid</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Found: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">().</span><span class="n">ToString</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
+</span></span></code></pre></div><h4 id="3-writebatch接口">3. WriteBatch接口</h4>
+<p>用于批量写入操作：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteBatch</span> <span class="n">batch</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch</span><span class="p">.</span><span class="n">Delete</span><span class="p">(</span><span class="s">&#34;key1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch</span><span class="p">.</span><span class="n">Put</span><span class="p">(</span><span class="s">&#34;key2&#34;</span><span class="p">,</span> <span class="s">&#34;value2&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">batch</span><span class="p">.</span><span class="n">Put</span><span class="p">(</span><span class="s">&#34;key3&#34;</span><span class="p">,</span> <span class="s">&#34;value3&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">batch</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="配置选项">配置选项</h3>
+<h4 id="options配置">Options配置</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Options</span> <span class="n">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">create_if_missing</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">// 如果数据库不存在则创建
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">options</span><span class="p">.</span><span class="n">write_buffer_size</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">;</span>  <span class="c1">// 写缓冲区大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">options</span><span class="p">.</span><span class="n">max_open_files</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>  <span class="c1">// 最大打开文件数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">options</span><span class="p">.</span><span class="n">block_size</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">;</span>  <span class="c1">// 块大小
+</span></span></span></code></pre></div><h4 id="readoptions配置">ReadOptions配置</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">ReadOptions</span> <span class="n">read_options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">read_options</span><span class="p">.</span><span class="n">verify_checksums</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">// 验证校验和
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">read_options</span><span class="p">.</span><span class="n">fill_cache</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">// 填充缓存
+</span></span></span></code></pre></div><h4 id="writeoptions配置">WriteOptions配置</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span> <span class="n">write_options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">write_options</span><span class="p">.</span><span class="n">sync</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>  <span class="c1">// 同步写入
+</span></span></span></code></pre></div><h2 id="性能优化建议">性能优化建议</h2>
+<h3 id="1-批量操作">1. 批量操作</h3>
+<p>使用WriteBatch进行批量写入可以显著提高性能：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteBatch</span> <span class="n">batch</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">batch</span><span class="p">.</span><span class="n">Put</span><span class="p">(</span><span class="s">&#34;key&#34;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s">&#34;value&#34;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">db</span><span class="o">-&gt;</span><span class="n">Write</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">batch</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="2-合理配置缓存">2. 合理配置缓存</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;leveldb/cache.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Options</span> <span class="n">options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">block_cache</span> <span class="o">=</span> <span class="n">leveldb</span><span class="o">::</span><span class="n">NewLRUCache</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="mi">1048576</span><span class="p">);</span>  <span class="c1">// 100MB缓存
+</span></span></span></code></pre></div><h3 id="3-压缩配置">3. 压缩配置</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;leveldb/filter_policy.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">filter_policy</span> <span class="o">=</span> <span class="n">leveldb</span><span class="o">::</span><span class="n">NewBloomFilterPolicy</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="p">.</span><span class="n">compression</span> <span class="o">=</span> <span class="n">leveldb</span><span class="o">::</span><span class="n">kSnappyCompression</span><span class="p">;</span>
+</span></span></code></pre></div><h2 id="错误处理">错误处理</h2>
+<p>LevelDB使用Status类进行错误处理：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">leveldb</span><span class="o">::</span><span class="n">Status</span> <span class="n">status</span> <span class="o">=</span> <span class="n">db</span><span class="o">-&gt;</span><span class="n">Put</span><span class="p">(</span><span class="n">leveldb</span><span class="o">::</span><span class="n">WriteOptions</span><span class="p">(),</span> <span class="s">&#34;key&#34;</span><span class="p">,</span> <span class="s">&#34;value&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">status</span><span class="p">.</span><span class="n">ok</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Error: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">status</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">status</span><span class="p">.</span><span class="n">IsNotFound</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 处理未找到错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">status</span><span class="p">.</span><span class="n">IsCorruption</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 处理数据损坏错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">status</span><span class="p">.</span><span class="n">IsIOError</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 处理IO错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="总结">总结</h2>
+<p>LevelDB通过清晰的模块化设计，将核心功能、工具类、跨平台支持以及对外接口分离开来。理解其架构和基本使用方法，有助于深入学习现代存储系统的设计原理。通过系统性的源码阅读，可以掌握LSM Tree、WAL、Compaction等关键技术的实现细节。</p>
+<h2 id="参考资源">参考资源</h2>
+<ul>
+<li><a href="https://github.com/google/leveldb">LevelDB官方文档</a></li>
+<li><a href="https://github.com/google/leveldb/blob/main/doc/index.md">LevelDB设计文档</a></li>
+<li><a href="https://www.cs.umb.edu/~poneil/lsmtree.pdf">LSM Tree论文</a></li>
+</ul>
+]]></content:encoded></item><item><title>数据库基础入门：从概念到实践</title><link>https://tyhzxh.github.io/posts/database-fundamentals/</link><pubDate>Mon, 11 Mar 2024 12:32:05 +0800</pubDate><guid>https://tyhzxh.github.io/posts/database-fundamentals/</guid><description>数据库基础知识入门指南，包括基本概念、MySQL环境搭建、SQL语法规范、数据库创建和基本操作，适合初学者系统学习数据库技术</description><content:encoded><![CDATA[<h2 id="数据库学习概述">数据库学习概述</h2>
+<p>数据库是现代软件开发的核心技术之一，掌握数据库知识对于任何开发者都至关重要。本文将从基础概念开始，逐步深入数据库的核心技术。</p>
+<h2 id="开发环境搭建">开发环境搭建</h2>
+<h3 id="推荐工具组合">推荐工具组合</h3>
+<ol>
+<li>
+<p><strong>MySQL 8.3 Command Line Client（命令行工具）</strong></p>
+<ul>
+<li>官方命令行客户端</li>
+<li>适合学习SQL语法和执行脚本</li>
+<li>轻量级，启动快速</li>
+</ul>
+</li>
+<li>
+<p><strong>Navicat for MySQL（图形化工具）</strong></p>
+<ul>
+<li>直观的图形界面</li>
+<li>内置命令行功能</li>
+<li>支持数据库设计和管理</li>
+<li>适合日常开发和维护</li>
+</ul>
+</li>
+</ol>
+<h3 id="环境配置建议">环境配置建议</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># MySQL服务启动</span>
+</span></span><span class="line"><span class="cl">net start mysql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连接到MySQL服务器</span>
+</span></span><span class="line"><span class="cl">mysql -u root -p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前版本</span>
+</span></span><span class="line"><span class="cl">SELECT VERSION<span class="o">()</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前用户</span>
+</span></span><span class="line"><span class="cl">SELECT USER<span class="o">()</span><span class="p">;</span>
+</span></span></code></pre></div><h2 id="数据库基本概念">数据库基本概念</h2>
+<h3 id="核心组件">核心组件</h3>
+<p>数据库系统包含以下主要组件：</p>
+<table>
+  <thead>
+      <tr>
+          <th>组件</th>
+          <th>功能说明</th>
+          <th>应用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>表（Table）</strong></td>
+          <td>存储数据的基本单位</td>
+          <td>用户信息、订单记录等</td>
+      </tr>
+      <tr>
+          <td><strong>视图（View）</strong></td>
+          <td>虚拟表，基于查询结果</td>
+          <td>数据展示、权限控制</td>
+      </tr>
+      <tr>
+          <td><strong>存储过程（Procedure）</strong></td>
+          <td>预编译的SQL代码块</td>
+          <td>复杂业务逻辑处理</td>
+      </tr>
+      <tr>
+          <td><strong>函数（Function）</strong></td>
+          <td>返回单一值的代码块</td>
+          <td>数据计算和转换</td>
+      </tr>
+      <tr>
+          <td><strong>触发器（Trigger）</strong></td>
+          <td>自动执行的特殊程序</td>
+          <td>数据完整性维护</td>
+      </tr>
+      <tr>
+          <td><strong>事件（Event）</strong></td>
+          <td>定时执行的任务</td>
+          <td>数据清理、备份等</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="基本操作类型crud">基本操作类型（CRUD）</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Create（创建）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;zhangsan@example.com&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Read（读取）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Update（更新）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;newemail@example.com&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Delete（删除）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="sql语法规范">SQL语法规范</h2>
+<h3 id="1-大小写规范">1. 大小写规范</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 推荐写法：关键字大写，表名列名小写
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 不推荐但可行的写法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">EMAIL</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">USERS</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="n">AGE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">NAME</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-语句结束符">2. 语句结束符</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 每条SQL语句建议用分号结尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="3-格式化和缩进">3. 格式化和缩进</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 良好的格式化示例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">position_title</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">users</span><span class="w"> </span><span class="n">u</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">positions</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">position_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">created_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">ASC</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">u</span><span class="p">.</span><span class="n">created_date</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="4-注释规范">4. 注释规范</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 单行注释：使用 # 号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">#</span><span class="w"> </span><span class="err">这是一个单行注释</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 单行注释：使用双横线
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 这也是一个单行注释
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/* 
+</span></span></span><span class="line"><span class="cl"><span class="cm">多行注释：使用斜杠星号
+</span></span></span><span class="line"><span class="cl"><span class="cm">可以跨越多行
+</span></span></span><span class="line"><span class="cl"><span class="cm">适合详细说明
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 实际应用示例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">  </span><span class="c1">-- 用户ID，自增主键
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">          </span><span class="c1">-- 用户姓名，不能为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span><span class="w">          </span><span class="c1">-- 邮箱地址，唯一约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">created_date</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w">  </span><span class="c1">-- 创建时间，默认当前时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h2 id="数据库创建和管理">数据库创建和管理</h2>
+<h3 id="1-创建数据库">1. 创建数据库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 基本创建语法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">studentinfo</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 完整的创建语法（推荐）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">studentinfo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看创建的数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看数据库详细信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">studentinfo</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-字符集和校对规则">2. 字符集和校对规则</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- UTF-8字符集（推荐，支持全球字符）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">modern_app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 简体中文字符集
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">chinese_app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gb2312</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gb2312_chinese_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看支持的字符集
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看支持的校对规则
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="k">COLLATION</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="3-数据库操作">3. 数据库操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 使用数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">USE</span><span class="w"> </span><span class="n">studentinfo</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看当前使用的数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">DATABASE</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 删除数据库（谨慎操作）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">old_database</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 修改数据库字符集
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">studentinfo</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">COLLATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="表的创建和管理">表的创建和管理</h2>
+<h3 id="1-基本表结构">1. 基本表结构</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 学生信息表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">student_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">student_email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">student_age</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">student_age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">150</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">enrollment_date</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="p">(</span><span class="k">CURRENT_DATE</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="n">ENUM</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;graduated&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 课程信息表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">courses</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">course_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">course_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">course_code</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">credits</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">CURRENT_TIMESTAMP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 选课关系表（多对多关系）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">enrollments</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">enrollment_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">course_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">enrollment_date</span><span class="w"> </span><span class="nb">DATE</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="p">(</span><span class="k">CURRENT_DATE</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">grade</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="n">ENUM</span><span class="p">(</span><span class="s1">&#39;enrolled&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;completed&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dropped&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;enrolled&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">course_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">courses</span><span class="p">(</span><span class="n">course_id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">unique_enrollment</span><span class="w"> </span><span class="p">(</span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">course_id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-数据类型选择指南">2. 数据类型选择指南</h3>
+<table>
+  <thead>
+      <tr>
+          <th>数据类型</th>
+          <th>适用场景</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>INT</code></td>
+          <td>整数ID、年龄、数量</td>
+          <td><code>student_id INT AUTO_INCREMENT</code></td>
+      </tr>
+      <tr>
+          <td><code>VARCHAR(n)</code></td>
+          <td>变长字符串</td>
+          <td><code>name VARCHAR(50)</code></td>
+      </tr>
+      <tr>
+          <td><code>TEXT</code></td>
+          <td>长文本内容</td>
+          <td><code>description TEXT</code></td>
+      </tr>
+      <tr>
+          <td><code>DECIMAL(m,d)</code></td>
+          <td>精确小数</td>
+          <td><code>price DECIMAL(10,2)</code></td>
+      </tr>
+      <tr>
+          <td><code>DATE</code></td>
+          <td>日期</td>
+          <td><code>birth_date DATE</code></td>
+      </tr>
+      <tr>
+          <td><code>TIMESTAMP</code></td>
+          <td>时间戳</td>
+          <td><code>created_at TIMESTAMP</code></td>
+      </tr>
+      <tr>
+          <td><code>ENUM</code></td>
+          <td>枚举值</td>
+          <td><code>status ENUM('active', 'inactive')</code></td>
+      </tr>
+      <tr>
+          <td><code>BOOLEAN</code></td>
+          <td>布尔值</td>
+          <td><code>is_active BOOLEAN DEFAULT TRUE</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="3-约束和索引">3. 约束和索引</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 添加约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_age</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">student_age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">80</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 添加索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_student_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">student_name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_enrollment_date</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">enrollment_date</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 复合索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_student_status_date</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">enrollment_date</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看表结构
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="基本查询操作">基本查询操作</h2>
+<h3 id="1-简单查询">1. 简单查询</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 查询所有学生
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查询特定字段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">student_email</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 条件查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 模糊查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">student_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;张%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 范围查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">25</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 多条件查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">18</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">enrollment_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-排序和分页">2. 排序和分页</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 排序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="w"> </span><span class="k">ASC</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 分页查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_id</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">OFFSET</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 跳过前20条，取10条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- MySQL特有的分页语法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_id</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">  </span><span class="c1">-- 从第21条开始，取10条
+</span></span></span></code></pre></div><h3 id="3-聚合函数">3. 聚合函数</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 统计函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_students</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">status_types</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">AVG</span><span class="p">(</span><span class="n">student_age</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_age</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MIN</span><span class="p">(</span><span class="n">student_age</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">youngest</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">MAX</span><span class="p">(</span><span class="n">student_age</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">oldest</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">active_count</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 分组统计
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">status</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">count</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">AVG</span><span class="p">(</span><span class="n">student_age</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">avg_age</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">status</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="数据操作实践">数据操作实践</h2>
+<h3 id="1-插入数据">1. 插入数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 单条插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="p">(</span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">student_email</span><span class="p">,</span><span class="w"> </span><span class="n">student_age</span><span class="p">)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;zhangsan@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 批量插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="p">(</span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">student_email</span><span class="p">,</span><span class="w"> </span><span class="n">student_age</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">(</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lisi@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">(</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;wangwu@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">(</span><span class="s1">&#39;赵六&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;zhaoliu@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 从其他表插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">backup_students</span><span class="w"> </span><span class="p">(</span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">student_email</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">student_email</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;graduated&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-更新数据">2. 更新数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 单条更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">student_email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;new_email@example.com&#39;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">student_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 批量更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">enrollment_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 条件更新
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">MONTH</span><span class="p">(</span><span class="n">enrollment_date</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">MONTH</span><span class="p">(</span><span class="k">CURRENT_DATE</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="3-删除数据">3. 删除数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 条件删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;inactive&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 清空表（保留结构）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">temp_students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 删除表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">old_table</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="数据库设计最佳实践">数据库设计最佳实践</h2>
+<h3 id="1-命名规范">1. 命名规范</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 表名：使用复数形式，小写字母，下划线分隔
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">user_profiles</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">order_items</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 字段名：小写字母，下划线分隔，有意义的名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">user_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">first_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">last_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">email_address</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">phone_number</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h3 id="2-数据完整性">2. 数据完整性</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 主键约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">student_id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 外键约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">enrollments</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_student</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">student_id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 唯一约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">student_email</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 检查约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">chk_age</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">student_age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">student_age</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">150</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 非空约束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">student_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="3-性能优化">3. 性能优化</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 为经常查询的字段创建索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_student_email</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">student_email</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_enrollment_date</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">enrollment_date</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 复合索引用于多字段查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_status_age</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">students</span><span class="p">(</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">student_age</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看查询执行计划
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">student_email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;test@example.com&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 分析表统计信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">ANALYZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="学习路径建议">学习路径建议</h2>
+<h3 id="初级阶段">初级阶段</h3>
+<ol>
+<li><strong>基础概念</strong>：理解数据库、表、字段的概念</li>
+<li><strong>SQL语法</strong>：掌握SELECT、INSERT、UPDATE、DELETE</li>
+<li><strong>数据类型</strong>：了解常用数据类型的选择</li>
+<li><strong>简单查询</strong>：条件查询、排序、分页</li>
+</ol>
+<h3 id="中级阶段">中级阶段</h3>
+<ol>
+<li><strong>表设计</strong>：主键、外键、约束的使用</li>
+<li><strong>多表查询</strong>：JOIN操作、子查询</li>
+<li><strong>函数应用</strong>：聚合函数、字符串函数、日期函数</li>
+<li><strong>索引优化</strong>：理解索引原理，创建合适的索引</li>
+</ol>
+<h3 id="高级阶段">高级阶段</h3>
+<ol>
+<li><strong>存储过程</strong>：编写复杂的业务逻辑</li>
+<li><strong>触发器</strong>：自动化数据处理</li>
+<li><strong>视图应用</strong>：简化复杂查询</li>
+<li><strong>性能调优</strong>：查询优化、索引优化</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>数据库技术是软件开发的基石，掌握好数据库基础知识对于任何开发者都至关重要。通过系统学习和实践，你将能够：</p>
+<ul>
+<li>设计合理的数据库结构</li>
+<li>编写高效的SQL查询</li>
+<li>优化数据库性能</li>
+<li>确保数据的完整性和安全性</li>
+</ul>
+<p>建议在学习过程中多动手实践，通过实际项目来巩固理论知识，逐步提升数据库应用能力。</p>
+]]></content:encoded></item></channel></rss>

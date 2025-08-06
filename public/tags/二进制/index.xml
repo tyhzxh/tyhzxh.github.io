@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>二进制 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/</link><description>Recent content in 二进制 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Sun, 07 Apr 2024 23:31:21 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>CSAPP第二章：信息的表示与处理</title><link>https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/</link><pubDate>Sun, 07 Apr 2024 23:31:21 +0800</pubDate><guid>https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/</guid><description>深入理解计算机系统第二章学习笔记，涵盖整数表示、补码、大小端、浮点数等核心概念，包含实际代码示例</description><content:encoded><![CDATA[<blockquote>
+<p>著名的大黑书 CSAPP《深入理解计算机系统》第二章学习笔记。从第二章（信息的表示与处理）开始，这是计算机底层数据表示的核心内容。</p></blockquote>
+<h2 id="前言">前言</h2>
+<p>从这一章开始，CSAPP将我们引入了计算机最底层的数据表示领域——<strong>梦开始的地方</strong>！</p>
+<blockquote>
+<p><strong>核心观点</strong>：计算机中的二进制序列本身是没有实际意义的，重要的是看你怎么去<strong>解释</strong>它。</p></blockquote>
+<p>这句话贯穿了整个计算机系统的设计哲学。</p>
+<h2 id="一整数表示">一、整数表示</h2>
+<h3 id="内存模型基础">内存模型基础</h3>
+<p>程序员编程时面对的是一个<strong>内存空间</strong>（一种抽象），这个内存空间本质上是：</p>
+<ul>
+<li>一个很长的<strong>字节数组</strong>（字节是内存的最小单位）</li>
+<li>每个字节由8个二进制位组成</li>
+<li>本质上就是一堆二进制序列</li>
+</ul>
+<h3 id="进制转换基础">进制转换基础</h3>
+<p>每个字节里的8位二进制数习惯用16进制表示：</p>
+<pre tabindex="0"><code>二进制: 11111111
+十六进制: FF
+</code></pre><p><strong>记忆技巧</strong>：</p>
+<ul>
+<li>16进制的两位分别由二进制的4位组成</li>
+<li>每一位的权重：8、4、2、1（数字电路基础）</li>
+</ul>
+<h3 id="有符号数补码表示">有符号数（补码表示）</h3>
+<p>以<code>int</code>类型为例：</p>
+<ul>
+<li><strong>大小</strong>：4个字节，共32位</li>
+<li><strong>符号位</strong>：第一位，0表示正数，1表示负数</li>
+<li><strong>存储方式</strong>：补码</li>
+</ul>
+<h4 id="补码的精妙设计">补码的精妙设计</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 正数：直接表示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>    <span class="c1">// 00000000 00000000 00000000 00000101
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 负数：补码表示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>   <span class="c1">// 11111111 11111111 11111111 11111011
+</span></span></span></code></pre></div><p><strong>补码计算规则</strong>：</p>
+<ol>
+<li>正数的补码就是其二进制表示</li>
+<li>负数的补码 = 按位取反 + 1</li>
+<li>数的相反数 = 按位取反 + 1</li>
+</ol>
+<h4 id="补码的优势">补码的优势</h4>
+<ol>
+<li><strong>统一运算</strong>：加法和减法可以用同一套电路实现</li>
+<li><strong>唯一零值</strong>：只有一个零的表示</li>
+<li><strong>范围对称</strong>：能表示的负数比正数多一个</li>
+</ol>
+<h3 id="无符号数">无符号数</h3>
+<p>无符号数最简单：32位二进制代码直接对应真值，没有符号位的概念。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4294967295U</span><span class="p">;</span>  <span class="c1">// 2^32 - 1
+</span></span></span></code></pre></div><h2 id="二实际编程练习">二、实际编程练习</h2>
+<h3 id="1-大小端检测程序">1. 大小端检测程序</h3>
+<p><strong>背景</strong>：大小端之争是计算机历史上的经典问题</p>
+<ul>
+<li><strong>小端机器</strong>：低位字节存储在低地址（现在PC大多是小端）</li>
+<li><strong>大端机器</strong>：高位字节存储在低地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="nf">get_first_bytes</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">islittle_endian</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">get_first_bytes</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;is little_endian</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;is big_endian</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">islittle_endian</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>原理解析</strong>：</p>
+<ul>
+<li>整数1的二进制：<code>00000000 00000000 00000000 00000001</code></li>
+<li>小端机器：第一个字节存储<code>01</code>（非零）</li>
+<li>大端机器：第一个字节存储<code>00</code>（零）</li>
+</ul>
+<h3 id="2-字节序列显示程序">2. 字节序列显示程序</h3>
+<p>这个程序可以显示任意数据类型在内存中的字节表示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">byte_pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_bytes</span><span class="p">(</span><span class="n">byte_pointer</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%.2x &#34;</span><span class="p">,</span> <span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_int</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_float</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_pointer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_short</span><span class="p">(</span><span class="kt">short</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">short</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_long</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">long</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_double</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_bytes</span><span class="p">((</span><span class="n">byte_pointer</span><span class="p">)</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test_show_bytes</span><span class="p">(</span><span class="kt">short</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">short</span> <span class="n">sval</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">lval</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">dval</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;short %d: &#34;</span><span class="p">,</span> <span class="n">sval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_short</span><span class="p">(</span><span class="n">sval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;long %ld: &#34;</span><span class="p">,</span> <span class="n">lval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_long</span><span class="p">(</span><span class="n">lval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;double %f: &#34;</span><span class="p">,</span> <span class="n">dval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_double</span><span class="p">(</span><span class="n">dval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">test_show_bytes</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="3-位运算练习">3. 位运算练习</h3>
+<p>位运算是底层编程的基础：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置所有位为1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="mh">0xffffffff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置所有位为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x00000000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置最高字节为1，其他不变
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">f3</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="mh">0xff000000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 清除最低字节，其他不变
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">f4</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0xffffff00</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_hex</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mh">0x12345678</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Original: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_hex</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;f1 (set all 1): &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_hex</span><span class="p">(</span><span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;f2 (set all 0): &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_hex</span><span class="p">(</span><span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;f3 (set high byte): &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_hex</span><span class="p">(</span><span class="nf">f3</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;f4 (clear low byte): &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">show_hex</span><span class="p">(</span><span class="nf">f4</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="三数据类型总结">三、数据类型总结</h2>
+<h3 id="整数类型">整数类型</h3>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>大小</th>
+          <th>范围</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>char</code></td>
+          <td>1字节</td>
+          <td>-128 ~ 127</td>
+      </tr>
+      <tr>
+          <td><code>unsigned char</code></td>
+          <td>1字节</td>
+          <td>0 ~ 255</td>
+      </tr>
+      <tr>
+          <td><code>short</code></td>
+          <td>2字节</td>
+          <td>-32,768 ~ 32,767</td>
+      </tr>
+      <tr>
+          <td><code>unsigned short</code></td>
+          <td>2字节</td>
+          <td>0 ~ 65,535</td>
+      </tr>
+      <tr>
+          <td><code>int</code></td>
+          <td>4字节</td>
+          <td>-2^31 ~ 2^31-1</td>
+      </tr>
+      <tr>
+          <td><code>unsigned int</code></td>
+          <td>4字节</td>
+          <td>0 ~ 2^32-1</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>命名规则</strong>：无符号类型 = <code>unsigned</code> + 有符号类型名</p>
+<blockquote>
+<p><strong>注意</strong>：<code>unsigned</code> 单独使用等价于 <code>unsigned int</code></p></blockquote>
+<h2 id="四浮点数ieee-754标准">四、浮点数（IEEE 754标准）</h2>
+<p>浮点数的表示更加复杂，但设计同样精妙：</p>
+<h3 id="浮点数结构">浮点数结构</h3>
+<pre tabindex="0"><code>符号位(S) | 阶码(Exp) | 尾数(Frac)
+   1位   |   8位     |   23位    (单精度float)
+   1位   |   11位    |   52位    (双精度double)
+</code></pre><h3 id="浮点数分类">浮点数分类</h3>
+<ol>
+<li><strong>规格化数</strong>：正常的浮点数</li>
+<li><strong>非规格化数</strong>：接近零的很小数</li>
+<li><strong>无穷大</strong>：溢出表示</li>
+<li><strong>NaN</strong>：非数字（如0/0的结果）</li>
+</ol>
+<h3 id="浮点数的精妙之处">浮点数的精妙之处</h3>
+<blockquote>
+<p>浮点数和补码一样精妙，设计得可以像整数一样进行大小比较排序！</p></blockquote>
+<p>当你理解了IEEE 754的设计哲学时，就不会再觉得浮点数复杂了。</p>
+<h2 id="五运算与溢出">五、运算与溢出</h2>
+<h3 id="整数运算特点">整数运算特点</h3>
+<ol>
+<li><strong>模运算</strong>：整数运算实际上是模2^w运算（w是位数）</li>
+<li><strong>溢出处理</strong>：有符号数溢出可能产生意外结果</li>
+<li><strong>类型转换</strong>：有符号和无符号之间的转换需要特别注意</li>
+</ol>
+<h3 id="实际应用中的陷阱">实际应用中的陷阱</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 危险的代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;a &gt; b</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>  <span class="c1">// 这行不会执行！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;a &lt;= b</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="c1">// 这行会执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><strong>原因</strong>：比较时<code>b</code>被转换为无符号数，-1变成了很大的正数。</p>
+<h2 id="六学习心得">六、学习心得</h2>
+<h3 id="为什么要学习底层表示">为什么要学习底层表示？</h3>
+<ol>
+<li><strong>理解程序行为</strong>：很多&quot;奇怪&quot;的程序行为都能从底层找到原因</li>
+<li><strong>性能优化</strong>：了解数据表示有助于写出更高效的代码</li>
+<li><strong>调试能力</strong>：能够分析内存dump，理解程序崩溃原因</li>
+<li><strong>系统编程</strong>：操作系统、编译器等系统软件开发的基础</li>
+</ol>
+<h3 id="学习建议">学习建议</h3>
+<ol>
+<li><strong>动手实践</strong>：一定要亲自编写和运行代码</li>
+<li><strong>可视化理解</strong>：画出内存布局图</li>
+<li><strong>关联思考</strong>：将抽象概念与具体实现联系起来</li>
+<li><strong>循序渐进</strong>：从简单例子开始，逐步深入</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>CSAPP第二章看似简单，实则包含了计算机系统最核心的设计思想：</p>
+<ul>
+<li><strong>补码设计</strong>：统一了正负数的运算</li>
+<li><strong>IEEE 754</strong>：精妙的浮点数表示标准</li>
+<li><strong>位运算</strong>：高效的底层操作方式</li>
+</ul>
+<blockquote>
+<p>计算机的底层既简单又复杂：简单在于其实现是如此优美和巧妙，复杂在于需要处理各种边界情况和特殊场景。</p></blockquote>
+<p>理解这些基础概念，是深入学习计算机系统的第一步。接下来的章节会在这个基础上，探讨更复杂的系统概念。</p>
+<hr>
+<p><em>下一篇将总结CSAPP的Data Lab实验，那里有更多有趣的位运算挑战！</em></p>
+]]></content:encoded></item></channel></rss>

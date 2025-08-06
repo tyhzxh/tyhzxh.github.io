@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Python on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/python/</link><description>Recent content in Python on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Fri, 23 Feb 2024 13:34:50 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>前缀和算法详解与应用</title><link>https://tyhzxh.github.io/posts/prefix-sum-algorithm/</link><pubDate>Fri, 23 Feb 2024 13:34:50 +0800</pubDate><guid>https://tyhzxh.github.io/posts/prefix-sum-algorithm/</guid><description>深入讲解前缀和算法的原理和应用，包括累计值前缀数组、累计出现次数前缀数组、累积最大值前缀数组等多种变体</description><content:encoded><![CDATA[<h2 id="前缀和算法概述">前缀和算法概述</h2>
+<p>前缀和是一种重要的算法技巧，主要用于快速计算数组区间内的各种统计信息。通过预处理构建前缀数组，可以将原本需要O(n)时间复杂度的区间查询优化到O(1)。</p>
+<p>前缀和算法的核心思想是：<strong>利用前面已经计算过的结果来快速得出当前的结果</strong>。</p>
+<h2 id="前缀和的基本类型">前缀和的基本类型</h2>
+<h3 id="1-累计值前缀数组用于区间求和">1. 累计值前缀数组（用于区间求和）</h3>
+<p>这是最常见的前缀和应用，用于快速计算数组中任意区间的元素和。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build_prefix_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;构建前缀和数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prefix_sum</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 初始化前缀和数组，第一个元素为0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">prefix_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefix_sum</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="p">)</span>  <span class="c1"># 将当前元素加到前一个前缀和上</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_sum</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">range_sum</span><span class="p">(</span><span class="n">prefix_sum</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;计算区间和&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_sum</span><span class="p">[</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prefix_sum</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">prefix_sum</span> <span class="o">=</span> <span class="n">build_prefix_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;原数组: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;前缀和数组: </span><span class="si">{</span><span class="n">prefix_sum</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询区间 [1, 3] 的和 (索引1到3，即元素2, 3, 4)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">range_sum</span><span class="p">(</span><span class="n">prefix_sum</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;区间 [1, 3] 的和: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出 9 (2 + 3 + 4)</span>
+</span></span></code></pre></div><p><strong>算法解释</strong>：</p>
+<ul>
+<li><code>build_prefix_sum</code> 函数通过遍历输入数组并累加每个元素来构建前缀和数组</li>
+<li>前缀和数组的第一个元素初始化为0，表示空区间的和</li>
+<li><code>range_sum</code> 函数利用前缀和的性质：区间[start, end]的和 = prefix_sum[end+1] - prefix_sum[start]</li>
+</ul>
+<h3 id="2-累计出现次数前缀数组">2. 累计出现次数前缀数组</h3>
+<p>用于快速查询某个特定值在指定区间内的出现次数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build_prefix_count</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;构建目标值的前缀计数数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prefix_count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 初始化前缀计数数组</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_count</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefix_count</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 如果是目标值，计数加1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_count</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefix_count</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 否则，计数不变</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">count_range_occurrences</span><span class="p">(</span><span class="n">prefix_count</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;计算区间内目标值的出现次数&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_count</span><span class="p">[</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">prefix_count</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">prefix_count</span> <span class="o">=</span> <span class="n">build_prefix_count</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;原数组: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;目标值 </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> 的前缀计数数组: </span><span class="si">{</span><span class="n">prefix_count</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询区间 [1, 4] 中目标值的出现次数</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">count_range_occurrences</span><span class="p">(</span><span class="n">prefix_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;区间 [1, 4] 中值 </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> 的出现次数: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出 3</span>
+</span></span></code></pre></div><p><strong>算法解释</strong>：</p>
+<ul>
+<li><code>build_prefix_count</code> 函数构建一个前缀计数数组，记录到当前位置为止目标值的累计出现次数</li>
+<li>查询时同样使用差值的方法：区间内出现次数 = prefix_count[end+1] - prefix_count[start]</li>
+</ul>
+<h3 id="3-累积最大值前缀数组">3. 累积最大值前缀数组</h3>
+<p>用于快速查询从数组开始到某个位置的最大值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build_prefix_max</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;构建前缀最大值数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">arr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">prefix_max</span> <span class="o">=</span> <span class="p">[</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>  <span class="c1"># 初始化前缀最大值数组，第一个元素为数组的第一个元素</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">prefix_max</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">prefix_max</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">num</span><span class="p">))</span>  <span class="c1"># 记录到当前位置为止的最大值</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_max</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">prefix_max_query</span><span class="p">(</span><span class="n">prefix_max</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;查询从开始到指定位置的最大值&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_max</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">prefix_max</span> <span class="o">=</span> <span class="n">build_prefix_max</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;原数组: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;前缀最大值数组: </span><span class="si">{</span><span class="n">prefix_max</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询从开始到索引3的最大值</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">prefix_max_query</span><span class="p">(</span><span class="n">prefix_max</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;从开始到索引3的最大值: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出 5</span>
+</span></span></code></pre></div><p><strong>算法解释</strong>：</p>
+<ul>
+<li><code>build_prefix_max</code> 函数构建一个前缀最大值数组，记录到每个位置为止的最大值</li>
+<li>这种方法特别适用于需要频繁查询&quot;从开始到某个位置的最大值&quot;的场景</li>
+</ul>
+<h2 id="二维前缀和">二维前缀和</h2>
+<p>对于二维数组，我们也可以构建二维前缀和来快速计算矩形区域的和。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build_2d_prefix_sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;构建二维前缀和数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">matrix</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prefix_2d</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_2d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">                              <span class="n">prefix_2d</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">                              <span class="n">prefix_2d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">                              <span class="n">prefix_2d</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">prefix_2d</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">range_sum_2d</span><span class="p">(</span><span class="n">prefix_2d</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;计算矩形区域的和&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">prefix_2d</span><span class="p">[</span><span class="n">x2</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">y2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_2d</span><span class="p">[</span><span class="n">x1</span><span class="p">][</span><span class="n">y2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_2d</span><span class="p">[</span><span class="n">x2</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">y1</span><span class="p">]</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">prefix_2d</span><span class="p">[</span><span class="n">x1</span><span class="p">][</span><span class="n">y1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">matrix</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">prefix_2d</span> <span class="o">=</span> <span class="n">build_2d_prefix_sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询矩形区域 (0,0) 到 (1,1) 的和</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">range_sum_2d</span><span class="p">(</span><span class="n">prefix_2d</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;矩形区域 (0,0) 到 (1,1) 的和: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出 12 (1+2+4+5)</span>
+</span></span></code></pre></div><h2 id="差分数组">差分数组</h2>
+<p>差分数组是前缀和的逆运算，主要用于处理区间更新问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">build_difference_array</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;构建差分数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">arr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">diff</span> <span class="o">=</span> <span class="p">[</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">diff</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">range_update</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;区间更新：给[start, end]区间的所有元素加上delta&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">diff</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">+=</span> <span class="n">delta</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">diff</span><span class="p">[</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">delta</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">restore_from_difference</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;从差分数组恢复原数组&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">diff</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">diff</span> <span class="o">=</span> <span class="n">build_difference_array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;原数组: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;差分数组: </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 给区间 [1, 3] 的所有元素加上 10</span>
+</span></span><span class="line"><span class="cl"><span class="n">range_update</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">updated_arr</span> <span class="o">=</span> <span class="n">restore_from_difference</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;更新后的数组: </span><span class="si">{</span><span class="n">updated_arr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出 [1, 12, 13, 14, 5]</span>
+</span></span></code></pre></div><h2 id="实际应用场景">实际应用场景</h2>
+<h3 id="1-区间查询问题">1. 区间查询问题</h3>
+<ul>
+<li>数组区间和查询</li>
+<li>区间最值查询</li>
+<li>区间元素计数</li>
+</ul>
+<h3 id="2-动态规划优化">2. 动态规划优化</h3>
+<ul>
+<li>利用前缀和优化状态转移</li>
+<li>减少重复计算</li>
+</ul>
+<h3 id="3-字符串处理">3. 字符串处理</h3>
+<ul>
+<li>子串特征统计</li>
+<li>模式匹配优化</li>
+</ul>
+<h3 id="4-图像处理">4. 图像处理</h3>
+<ul>
+<li>积分图像计算</li>
+<li>快速区域特征提取</li>
+</ul>
+<h2 id="时间复杂度分析">时间复杂度分析</h2>
+<table>
+  <thead>
+      <tr>
+          <th>操作</th>
+          <th>朴素方法</th>
+          <th>前缀和方法</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>预处理</td>
+          <td>O(1)</td>
+          <td>O(n)</td>
+      </tr>
+      <tr>
+          <td>单次查询</td>
+          <td>O(n)</td>
+          <td>O(1)</td>
+      </tr>
+      <tr>
+          <td>m次查询</td>
+          <td>O(m×n)</td>
+          <td>O(n + m)</td>
+      </tr>
+  </tbody>
+</table>
+<p>当查询次数较多时，前缀和方法的优势非常明显。</p>
+<h2 id="总结">总结</h2>
+<p>前缀和算法是一种以空间换时间的经典算法技巧，通过预处理构建辅助数组，可以显著提高区间查询的效率。掌握前缀和及其变体对于解决各种算法问题都有重要意义。</p>
+<p>关键要点：</p>
+<ol>
+<li><strong>预处理</strong>：构建前缀数组需要O(n)时间</li>
+<li><strong>快速查询</strong>：单次查询只需O(1)时间</li>
+<li><strong>灵活应用</strong>：可以扩展到二维、多维以及各种统计信息</li>
+<li><strong>与差分结合</strong>：可以高效处理区间更新问题</li>
+</ol>
+<p>前缀和算法在竞赛编程、实际开发中都有广泛应用，是每个程序员都应该掌握的基础算法技巧。</p>
+]]></content:encoded></item></channel></rss>

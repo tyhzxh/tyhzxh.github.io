@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>双指针 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/</link><description>Recent content in 双指针 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Thu, 24 Oct 2024 19:52:26 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml"/><item><title>双指针算法详解</title><link>https://tyhzxh.github.io/posts/two-pointers-algorithm/</link><pubDate>Thu, 24 Oct 2024 19:52:26 +0800</pubDate><guid>https://tyhzxh.github.io/posts/two-pointers-algorithm/</guid><description>深入解析双指针算法的原理、应用场景和实现技巧，包括对撞指针、快慢指针、滑动窗口等经典模式</description><content:encoded><![CDATA[<h2 id="介绍">介绍</h2>
+<p>双指针是一种常用的算法技巧，通过使用两个指针来遍历数据结构，可以有效地减少时间复杂度，从O(n²)降低到O(n)。双指针的类型主要有以下几种：</p>
+<h3 id="1-对撞指针two-pointers-from-two-sides">1. 对撞指针（Two Pointers from Two Sides）</h3>
+<p>两个指针分别从数组或链表的两端开始，向中间移动，直到相遇或者满足某个条件。这种方法适用于有序数组或链表，可以用于查找和问题、乘积和问题等。</p>
+<h3 id="2-快慢指针fast-and-slow-pointers">2. 快慢指针（Fast and Slow Pointers）</h3>
+<p>两个指针从同一位置开始，一个指针（快指针）移动的速度是另一个指针（慢指针）的两倍。这种方法常用于链表问题，比如判断链表是否有环，或者找到链表的中间节点。</p>
+<h3 id="3-左右指针left-and-right-pointers">3. 左右指针（Left and Right Pointers）</h3>
+<p>两个指针分别从数组的两端开始，向中间移动。这种方法适用于有序数组，可以用于查找特定元素或者解决三数之和问题。</p>
+<h3 id="4-无序指针">4. 无序指针</h3>
+<p>如果两个指针没有任何语义和逻辑顺序，只是用于指向不同的地址，也可以直接简单命名。例如，在合并两个有序链表的问题中，可以使用两个无序指针分别指向链表1和链表2。</p>
+<h2 id="应用场景">应用场景</h2>
+<p>双指针算法的关键在于如何移动这两个指针。双指针技巧通常用于解决涉及数组或链表的问题，它可以帮助我们以线性时间复杂度解决问题，而不是使用嵌套循环导致的时间复杂度为O(n²)。</p>
+<h3 id="常见使用场景">常见使用场景：</h3>
+<ol>
+<li>
+<p><strong>滑动窗口问题</strong>：当需要找到一个子数组或子串，使得它满足特定条件（如最大和、最小和、包含特定元素等）时，可以使用双指针来维护一个滑动窗口。</p>
+</li>
+<li>
+<p><strong>有序数组中的查找问题</strong>：如果有两个有序数组，需要找到两个数组的第k小的数，或者判断一个数组是否是另一个数组的子集，可以使用双指针。</p>
+</li>
+<li>
+<p><strong>链表问题</strong>：在链表中找到中间节点、删除链表中的节点、合并两个有序链表等问题，通常使用快慢指针。</p>
+</li>
+<li>
+<p><strong>数组中的成对问题</strong>：需要在数组中找到两个数，它们的和为特定值（如&quot;两数之和&quot;问题），或者需要找到两个数，它们的乘积为特定值。</p>
+</li>
+<li>
+<p><strong>循环数组问题</strong>：当数组是循环的，需要找到重复的元素或者满足特定条件的元素对时，可以使用双指针。</p>
+</li>
+<li>
+<p><strong>数组中的连续子数组问题</strong>：需要找到连续的子数组，使得它们的和满足特定条件，或者找到最长的连续子数组，使得它们满足特定条件。</p>
+</li>
+</ol>
+<h2 id="算法优势">算法优势</h2>
+<p>双指针技巧在解决特定问题时具有显著的优势：</p>
+<h3 id="1-时间复杂度优化">1. 时间复杂度优化</h3>
+<p>双指针可以减少不必要的重复计算，尤其是在处理有序数组或链表时，可以避免使用嵌套循环导致的二次方时间复杂度，通常可以将时间复杂度降低到线性时间复杂度O(n)。</p>
+<h3 id="2-空间复杂度优化">2. 空间复杂度优化</h3>
+<p>双指针通常只需要常数级别的额外空间，这比使用额外的数据结构（如哈希表）要节省空间。</p>
+<h3 id="3-简化问题">3. 简化问题</h3>
+<p>双指针可以将复杂问题简化为更简单的形式。例如，在滑动窗口问题中，双指针可以动态地维护一个窗口，而不需要每次都重新计算窗口内的元素。</p>
+<h3 id="4-灵活性和适应性">4. 灵活性和适应性</h3>
+<p>双指针技巧非常灵活，可以根据问题的不同需求调整指针的移动策略，如可以同时向中间移动，也可以一个向前移动而另一个向后移动。</p>
+<h2 id="滑动窗口">滑动窗口</h2>
+<p>滑动窗口（Sliding Window）是一种在数组或字符串上进行操作的算法策略，主要用于解决需要在连续子数组或子字符串上满足特定条件的问题。</p>
+<h3 id="为什么叫滑动窗口">为什么叫滑动窗口？</h3>
+<p>&ldquo;滑动窗口&quot;这个名字的由来是因为这种算法的操作方式类似于一个可以沿着数组或字符串滑动的窗口。窗口可以扩大或缩小，以包含不同的元素，直到找到满足条件的子数组或子字符串。</p>
+<h3 id="滑动窗口的特点">滑动窗口的特点：</h3>
+<ol>
+<li><strong>连续性</strong>：窗口内的元素是连续的，不需要是整个数组或字符串的子集。</li>
+<li><strong>动态性</strong>：窗口的大小可以根据需要动态调整，窗口的边界可以向前或向后移动。</li>
+<li><strong>实时性</strong>：窗口可以实时地检查当前窗口内的数据是否满足条件。</li>
+</ol>
+<h3 id="滑动窗口的实现">滑动窗口的实现：</h3>
+<p>滑动窗口通常使用双指针（或索引）来实现，一个指针表示窗口的开始，另一个指针表示窗口的结束。通过移动这两个指针，可以动态地调整窗口的大小和位置。</p>
+<ul>
+<li><strong>扩展窗口</strong>：通常通过移动结束指针（右指针）向右来实现，这样可以包含更多的元素。</li>
+<li><strong>收缩窗口</strong>：通常通过移动开始指针（左指针）向右来实现，这样可以排除窗口中的第一个元素。</li>
+</ul>
+<h2 id="经典算法实现">经典算法实现</h2>
+<h3 id="1-对撞指针示例">1. 对撞指针示例</h3>
+<p><strong>问题描述</strong>：找出数组中乘积小于K的连续子数组的最大长度。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">maxProductSubarray</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">product</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">product</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">product</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">product</span> <span class="o">/=</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_length</span><span class="p">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">max_length</span>
+</span></span></code></pre></div><h3 id="2-快慢指针示例">2. 快慢指针示例</h3>
+<p><strong>问题描述</strong>：判断链表是否有环，并返回环的入口节点。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ListNode</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">detectCycle</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 第一阶段：检测是否有环</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">fast</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">slow</span> <span class="o">==</span> <span class="n">fast</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 第二阶段：找到环的入口</span>
+</span></span><span class="line"><span class="cl">    <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">slow</span>
+</span></span></code></pre></div><h3 id="3-左右指针示例">3. 左右指针示例</h3>
+<p><strong>问题描述</strong>：找出数组中三数之和为0的三元组。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">threeSum</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">current_sum</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">current_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">                <span class="c1"># 跳过重复元素</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                    
+</span></span><span class="line"><span class="cl">                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">current_sum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span></code></pre></div><h2 id="总结">总结</h2>
+<p>双指针技巧是一种高效且强大的算法工具，适用于解决多种算法问题，特别是在处理数组和链表时。通过合理使用双指针，可以设计出既高效又简洁的算法解决方案。</p>
+<p>滑动窗口算法的时间复杂度通常是O(n)，其中n是数组或字符串的长度，这使得它在处理大数据集时非常有效。掌握双指针技巧对于提升算法能力和解决实际编程问题都具有重要意义。</p>
+]]></content:encoded></item></channel></rss>

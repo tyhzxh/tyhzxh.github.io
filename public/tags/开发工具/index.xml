@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>开发工具 on tyhzxh的个人博客</title><link>https://tyhzxh.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</link><description>Recent content in 开发工具 on tyhzxh的个人博客</description><generator>Hugo -- 0.148.2</generator><language>zh-cn</language><lastBuildDate>Fri, 09 Feb 2024 17:44:43 +0800</lastBuildDate><atom:link href="https://tyhzxh.github.io/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 版本控制学习笔记</title><link>https://tyhzxh.github.io/posts/git-notes/</link><pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/git-notes/</guid><description>Git版本控制系统的基础概念和常用操作，包括工作区、暂存区、版本库的概念以及各种Git命令的使用方法</description><content:encoded><![CDATA[<blockquote>
+<p>本文是学习廖雪峰Git教程的学习笔记，整理了Git的基础概念和常用操作。</p></blockquote>
+<h2 id="基础概念">基础概念</h2>
+<p><em><strong>在.git文件所在目录下进行操作</strong></em></p>
+<p>Git有三个重要的区域：</p>
+<ol>
+<li><strong>工作区(Working Directory)</strong> - 所处的文件目录</li>
+<li><strong>暂存区(Stage)</strong> - 重点概念，临时存储修改的地方</li>
+<li><strong>版本库(Repository)</strong> - 工作区有一个隐藏目录 <code>.git</code>，这个不算工作区，而是Git的版本库</li>
+</ol>
+<blockquote>
+<p><strong>重要提示</strong>：创建Git版本库时，Git自动为我们创建了唯一一个master(main)分支，所以<code>git commit</code>就是往master(main)分支上提交更改。</p></blockquote>
+<h2 id="基础操作windows下">基础操作(Windows下)</h2>
+<p><strong>核心理念</strong>：<code>git add</code>命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行<code>git commit</code>就可以一次性把暂存区的所有修改提交到分支。</p>
+<p><strong>推荐环境</strong>：在PowerShell或Git Bash下输入命令
+<em>建议使用Git Bash - 支持很多Linux下的命令</em></p>
+<h3 id="初始化和添加文件">初始化和添加文件</h3>
+<ol>
+<li><strong>初始化Git仓库</strong>：使用<code>git init</code>命令</li>
+<li><strong>添加文件到Git仓库</strong>，分两步：
+<ul>
+<li>使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个工作区文件到暂存区</li>
+<li>使用命令<code>git commit -m &lt;message&gt;</code>添加暂存区所有文件到Git仓库，完成</li>
+</ul>
+</li>
+</ol>
+<h3 id="-实用技巧">💡 实用技巧</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 一次性添加所有改动</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span></code></pre></div><h2 id="检查操作">检查操作</h2>
+<h3 id="查看状态">查看状态</h3>
+<p>检查 <em><strong>工作区+暂存区</strong></em> 的状态，使用<code>git status</code>命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Changes to be committed:
+</span></span><span class="line"><span class="cl"><span class="o">(</span>use <span class="s2">&#34;git restore --staged &lt;file&gt;...&#34;</span> to unstage<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        modified:   1.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Changes not staged <span class="k">for</span> commit:
+</span></span><span class="line"><span class="cl"><span class="o">(</span>use <span class="s2">&#34;git add &lt;file&gt;...&#34;</span> to update what will be committed<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>use <span class="s2">&#34;git restore &lt;file&gt;...&#34;</span> to discard changes in working directory<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        modified:   1.md
+</span></span></code></pre></div><h3 id="查看修改内容">查看修改内容</h3>
+<p>如果<code>git status</code>告诉你有文件被修改过，用<code>git diff</code>可以查看修改内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git diff readme.txt 
+</span></span><span class="line"><span class="cl">diff --git a/readme.txt b/readme.txt
+</span></span><span class="line"><span class="cl">index 46d49bf..9247db6 <span class="m">100644</span>
+</span></span><span class="line"><span class="cl">--- a/readme.txt
+</span></span><span class="line"><span class="cl">+++ b/readme.txt
+</span></span><span class="line"><span class="cl">@@ -1,2 +1,2 @@
+</span></span><span class="line"><span class="cl">-Git is a version control system.
+</span></span><span class="line"><span class="cl">+Git is a distributed version control system.
+</span></span><span class="line"><span class="cl"> Git is free software.
+</span></span></code></pre></div><h3 id="查看历史记录">查看历史记录</h3>
+<p>在Git中，我们用<code>git log</code>命令查看历史修改记录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git log
+</span></span><span class="line"><span class="cl">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;
+</span></span><span class="line"><span class="cl">Date:   Fri May <span class="m">18</span> 21:06:15 <span class="m">2018</span> +0800
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">append GPL
+</span></span></code></pre></div><p>如果嫌输出记录太多，可以加上<code>--pretty=oneline</code>参数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git log --pretty<span class="o">=</span>oneline
+</span></span><span class="line"><span class="cl">049c19eb21cbe21986810b7de105d3d7ab584d1c <span class="o">(</span>HEAD -&gt; main<span class="o">)</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">a87bfdefbae52977a72b7955a406eab118a04df5 w
+</span></span><span class="line"><span class="cl">1dc3373085994a336323614fa726732b582f22f2 <span class="m">1</span>
+</span></span></code></pre></div><p><strong>说明</strong>：一大串类似<code>049c19eb21cbe...</code>的是commit id（版本号），由SHA1计算出来的一个非常大的数字，用十六进制表示。</p>
+<h3 id="版本指针概念">版本指针概念</h3>
+<p>在Git中：</p>
+<ul>
+<li><strong>HEAD</strong> 表示当前版本，也就是最新的提交</li>
+<li><strong>HEAD^</strong> 表示上一个版本</li>
+<li><strong>HEAD^^</strong> 表示上上一个版本</li>
+<li><strong>HEAD~100</strong> 表示往上100个版本</li>
+</ul>
+<h2 id="回退操作">回退操作</h2>
+<h3 id="工作区回退">工作区回退</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 丢弃工作区的修改</span>
+</span></span><span class="line"><span class="cl">git checkout -- file
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">git checkout -- readme.txt
+</span></span></code></pre></div><p><strong>注意</strong>：<code>--</code> 很重要，不能省略！</p>
+<h3 id="暂存区回退">暂存区回退</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 把暂存区的修改撤销掉（unstage），重新放回工作区</span>
+</span></span><span class="line"><span class="cl">git reset HEAD &lt;file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例</span>
+</span></span><span class="line"><span class="cl">git reset HEAD 1.md
+</span></span></code></pre></div><h3 id="版本库回退">版本库回退</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 回退到上一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^
+</span></span></code></pre></div><p><strong>个人理解</strong>：版本回退就是修改HEAD指针的指向（HEAD指向当前所处版本）</p>
+<p>如果回退后想要恢复，可以使用<code>git reflog</code>来查看每一次命令的记录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git reflog
+</span></span><span class="line"><span class="cl">e475afc HEAD@<span class="o">{</span>1<span class="o">}</span>: reset: moving to HEAD^
+</span></span><span class="line"><span class="cl">1094adb <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> HEAD@<span class="o">{</span>2<span class="o">}</span>: commit: append GPL
+</span></span><span class="line"><span class="cl">e475afc HEAD@<span class="o">{</span>3<span class="o">}</span>: commit: add distributed
+</span></span><span class="line"><span class="cl">eaadf4e HEAD@<span class="o">{</span>4<span class="o">}</span>: commit <span class="o">(</span>initial<span class="o">)</span>: wrote a readme file
+</span></span></code></pre></div><p>从输出可知，可以通过commit id来恢复到指定版本。</p>
+<h2 id="删除操作">删除操作</h2>
+<h3 id="普通删除-vs-git删除">普通删除 vs Git删除</h3>
+<p><strong>普通情况下</strong>：直接在文件管理器中删除文件，或者用<code>rm</code>命令删除：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm test.txt
+</span></span></code></pre></div><p><strong>在Git中</strong>，删除文件后查看状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git status
+</span></span><span class="line"><span class="cl">On branch master
+</span></span><span class="line"><span class="cl">Changes not staged <span class="k">for</span> commit:
+</span></span><span class="line"><span class="cl"><span class="o">(</span>use <span class="s2">&#34;git add/rm &lt;file&gt;...&#34;</span> to update what will be committed<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>use <span class="s2">&#34;git checkout -- &lt;file&gt;...&#34;</span> to discard changes in working directory<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">deleted:    test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">no changes added to commit <span class="o">(</span>use <span class="s2">&#34;git add&#34;</span> and/or <span class="s2">&#34;git commit -a&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>可以看出工作区和版本库不一致，此时有两个选择：</p>
+<h3 id="选择1确实要删除">选择1：确实要删除</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从版本库中删除文件</span>
+</span></span><span class="line"><span class="cl">git rm test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交删除操作</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;remove test.txt&#34;</span>
+</span></span></code></pre></div><h3 id="选择2误删恢复">选择2：误删恢复</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从版本库恢复文件到工作区</span>
+</span></span><span class="line"><span class="cl">git checkout -- test.txt
+</span></span></code></pre></div><blockquote>
+<p><strong>重要提醒</strong>：<code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以&quot;一键还原&quot;。但是，从来没有被添加到版本库就被删除的文件，是无法恢复的！</p></blockquote>
+<h2 id="远程仓库">远程仓库</h2>
+<h3 id="基本操作">基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 推送到远程仓库</span>
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote add origin https://github.com/tyhzxh/tyhzxh.github.io.git
+</span></span></code></pre></div><h3 id="个人经验">个人经验</h3>
+<p>如果是通过<code>git clone</code>获取的仓库，本地仓库和远程仓库会自动同步，所以每次只需要：</p>
+<ol>
+<li>在本地完成修改和提交</li>
+<li>使用<code>git push</code>推送到远程仓库</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>Git的核心概念是理解三个区域（工作区、暂存区、版本库）之间的关系，掌握了这个概念，Git的各种操作就变得清晰明了。记住：</p>
+<ul>
+<li><code>git add</code> 是将修改从工作区提交到暂存区</li>
+<li><code>git commit</code> 是将暂存区的修改提交到版本库</li>
+<li><code>git push</code> 是将本地版本库同步到远程仓库</li>
+</ul>
+<hr>
+<p><em>参考资料：廖雪峰Git教程</em></p>
+]]></content:encoded></item><item><title>Git版本控制基础指南</title><link>https://tyhzxh.github.io/posts/git-fundamentals-guide/</link><pubDate>Fri, 09 Feb 2024 17:44:43 +0800</pubDate><guid>https://tyhzxh.github.io/posts/git-fundamentals-guide/</guid><description>Git版本控制系统的基础概念和常用操作指南，包括工作区、暂存区、版本库的概念，以及文件操作、版本回退、远程仓库等核心功能</description><content:encoded><![CDATA[<h2 id="前言">前言</h2>
+<p>本文是学习廖雪峰Git教程的学习笔记，涵盖了Git版本控制系统的基础概念和常用操作。Git是目前最流行的分布式版本控制系统，掌握Git对于软件开发至关重要。</p>
+<blockquote>
+<p><strong>注意</strong>：所有Git操作都需要在.git文件所在目录下进行</p></blockquote>
+<h2 id="基础概念">基础概念</h2>
+<h3 id="git的三个区域">Git的三个区域</h3>
+<p>Git将文件管理分为三个主要区域：</p>
+<ol>
+<li>
+<p><strong>工作区（Working Directory）</strong></p>
+<ul>
+<li>就是你在电脑里能看到的目录</li>
+<li>存放项目文件的地方</li>
+</ul>
+</li>
+<li>
+<p><strong>暂存区（Stage/Index）</strong> ⭐ <strong>重点</strong></p>
+<ul>
+<li>临时存放文件修改的地方</li>
+<li>位于.git目录中的index文件</li>
+</ul>
+</li>
+<li>
+<p><strong>版本库（Repository）</strong></p>
+<ul>
+<li>工作区有一个隐藏目录<code>.git</code>，这就是Git的版本库</li>
+<li>包含暂存区和分支信息</li>
+<li>Git自动创建的第一个分支是<code>master</code>（或<code>main</code>）</li>
+</ul>
+</li>
+</ol>
+<h3 id="工作流程">工作流程</h3>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+    A[工作区] --&gt;|git add| B[暂存区]
+    B --&gt;|git commit| C[版本库]
+    C --&gt;|git checkout| A
+</code></pre><p><strong>核心理念</strong>：</p>
+<ul>
+<li><code>git add</code>命令把要提交的所有修改放到暂存区</li>
+<li><code>git commit</code>一次性把暂存区的所有修改提交到分支</li>
+</ul>
+<h2 id="基础操作">基础操作</h2>
+<h3 id="环境准备">环境准备</h3>
+<p>推荐使用Git Bash，因为它支持很多Linux命令，在Windows下提供更好的体验。</p>
+<h3 id="仓库初始化">仓库初始化</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 初始化Git仓库</span>
+</span></span><span class="line"><span class="cl">git init
+</span></span></code></pre></div><h3 id="文件添加和提交">文件添加和提交</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 添加单个文件到暂存区</span>
+</span></span><span class="line"><span class="cl">git add &lt;file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加所有修改到暂存区 ⭐ 常用</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交暂存区的所有文件到版本库</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;提交说明&#34;</span>
+</span></span></code></pre></div><p><strong>完整流程示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 创建或修改文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Hello Git&#34;</span> &gt; readme.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 添加到暂存区</span>
+</span></span><span class="line"><span class="cl">git add readme.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 提交到版本库</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;add readme file&#34;</span>
+</span></span></code></pre></div><h2 id="状态检查和差异查看">状态检查和差异查看</h2>
+<h3 id="查看仓库状态">查看仓库状态</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看工作区和暂存区的状态</span>
+</span></span><span class="line"><span class="cl">git status
+</span></span></code></pre></div><p><strong>状态示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Changes to be committed:
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git restore --staged &lt;file&gt;...&#34;</span> to unstage<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        modified:   readme.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Changes not staged <span class="k">for</span> commit:
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git add &lt;file&gt;...&#34;</span> to update what will be committed<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git restore &lt;file&gt;...&#34;</span> to discard changes in working directory<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        modified:   readme.txt
+</span></span></code></pre></div><h3 id="查看文件差异">查看文件差异</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看工作区和暂存区的差异</span>
+</span></span><span class="line"><span class="cl">git diff &lt;file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看暂存区和版本库的差异</span>
+</span></span><span class="line"><span class="cl">git diff --cached &lt;file&gt;
+</span></span></code></pre></div><p><strong>差异示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git diff readme.txt 
+</span></span><span class="line"><span class="cl">diff --git a/readme.txt b/readme.txt
+</span></span><span class="line"><span class="cl">index 46d49bf..9247db6 <span class="m">100644</span>
+</span></span><span class="line"><span class="cl">--- a/readme.txt
+</span></span><span class="line"><span class="cl">+++ b/readme.txt
+</span></span><span class="line"><span class="cl">@@ -1,2 +1,2 @@
+</span></span><span class="line"><span class="cl">-Git is a version control system.
+</span></span><span class="line"><span class="cl">+Git is a distributed version control system.
+</span></span><span class="line"><span class="cl"> Git is free software.
+</span></span></code></pre></div><h3 id="查看提交历史">查看提交历史</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看详细的提交历史</span>
+</span></span><span class="line"><span class="cl">git log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看简洁的提交历史（推荐）</span>
+</span></span><span class="line"><span class="cl">git log --pretty<span class="o">=</span>oneline
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看图形化的分支历史</span>
+</span></span><span class="line"><span class="cl">git log --graph --pretty<span class="o">=</span>oneline --abbrev-commit
+</span></span></code></pre></div><p><strong>历史记录示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git log --pretty<span class="o">=</span>oneline
+</span></span><span class="line"><span class="cl">049c19eb21cbe21986810b7de105d3d7ab584d1c <span class="o">(</span>HEAD -&gt; main<span class="o">)</span> 最新提交
+</span></span><span class="line"><span class="cl">a87bfdefbae52977a72b7955a406eab118a04df5 第二次提交
+</span></span><span class="line"><span class="cl">1dc3373085994a336323614fa726732b582f22f2 初始提交
+</span></span></code></pre></div><h2 id="版本回退和撤销">版本回退和撤销</h2>
+<h3 id="版本指针概念">版本指针概念</h3>
+<ul>
+<li><strong>HEAD</strong>：表示当前版本</li>
+<li><strong>HEAD^</strong>：上一个版本</li>
+<li><strong>HEAD^^</strong>：上上个版本</li>
+<li><strong>HEAD~100</strong>：往上100个版本</li>
+</ul>
+<h3 id="版本回退">版本回退</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 回退到上一个版本</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 回退到指定版本（使用commit id）</span>
+</span></span><span class="line"><span class="cl">git reset --hard 1094adb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看命令历史（找回commit id）</span>
+</span></span><span class="line"><span class="cl">git reflog
+</span></span></code></pre></div><p><strong>回退示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git reset --hard HEAD^
+</span></span><span class="line"><span class="cl">HEAD is now at e475afc add distributed
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ git reflog
+</span></span><span class="line"><span class="cl">e475afc HEAD@<span class="o">{</span>1<span class="o">}</span>: reset: moving to HEAD^
+</span></span><span class="line"><span class="cl">1094adb <span class="o">(</span>HEAD -&gt; master<span class="o">)</span> HEAD@<span class="o">{</span>2<span class="o">}</span>: commit: append GPL
+</span></span><span class="line"><span class="cl">e475afc HEAD@<span class="o">{</span>3<span class="o">}</span>: commit: add distributed
+</span></span></code></pre></div><h3 id="撤销修改">撤销修改</h3>
+<h4 id="1-撤销工作区修改">1. 撤销工作区修改</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 丢弃工作区的修改（注意--很重要）</span>
+</span></span><span class="line"><span class="cl">git checkout -- &lt;file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者使用新的命令</span>
+</span></span><span class="line"><span class="cl">git restore &lt;file&gt;
+</span></span></code></pre></div><h4 id="2-撤销暂存区修改">2. 撤销暂存区修改</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 把暂存区的修改撤销，重新放回工作区</span>
+</span></span><span class="line"><span class="cl">git reset HEAD &lt;file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者使用新的命令</span>
+</span></span><span class="line"><span class="cl">git restore --staged &lt;file&gt;
+</span></span></code></pre></div><h4 id="3-撤销版本库修改">3. 撤销版本库修改</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 版本回退（如上所述）</span>
+</span></span><span class="line"><span class="cl">git reset --hard HEAD^
+</span></span></code></pre></div><h3 id="撤销场景总结">撤销场景总结</h3>
+<table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>解决方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>修改了工作区文件，想撤销</td>
+          <td><code>git checkout -- file</code></td>
+      </tr>
+      <tr>
+          <td>修改了文件并添加到暂存区，想撤销</td>
+          <td>先<code>git reset HEAD file</code>，再<code>git checkout -- file</code></td>
+      </tr>
+      <tr>
+          <td>修改了文件并提交到版本库，想撤销</td>
+          <td><code>git reset --hard HEAD^</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="文件删除操作">文件删除操作</h2>
+<h3 id="删除文件的两种情况">删除文件的两种情况</h3>
+<h4 id="1-确实要删除文件">1. 确实要删除文件</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从工作区删除文件</span>
+</span></span><span class="line"><span class="cl">rm test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 从版本库删除文件</span>
+</span></span><span class="line"><span class="cl">git rm test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交删除操作</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;remove test.txt&#34;</span>
+</span></span></code></pre></div><h4 id="2-误删文件需要恢复">2. 误删文件，需要恢复</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从版本库恢复文件到工作区</span>
+</span></span><span class="line"><span class="cl">git checkout -- test.txt
+</span></span></code></pre></div><p><strong>重要提醒</strong>：</p>
+<ul>
+<li>只能恢复文件到最新版本</li>
+<li>会丢失最近一次提交后的修改内容</li>
+<li>从未添加到版本库的文件无法恢复</li>
+</ul>
+<h2 id="远程仓库操作">远程仓库操作</h2>
+<h3 id="关联远程仓库">关联远程仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 添加远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote add origin https://github.com/username/repository.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看远程仓库</span>
+</span></span><span class="line"><span class="cl">git remote -v
+</span></span></code></pre></div><h3 id="推送到远程仓库">推送到远程仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 推送到远程仓库的master分支</span>
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一次推送时，使用-u参数关联本地和远程分支</span>
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></div><h3 id="从远程仓库克隆">从远程仓库克隆</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 克隆远程仓库到本地</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/username/repository.git
+</span></span></code></pre></div><h3 id="从远程仓库拉取">从远程仓库拉取</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 拉取远程仓库的最新内容</span>
+</span></span><span class="line"><span class="cl">git pull origin master
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者分两步操作</span>
+</span></span><span class="line"><span class="cl">git fetch origin
+</span></span><span class="line"><span class="cl">git merge origin/master
+</span></span></code></pre></div><h2 id="分支管理">分支管理</h2>
+<h3 id="分支基本操作">分支基本操作</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看分支</span>
+</span></span><span class="line"><span class="cl">git branch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建分支</span>
+</span></span><span class="line"><span class="cl">git branch &lt;branch-name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 切换分支</span>
+</span></span><span class="line"><span class="cl">git checkout &lt;branch-name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建并切换分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b &lt;branch-name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 合并分支到当前分支</span>
+</span></span><span class="line"><span class="cl">git merge &lt;branch-name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除分支</span>
+</span></span><span class="line"><span class="cl">git branch -d &lt;branch-name&gt;
+</span></span></code></pre></div><h3 id="分支管理策略">分支管理策略</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 禁用Fast forward模式合并</span>
+</span></span><span class="line"><span class="cl">git merge --no-ff -m <span class="s2">&#34;merge with no-ff&#34;</span> dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看分支历史</span>
+</span></span><span class="line"><span class="cl">git log --graph --pretty<span class="o">=</span>oneline --abbrev-commit
+</span></span></code></pre></div><h2 id="实用技巧">实用技巧</h2>
+<h3 id="1-配置git">1. 配置Git</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 配置用户信息</span>
+</span></span><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;Your Name&#34;</span>
+</span></span><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;email@example.com&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置别名</span>
+</span></span><span class="line"><span class="cl">git config --global alias.st status
+</span></span><span class="line"><span class="cl">git config --global alias.co checkout
+</span></span><span class="line"><span class="cl">git config --global alias.ci commit
+</span></span><span class="line"><span class="cl">git config --global alias.br branch
+</span></span></code></pre></div><h3 id="2-忽略文件">2. 忽略文件</h3>
+<p>创建<code>.gitignore</code>文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 忽略所有.log文件</span>
+</span></span><span class="line"><span class="cl">*.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 忽略node_modules目录</span>
+</span></span><span class="line"><span class="cl">node_modules/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 忽略特定文件</span>
+</span></span><span class="line"><span class="cl">config.ini
+</span></span></code></pre></div><h3 id="3-标签管理">3. 标签管理</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建标签</span>
+</span></span><span class="line"><span class="cl">git tag v1.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建带说明的标签</span>
+</span></span><span class="line"><span class="cl">git tag -a v1.0 -m <span class="s2">&#34;version 1.0 released&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看标签</span>
+</span></span><span class="line"><span class="cl">git tag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 推送标签到远程</span>
+</span></span><span class="line"><span class="cl">git push origin v1.0
+</span></span><span class="line"><span class="cl">git push origin --tags
+</span></span></code></pre></div><h2 id="常见问题解决">常见问题解决</h2>
+<h3 id="1-合并冲突">1. 合并冲突</h3>
+<p>当Git无法自动合并分支时，需要手动解决冲突：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看冲突文件</span>
+</span></span><span class="line"><span class="cl">git status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 编辑冲突文件，解决冲突后</span>
+</span></span><span class="line"><span class="cl">git add &lt;conflict-file&gt;
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;resolve conflict&#34;</span>
+</span></span></code></pre></div><h3 id="2-暂存工作现场">2. 暂存工作现场</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 暂存当前工作现场</span>
+</span></span><span class="line"><span class="cl">git stash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看暂存列表</span>
+</span></span><span class="line"><span class="cl">git stash list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复暂存的工作现场</span>
+</span></span><span class="line"><span class="cl">git stash pop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者</span>
+</span></span><span class="line"><span class="cl">git stash apply
+</span></span><span class="line"><span class="cl">git stash drop
+</span></span></code></pre></div><h3 id="3-修改最后一次提交">3. 修改最后一次提交</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 修改最后一次提交的说明</span>
+</span></span><span class="line"><span class="cl">git commit --amend -m <span class="s2">&#34;new commit message&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 向最后一次提交添加文件</span>
+</span></span><span class="line"><span class="cl">git add forgotten-file.txt
+</span></span><span class="line"><span class="cl">git commit --amend --no-edit
+</span></span></code></pre></div><h2 id="最佳实践">最佳实践</h2>
+<h3 id="1-提交规范">1. 提交规范</h3>
+<ul>
+<li>提交信息要清晰明了</li>
+<li>每次提交只做一件事</li>
+<li>提交前检查代码质量</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 好的提交信息示例</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;feat: add user authentication&#34;</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;fix: resolve login button click issue&#34;</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;docs: update README with installation guide&#34;</span>
+</span></span></code></pre></div><h3 id="2-分支策略">2. 分支策略</h3>
+<ul>
+<li><code>master/main</code>：稳定的生产分支</li>
+<li><code>develop</code>：开发分支</li>
+<li><code>feature/*</code>：功能分支</li>
+<li><code>hotfix/*</code>：紧急修复分支</li>
+</ul>
+<h3 id="3-工作流程">3. 工作流程</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 从主分支创建功能分支</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature/new-feature
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 开发并提交</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;implement new feature&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 推送到远程</span>
+</span></span><span class="line"><span class="cl">git push origin feature/new-feature
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 创建Pull Request/Merge Request</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 合并后删除分支</span>
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git pull origin main
+</span></span><span class="line"><span class="cl">git branch -d feature/new-feature
+</span></span></code></pre></div><h2 id="总结">总结</h2>
+<p>Git是一个功能强大的版本控制系统，掌握其基本概念和常用操作对于软件开发至关重要。通过理解工作区、暂存区、版本库的概念，以及熟练使用各种Git命令，可以有效地管理代码版本，提高开发效率。</p>
+<h3 id="核心要点">核心要点</h3>
+<ol>
+<li><strong>三个区域</strong>：工作区、暂存区、版本库</li>
+<li><strong>基本流程</strong>：修改 → add → commit → push</li>
+<li><strong>版本管理</strong>：使用commit id和HEAD指针</li>
+<li><strong>分支管理</strong>：并行开发，合并代码</li>
+<li><strong>远程协作</strong>：clone、pull、push</li>
+</ol>
+<p>记住这些核心概念和操作，就能够熟练使用Git进行版本控制了！</p>
+]]></content:encoded></item></channel></rss>
