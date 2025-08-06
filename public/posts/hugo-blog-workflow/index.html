@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Hugo博客网站日常维护指南 | tyhzxh的个人博客</title>
 <meta name="keywords" content="Hugo, 博客, 静态网站, GitHub Pages, 工作流程">
 <meta name="description" content="Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程">
 <meta name="author" content="tyhzxh">
-<link rel="canonical" href="http://localhost:1313/posts/hugo-blog-workflow/">
+<link rel="canonical" href="https://tyhzxh.github.io/posts/hugo-blog-workflow/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://tyhzxh.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://tyhzxh.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tyhzxh.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://tyhzxh.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://tyhzxh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/hugo-blog-workflow/">
+<link rel="alternate" hreflang="en" href="https://tyhzxh.github.io/posts/hugo-blog-workflow/">
 <noscript>
     <style>
         #theme-toggle,
@@ -197,7 +197,78 @@
   border-color: var(--tertiary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-</style>
+</style><meta property="og:url" content="https://tyhzxh.github.io/posts/hugo-blog-workflow/">
+  <meta property="og:site_name" content="tyhzxh的个人博客">
+  <meta property="og:title" content="Hugo博客网站日常维护指南">
+  <meta property="og:description" content="Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-23T02:39:29+08:00">
+    <meta property="article:modified_time" content="2025-08-06T20:56:36+08:00">
+    <meta property="article:tag" content="Hugo">
+    <meta property="article:tag" content="博客">
+    <meta property="article:tag" content="静态网站">
+    <meta property="article:tag" content="GitHub Pages">
+    <meta property="article:tag" content="工作流程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hugo博客网站日常维护指南">
+<meta name="twitter:description" content="Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://tyhzxh.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Hugo博客网站日常维护指南",
+      "item": "https://tyhzxh.github.io/posts/hugo-blog-workflow/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hugo博客网站日常维护指南",
+  "name": "Hugo博客网站日常维护指南",
+  "description": "Hugo静态博客网站的日常维护和发布流程，包括创建文章、生成静态文件、部署到GitHub Pages的完整工作流程",
+  "keywords": [
+    "Hugo", "博客", "静态网站", "GitHub Pages", "工作流程"
+  ],
+  "articleBody": "前言 本文介绍使用Hugo静态网站生成器搭建的博客网站的日常维护流程。Hugo是一个快速、现代的静态网站生成器，结合GitHub Pages可以轻松搭建个人博客网站。\nHugo博客发布流程 完整工作流程 graph TD A[创建Markdown文档] --\u003e B[编写博客内容] B --\u003e C[生成静态网站] C --\u003e D[提交到GitHub] D --\u003e E[网站自动更新] 详细操作步骤 1. 创建博客文章 在项目的根目录下执行以下命令创建新的博客文章：\nhugo new posts/article-name.md 命令说明：\nhugo new：Hugo的内容创建命令 posts/：文章存放的目录 article-name.md：文章文件名（建议使用英文和连字符） 示例：\n# 创建技术文章 hugo new posts/react-hooks-guide.md # 创建生活随笔 hugo new posts/my-reading-notes.md # 创建项目介绍 hugo new posts/project-showcase.md 2. 编写文章内容 创建的Markdown文件会包含基本的前置元数据（Front Matter）：\n--- title: \"文章标题\" date: 2025-02-23T02:39:29+08:00 draft: true --- 完善文章元数据：\n--- title: \"React Hooks完全指南\" date: 2025-02-23T10:00:00+08:00 draft: false tags: [\"React\", \"JavaScript\", \"前端开发\"] categories: [\"技术教程\"] description: \"深入理解React Hooks的使用方法和最佳实践\" cover: image: \"/images/react-hooks.jpg\" alt: \"React Hooks\" caption: \"React Hooks让函数组件更强大\" --- # 文章内容开始... 重要字段说明：\ntitle：文章标题 date：发布日期 draft：是否为草稿（true=草稿，false=发布） tags：文章标签 categories：文章分类 description：文章描述（用于SEO） cover：封面图片配置 3. 生成静态网站 在项目根目录下执行：\nhugo 命令功能：\n读取content/目录下的Markdown文件 应用主题模板 生成静态HTML、CSS、JS文件 输出到public/目录 可选参数：\n# 生成并启动本地服务器预览 hugo server # 生成草稿内容 hugo -D # 指定配置文件 hugo --config config.yaml # 清理并重新生成 hugo --cleanDestinationDir 4. 提交到GitHub 进入public目录（生成的静态文件目录）：\ncd public 执行Git操作：\n# 添加所有文件到暂存区 git add . # 提交更改 git commit -m \"update blog content\" # 推送到GitHub Pages git push origin master 提交信息建议：\n# 新增文章 git commit -m \"add: new post about React Hooks\" # 更新文章 git commit -m \"update: fix typos in React Hooks post\" # 网站配置更新 git commit -m \"config: update site theme and settings\" # 修复问题 git commit -m \"fix: resolve image loading issue\" 高级工作流程 1. 本地预览和调试 # 启动本地开发服务器 hugo server -D # 指定端口 hugo server --port 1314 # 绑定到所有网络接口 hugo server --bind 0.0.0.0 # 实时重载（默认开启） hugo server --watch 访问 http://localhost:1313 预览网站。\n2. 内容管理策略 文章分类结构 content/ ├── posts/ # 博客文章 ├── about/ # 关于页面 ├── projects/ # 项目展示 └── notes/ # 学习笔记 文件命名规范 # 日期前缀命名 2025-02-23-react-hooks-guide.md # 分类前缀命名 tech-react-hooks-guide.md life-reading-notes-2025.md # 简洁命名 react-hooks-guide.md 3. 自动化部署 GitHub Actions配置 创建.github/workflows/hugo.yml：\nname: Deploy Hugo site to Pages on: push: branches: [\"main\"] workflow_dispatch: permissions: contents: read pages: write id-token: write concurrency: group: \"pages\" cancel-in-progress: false defaults: run: shell: bash jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v4 with: submodules: recursive - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: 'latest' extended: true - name: Build with Hugo run: hugo --minify - name: Upload artifact uses: actions/upload-pages-artifact@v2 with: path: ./public deploy: environment: name: github-pages url: ${{ steps.deployment.outputs.page_url }} runs-on: ubuntu-latest needs: build steps: - name: Deploy to GitHub Pages id: deployment uses: actions/deploy-pages@v2 简化的发布脚本 创建deploy.sh脚本：\n#!/bin/bash echo \"开始构建Hugo网站...\" hugo echo \"进入public目录...\" cd public echo \"添加文件到Git...\" git add . echo \"请输入提交信息：\" read commit_message if [ -z \"$commit_message\" ]; then commit_message=\"update blog $(date '+%Y-%m-%d %H:%M:%S')\" fi echo \"提交更改...\" git commit -m \"$commit_message\" echo \"推送到GitHub...\" git push origin master echo \"部署完成！\" 使用脚本：\nchmod +x deploy.sh ./deploy.sh 内容优化建议 1. SEO优化 --- title: \"具体而有吸引力的标题\" description: \"简洁明了的文章描述，包含关键词\" keywords: [\"关键词1\", \"关键词2\", \"关键词3\"] author: \"作者名\" canonical: \"https://yourdomain.com/posts/article-name/\" --- 2. 图片管理 # 本地图片 ![图片描述](/images/local-image.jpg) # 外部图片 ![图片描述](https://example.com/image.jpg) # 带链接的图片 [![图片描述](/images/image.jpg)](https://link-url.com) 图片存放结构：\nstatic/ └── images/ ├── posts/ │ ├── 2025/ │ └── categories/ ├── covers/ └── icons/ 3. 代码高亮配置 在config.yaml中配置：\nmarkup: highlight: style: github lineNos: true tabWidth: 2 使用代码块：\n```javascript function greet(name) { console.log(`Hello, ${name}!`); } ``` 故障排除 常见问题及解决方案 1. 构建失败 # 检查Hugo版本 hugo version # 检查配置文件语法 hugo config # 详细错误信息 hugo -v 2. 样式丢失 # 检查baseURL配置 grep baseURL config.yaml # 重新生成并清理 hugo --cleanDestinationDir 3. 图片不显示 检查图片路径是否正确 确认图片文件存在于static/目录 检查文件名大小写 4. 文章不显示 确认draft: false 检查日期格式 验证Front Matter语法 性能优化 1. 构建优化 # 压缩输出 hugo --minify # 并行处理 hugo --parallel # 缓存优化 hugo --gc 2. 图片优化 # config.yaml imaging: resampleFilter: \"lanczos\" quality: 85 anchor: \"smart\" 3. 内容优化 使用WebP格式图片 压缩CSS和JavaScript 启用Gzip压缩 使用CDN加速 总结 Hugo博客的日常维护流程简单高效：\n创建内容：hugo new posts/article.md 本地预览：hugo server 生成网站：hugo 部署发布：git add . \u0026\u0026 git commit \u0026\u0026 git push 通过自动化脚本和GitHub Actions，可以进一步简化发布流程，专注于内容创作。记住定期备份源码，保持良好的文件组织结构，就能轻松维护一个高质量的个人博客网站！ 😊\n参考资源 Hugo官方文档 GitHub Pages文档 Markdown语法指南 Hugo主题库 ",
+  "wordCount" : "561",
+  "inLanguage": "en",
+  "datePublished": "2025-02-23T02:39:29+08:00",
+  "dateModified": "2025-08-06T20:56:36+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "tyhzxh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tyhzxh.github.io/posts/hugo-blog-workflow/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "tyhzxh的个人博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tyhzxh.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -215,7 +286,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <a href="https://tyhzxh.github.io/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -241,32 +312,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="https://tyhzxh.github.io/" title="首页">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://tyhzxh.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="https://tyhzxh.github.io/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="https://tyhzxh.github.io/tags/" title="标签">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                <a href="https://tyhzxh.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="关于">
+                <a href="https://tyhzxh.github.io/about/" title="关于">
                     <span>关于</span>
                 </a>
             </li>
@@ -277,7 +348,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://tyhzxh.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://tyhzxh.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Hugo博客网站日常维护指南
     </h1>
@@ -287,11 +358,7 @@
     <div class="post-meta"><span title='2025-02-23 02:39:29 +0800 CST'>February 23, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;tyhzxh
 
 </div>
-  </header> 
-<figure class="entry-cover">
-        <img loading="eager" src="http://localhost:1313/images/hugo-workflow.svg" alt="Hugo博客工作流程">
-        <figcaption>Hugo静态博客发布流程</figcaption>
-</figure><div class="toc">
+  </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
             <span class="details">Table of Contents</span>
@@ -722,14 +789,14 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/hugo/">Hugo</a></li>
-      <li><a href="http://localhost:1313/tags/%E5%8D%9A%E5%AE%A2/">博客</a></li>
-      <li><a href="http://localhost:1313/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99/">静态网站</a></li>
-      <li><a href="http://localhost:1313/tags/github-pages/">GitHub Pages</a></li>
-      <li><a href="http://localhost:1313/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/">工作流程</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/hugo/">Hugo</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E5%8D%9A%E5%AE%A2/">博客</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99/">静态网站</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/github-pages/">GitHub Pages</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/">工作流程</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="http://localhost:1313/posts/two-pointers-algorithm/">
+  <a class="next" href="https://tyhzxh.github.io/posts/two-pointers-algorithm/">
     <span class="title">Next »</span>
     <br>
     <span>双指针算法详解</span>
@@ -741,7 +808,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+        <span>&copy; 2025 <a href="https://tyhzxh.github.io/">tyhzxh的个人博客</a></span> · 
 
     <span>
         Powered by

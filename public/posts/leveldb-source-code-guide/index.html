@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>LevelDB源码阅读指南 | tyhzxh的个人博客</title>
 <meta name="keywords" content="LevelDB, 数据库, 源码分析, 存储引擎, LSM Tree">
 <meta name="description" content="深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容">
 <meta name="author" content="tyhzxh">
-<link rel="canonical" href="http://localhost:1313/posts/leveldb-source-code-guide/">
+<link rel="canonical" href="https://tyhzxh.github.io/posts/leveldb-source-code-guide/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8ee78296343cf29844826f6d943ca1b6638fc5059dcdf673ace996a7617f1b69.css" integrity="sha256-jueCljQ88phEgm9tlDyhtmOPxQWdzfZzrOmWp2F/G2k=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://tyhzxh.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://tyhzxh.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://tyhzxh.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://tyhzxh.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://tyhzxh.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/leveldb-source-code-guide/">
+<link rel="alternate" hreflang="en" href="https://tyhzxh.github.io/posts/leveldb-source-code-guide/">
 <noscript>
     <style>
         #theme-toggle,
@@ -197,7 +197,78 @@
   border-color: var(--tertiary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-</style>
+</style><meta property="og:url" content="https://tyhzxh.github.io/posts/leveldb-source-code-guide/">
+  <meta property="og:site_name" content="tyhzxh的个人博客">
+  <meta property="og:title" content="LevelDB源码阅读指南">
+  <meta property="og:description" content="深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-10-12T10:00:00+08:00">
+    <meta property="article:modified_time" content="2025-08-06T20:56:36+08:00">
+    <meta property="article:tag" content="LevelDB">
+    <meta property="article:tag" content="数据库">
+    <meta property="article:tag" content="源码分析">
+    <meta property="article:tag" content="存储引擎">
+    <meta property="article:tag" content="LSM Tree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LevelDB源码阅读指南">
+<meta name="twitter:description" content="深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://tyhzxh.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "LevelDB源码阅读指南",
+      "item": "https://tyhzxh.github.io/posts/leveldb-source-code-guide/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LevelDB源码阅读指南",
+  "name": "LevelDB源码阅读指南",
+  "description": "深入解析LevelDB源码结构和核心概念，提供系统性的源码阅读指南，涵盖项目结构、核心模块、基本使用方法等内容",
+  "keywords": [
+    "LevelDB", "数据库", "源码分析", "存储引擎", "LSM Tree"
+  ],
+  "articleBody": "前言 阅读LevelDB源码是一项很好的学习机会，因为它的代码质量高、设计简洁而高效。LevelDB是Google开发的一个高性能键值存储数据库，采用LSM Tree数据结构，广泛应用于各种存储系统中。\n基本概念 在阅读源码之前，确保你熟悉LevelDB的基本概念和术语：\n核心概念 SSTable（Sorted String Table）：不可变的、排序的键值存储文件，是LevelDB持久化数据的基本单位 LSM Tree（Log-Structured Merge Tree）：一种数据结构，LevelDB使用它来管理存储在磁盘上的数据 MemTable和Immutable MemTable：内存中存储的数据结构，数据首先写入MemTable，然后在其达到一定大小时，转换成Immutable MemTable并持久化到磁盘中 WAL（Write-Ahead Log）：每个写入操作都会被记录到WAL中，用于恢复未持久化的数据 了解这些基础知识能帮助你在代码中更容易识别和理解这些概念。\n项目结构详解 LevelDB的源码结构清晰，模块化程度高：\n1. db/ - 核心数据库操作 包含LevelDB数据库的核心实现，处理数据的存储、读取、更新、删除等主要功能。\n重要文件：\ndb_impl.cc：主要数据库操作的实现（Get、Put、Delete等接口） version_set.cc：管理SSTable文件的版本控制以及文件合并（Compaction）操作 write_batch.cc：处理批量写操作（WriteBatch）的实现 log_writer.cc 和 log_reader.cc：写前日志（WAL）的读写功能实现 核心功能：\n数据读写接口的实现 日志恢复和数据恢复 数据的存储组织形式管理 2. table/ - SSTable实现 SSTable是LevelDB持久化存储的基本单位，这个目录包含了SSTable的生成、读取以及与其他数据库结构的交互。\n重要文件：\nblock_builder.cc：构建SSTable中的Block（小的存储单元） table_builder.cc：构建SSTable文件的逻辑 block.cc 和 block_reader.cc：从SSTable中读取Block的逻辑 filter_block.cc：实现布隆过滤器，用于快速查找键是否存在 核心功能：\nSSTable文件的生成与读取 数据的组织方式（分块存储、布隆过滤器、压缩等） 保证SSTable中的数据是有序的 3. util/ - 通用工具和辅助类 包含LevelDB中的通用工具，辅助处理常见的操作。\n重要文件：\nstatus.cc：提供状态类Status，用于表示操作成功或失败的结果 coding.cc：提供基本的编码、解码功能 env.cc：提供文件系统相关的抽象 crc32c.cc：实现CRC32C校验，用于数据完整性校验 compression.cc：处理数据压缩与解压缩 4. port/ - 跨平台支持 确保LevelDB可以在不同的操作系统和硬件架构下运行。\n重要文件：\nport_posix.cc：为POSIX系统实现的线程、文件、锁等操作 port_win.cc：为Windows系统提供与POSIX等效的功能 port_stdcxx.cc：为C++标准库提供跨平台支持 5. include/ - 公共头文件 包含LevelDB库对外暴露的接口文件。\n重要文件：\ndb.h：定义主要数据库接口 options.h：定义数据库操作时的可选项 write_batch.h：定义批量写入接口 6. doc/ - 文档和设计说明 包含LevelDB的设计文档和相关说明文档。\n源码阅读策略 推荐阅读顺序 公开接口：从include/目录开始，了解对外提供的功能 核心入口：阅读DB类、WriteBatch类、Iterator类 核心模块：深入MemTable、SSTable、Compaction机制、WAL 工具类：了解util/中的辅助功能 学习方法 理解项目结构：先从公共接口开始阅读 从主要入口开始：从用户最常调用的接口开始 重点阅读核心模块：深入到LevelDB的内部实现 使用调试工具：通过gdb等工具进行单步调试 阅读代码注释和文档：LevelDB的代码注释比较丰富 结合实际项目和测试：通过测试代码理解用法和行为 查阅资料和社区讨论：遇到困难时查阅相关资料 循序渐进，逐步深入：先把握整体结构，再深入细节 基本使用 LevelDB提供了简洁的键值存储接口：\n核心接口 1. DB接口 DB是LevelDB的核心接口，代表一个数据库实例：\n// 打开数据库 leveldb::DB* db; leveldb::Options options; options.create_if_missing = true; leveldb::Status status = leveldb::DB::Open(options, \"/tmp/testdb\", \u0026db); // 写入数据 status = db-\u003ePut(leveldb::WriteOptions(), \"key1\", \"value1\"); // 读取数据 std::string value; status = db-\u003eGet(leveldb::ReadOptions(), \"key1\", \u0026value); // 删除数据 status = db-\u003eDelete(leveldb::WriteOptions(), \"key1\"); // 关闭数据库 delete db; 2. Iterator接口 用于遍历数据库中的键值对：\nleveldb::Iterator* it = db-\u003eNewIterator(leveldb::ReadOptions()); // 遍历所有键值对 for (it-\u003eSeekToFirst(); it-\u003eValid(); it-\u003eNext()) { std::cout \u003c\u003c it-\u003ekey().ToString() \u003c\u003c \": \" \u003c\u003c it-\u003evalue().ToString() \u003c\u003c std::endl; } // 查找特定键 it-\u003eSeek(\"key1\"); if (it-\u003eValid()) { std::cout \u003c\u003c \"Found: \" \u003c\u003c it-\u003evalue().ToString() \u003c\u003c std::endl; } delete it; 3. WriteBatch接口 用于批量写入操作：\nleveldb::WriteBatch batch; batch.Delete(\"key1\"); batch.Put(\"key2\", \"value2\"); batch.Put(\"key3\", \"value3\"); status = db-\u003eWrite(leveldb::WriteOptions(), \u0026batch); 配置选项 Options配置 leveldb::Options options; options.create_if_missing = true; // 如果数据库不存在则创建 options.write_buffer_size = 4 * 1024 * 1024; // 写缓冲区大小 options.max_open_files = 1000; // 最大打开文件数 options.block_size = 4096; // 块大小 ReadOptions配置 leveldb::ReadOptions read_options; read_options.verify_checksums = true; // 验证校验和 read_options.fill_cache = true; // 填充缓存 WriteOptions配置 leveldb::WriteOptions write_options; write_options.sync = true; // 同步写入 性能优化建议 1. 批量操作 使用WriteBatch进行批量写入可以显著提高性能：\nleveldb::WriteBatch batch; for (int i = 0; i \u003c 1000; ++i) { batch.Put(\"key\" + std::to_string(i), \"value\" + std::to_string(i)); } db-\u003eWrite(leveldb::WriteOptions(), \u0026batch); 2. 合理配置缓存 #include \"leveldb/cache.h\" leveldb::Options options; options.block_cache = leveldb::NewLRUCache(100 * 1048576); // 100MB缓存 3. 压缩配置 #include \"leveldb/filter_policy.h\" options.filter_policy = leveldb::NewBloomFilterPolicy(10); options.compression = leveldb::kSnappyCompression; 错误处理 LevelDB使用Status类进行错误处理：\nleveldb::Status status = db-\u003ePut(leveldb::WriteOptions(), \"key\", \"value\"); if (!status.ok()) { std::cerr \u003c\u003c \"Error: \" \u003c\u003c status.ToString() \u003c\u003c std::endl; if (status.IsNotFound()) { // 处理未找到错误 } else if (status.IsCorruption()) { // 处理数据损坏错误 } else if (status.IsIOError()) { // 处理IO错误 } } 总结 LevelDB通过清晰的模块化设计，将核心功能、工具类、跨平台支持以及对外接口分离开来。理解其架构和基本使用方法，有助于深入学习现代存储系统的设计原理。通过系统性的源码阅读，可以掌握LSM Tree、WAL、Compaction等关键技术的实现细节。\n参考资源 LevelDB官方文档 LevelDB设计文档 LSM Tree论文 ",
+  "wordCount" : "350",
+  "inLanguage": "en",
+  "datePublished": "2024-10-12T10:00:00+08:00",
+  "dateModified": "2025-08-06T20:56:36+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "tyhzxh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tyhzxh.github.io/posts/leveldb-source-code-guide/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "tyhzxh的个人博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tyhzxh.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -215,7 +286,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
+            <a href="https://tyhzxh.github.io/" accesskey="h" title="tyhzxh的个人博客 (Alt + H)">tyhzxh的个人博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -241,32 +312,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="https://tyhzxh.github.io/" title="首页">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://tyhzxh.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="https://tyhzxh.github.io/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="https://tyhzxh.github.io/tags/" title="标签">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                <a href="https://tyhzxh.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="关于">
+                <a href="https://tyhzxh.github.io/about/" title="关于">
                     <span>关于</span>
                 </a>
             </li>
@@ -277,7 +348,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://tyhzxh.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://tyhzxh.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       LevelDB源码阅读指南
     </h1>
@@ -287,11 +358,7 @@
     <div class="post-meta"><span title='2024-10-12 10:00:00 +0800 CST'>October 12, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;tyhzxh
 
 </div>
-  </header> 
-<figure class="entry-cover">
-        <img loading="eager" src="http://localhost:1313/images/leveldb-architecture.svg" alt="LevelDB架构图">
-        <figcaption>LevelDB存储引擎架构</figcaption>
-</figure><div class="toc">
+  </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
             <span class="details">Table of Contents</span>
@@ -573,19 +640,19 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/leveldb/">LevelDB</a></li>
-      <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
-      <li><a href="http://localhost:1313/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a></li>
-      <li><a href="http://localhost:1313/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">存储引擎</a></li>
-      <li><a href="http://localhost:1313/tags/lsm-tree/">LSM Tree</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/leveldb/">LevelDB</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">源码分析</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">存储引擎</a></li>
+      <li><a href="https://tyhzxh.github.io/tags/lsm-tree/">LSM Tree</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/two-pointers-algorithm/">
+  <a class="prev" href="https://tyhzxh.github.io/posts/two-pointers-algorithm/">
     <span class="title">« Prev</span>
     <br>
     <span>双指针算法详解</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/csapp-chapter2-data-representation/">
+  <a class="next" href="https://tyhzxh.github.io/posts/csapp-chapter2-data-representation/">
     <span class="title">Next »</span>
     <br>
     <span>CSAPP第二章：信息的表示与处理</span>
@@ -597,7 +664,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">tyhzxh的个人博客</a></span> · 
+        <span>&copy; 2025 <a href="https://tyhzxh.github.io/">tyhzxh的个人博客</a></span> · 
 
     <span>
         Powered by

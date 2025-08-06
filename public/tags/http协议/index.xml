@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>HTTP协议 on tyhzxh的个人博客</title>
-    <link>http://localhost:1313/tags/http%E5%8D%8F%E8%AE%AE/</link>
+    <link>https://tyhzxh.github.io/tags/http%E5%8D%8F%E8%AE%AE/</link>
     <description>Recent content in HTTP协议 on tyhzxh的个人博客</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/http%E5%8D%8F%E8%AE%AE/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Aug 2025 20:54:27 +0800</lastBuildDate>
+    <atom:link href="https://tyhzxh.github.io/tags/http%E5%8D%8F%E8%AE%AE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>计算机网络概述：从OSI模型到TCP/IP协议栈</title>
-      <link>http://localhost:1313/posts/computer-network-overview/</link>
+      <link>https://tyhzxh.github.io/posts/computer-network-overview/</link>
       <pubDate>Mon, 25 Mar 2024 22:24:11 +0800</pubDate>
-      <guid>http://localhost:1313/posts/computer-network-overview/</guid>
+      <guid>https://tyhzxh.github.io/posts/computer-network-overview/</guid>
       <description>深入解析计算机网络的核心概念，包括OSI七层模型和TCP/IP四层模型的对比，以及HTTP、TCP、IP等重要协议的工作原理和应用场景</description>
       <content:encoded><![CDATA[<h2 id="计算机网络基础概述">计算机网络基础概述</h2>
 <p>计算机网络是现代信息技术的基础设施，理解网络模型和协议对于任何IT从业者都至关重要。本文将深入探讨网络分层模型、核心协议及其实际应用。</p>

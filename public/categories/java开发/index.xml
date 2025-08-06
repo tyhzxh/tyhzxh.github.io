@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Java开发 on tyhzxh的个人博客</title>
-    <link>http://localhost:1313/categories/java%E5%BC%80%E5%8F%91/</link>
+    <link>https://tyhzxh.github.io/categories/java%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in Java开发 on tyhzxh的个人博客</description>
     <generator>Hugo -- 0.148.2</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 06 Aug 2025 08:51:21 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/java%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://tyhzxh.github.io/categories/java%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java缓冲流详解：提升IO性能的关键技术</title>
-      <link>http://localhost:1313/posts/java-buffered-streams/</link>
+      <link>https://tyhzxh.github.io/posts/java-buffered-streams/</link>
       <pubDate>Wed, 20 Mar 2024 16:45:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/java-buffered-streams/</guid>
+      <guid>https://tyhzxh.github.io/posts/java-buffered-streams/</guid>
       <description>深入解析Java缓冲流的工作原理、使用方法和性能优化技巧，包括BufferedInputStream、BufferedOutputStream、BufferedReader和BufferedWriter的详细用法</description>
       <content:encoded><![CDATA[<h2 id="缓冲流概述">缓冲流概述</h2>
 <p><strong>缓冲流（Buffered Stream）</strong> 是Java IO中一种<strong>处理流（Processing Stream）</strong>，它在底层节点流（如文件流、网络流）的基础上，增加<strong>内存缓冲区</strong>，通过<strong>批量读写数据</strong>显著提升IO效率。</p>
@@ -671,9 +671,9 @@
     </item>
     <item>
       <title>Java类设计详解：Entity类与JavaBean规范</title>
-      <link>http://localhost:1313/posts/java-classes-and-beans/</link>
+      <link>https://tyhzxh.github.io/posts/java-classes-and-beans/</link>
       <pubDate>Fri, 15 Mar 2024 14:30:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/java-classes-and-beans/</guid>
+      <guid>https://tyhzxh.github.io/posts/java-classes-and-beans/</guid>
       <description>深入讲解Java中Entity类和JavaBean的设计规范，包括实体类的作用、JavaBean规范以及最佳实践</description>
       <content:encoded><![CDATA[<h2 id="java类设计概述">Java类设计概述</h2>
 <p>在Java开发中，良好的类设计是构建可维护、可扩展应用程序的基础。本文将详细介绍两种重要的类设计模式：Entity类（实体类）和JavaBean，以及它们在实际开发中的应用。</p>
@@ -1034,9 +1034,9 @@
     </item>
     <item>
       <title>SpringBoot 核心概念详解</title>
-      <link>http://localhost:1313/posts/springboot-fundamentals/</link>
+      <link>https://tyhzxh.github.io/posts/springboot-fundamentals/</link>
       <pubDate>Fri, 23 Feb 2024 02:36:48 +0800</pubDate>
-      <guid>http://localhost:1313/posts/springboot-fundamentals/</guid>
+      <guid>https://tyhzxh.github.io/posts/springboot-fundamentals/</guid>
       <description>SpringBoot框架的核心概念详解，包括IoC容器、依赖注入、AOP面向切面编程等重要概念的深入解析</description>
       <content:encoded><![CDATA[<blockquote>
 <p>SpringBoot是Java最流行的开发框架，它通过解耦代码来提升可维护性和可测试性。本文将深入解析SpringBoot的核心概念。</p></blockquote>
