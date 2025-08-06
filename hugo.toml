@@ -88,7 +88,7 @@ buildFuture = false
     
     希望这些内容对你有所帮助！
     """
-    imageUrl = "/images/avatar.svg"
+    imageUrl = "/images/man.jpg"
     imageWidth = 120
     imageHeight = 120
     imageTitle = "tyhzxh"
