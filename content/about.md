@@ -11,11 +11,15 @@ description: "关于博主的介绍"
 
 ## 个人简介
 
+<div align="center">
+  <img src="/images/man.jpg" alt="tyhzxh" width="150" height="150" style="border-radius: 50%; margin: 20px 0;">
+</div>
+
 我是一名热爱技术的开发者，喜欢探索新技术、分享学习心得。这个博客是我记录学习过程、技术思考和生活感悟的地方。
 
 ## 技术栈
 
-- **编程语言**: Java, Python, JavaScript, Go
+- **编程语言**: Java, C++,Python, JavaScript, Go
 - **框架**: Spring Boot, Vue.js, React
 - **数据库**: MySQL, Redis, MongoDB
 - **工具**: Git, Docker, Linux
@@ -33,7 +37,7 @@ description: "关于博主的介绍"
 ## 联系方式
 
 - **GitHub**: [https://github.com/tyhzxh](https://github.com/tyhzxh)
-- **Email**: your-email@example.com
+- **Email**: winterpear5816@gmail.com
 
 ## 博客信息
 
@@ -43,4 +47,3 @@ description: "关于博主的介绍"
 - **更新频率**: 不定期更新
 
 感谢你的访问，希望这里的内容对你有所帮助！如果有任何问题或建议，欢迎通过上述方式联系我。
-

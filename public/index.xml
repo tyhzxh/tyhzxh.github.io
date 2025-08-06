@@ -11046,10 +11046,13 @@ Web服务器（Nginx/Apache）
 ]]></content:encoded></item><item><title>关于我</title><link>https://tyhzxh.github.io/about/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0800</pubDate><guid>https://tyhzxh.github.io/about/</guid><description>关于博主的介绍</description><content:encoded><![CDATA[<h1 id="关于我-">关于我 👋</h1>
 <p>欢迎来到我的个人博客！</p>
 <h2 id="个人简介">个人简介</h2>
+<div align="center">
+  <img src="/images/man.jpg" alt="tyhzxh" width="150" height="150" style="border-radius: 50%; margin: 20px 0;">
+</div>
 <p>我是一名热爱技术的开发者，喜欢探索新技术、分享学习心得。这个博客是我记录学习过程、技术思考和生活感悟的地方。</p>
 <h2 id="技术栈">技术栈</h2>
 <ul>
-<li><strong>编程语言</strong>: Java, Python, JavaScript, Go</li>
+<li><strong>编程语言</strong>: Java, C++,Python, JavaScript, Go</li>
 <li><strong>框架</strong>: Spring Boot, Vue.js, React</li>
 <li><strong>数据库</strong>: MySQL, Redis, MongoDB</li>
 <li><strong>工具</strong>: Git, Docker, Linux</li>
@@ -11066,7 +11069,7 @@ Web服务器（Nginx/Apache）
 <h2 id="联系方式">联系方式</h2>
 <ul>
 <li><strong>GitHub</strong>: <a href="https://github.com/tyhzxh">https://github.com/tyhzxh</a></li>
-<li><strong>Email</strong>: <a href="mailto:your-email@example.com">your-email@example.com</a></li>
+<li><strong>Email</strong>: <a href="mailto:winterpear5816@gmail.com">winterpear5816@gmail.com</a></li>
 </ul>
 <h2 id="博客信息">博客信息</h2>
 <ul>
