@@ -35,12 +35,9 @@
 {{- end }}
 
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $paginator := .Paginate $pages }}
 
-{{- if and (not .Site.Params.homeInfoParams) $pages }}
-{{- $pages = $pages | first 5 }}
-{{- end }}
-
-{{- range $pages }}
+{{- range $paginator.Pages }}
 {{- if eq .Kind "page" }}
 <article class="post-entry"> 
     {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInList | default site.Params.cover.hidden }}
@@ -66,6 +63,40 @@
     <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
+{{- end }}
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="pagination-prev" href="{{ $paginator.Prev.URL | absURL }}">
+      ← 上一页
+      {{- if (.Param "ShowPageNums") }}
+      ({{ sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }})
+      {{- end }}
+    </a>
+    {{- end }}
+    
+    <div class="pagination-numbers">
+      {{- range $paginator.Pagers }}
+      {{- if eq . $paginator }}
+      <span class="pagination-current">{{ .PageNumber }}</span>
+      {{- else }}
+      <a class="pagination-number" href="{{ .URL }}">{{ .PageNumber }}</a>
+      {{- end }}
+      {{- end }}
+    </div>
+    
+    {{- if $paginator.HasNext }}
+    <a class="pagination-next" href="{{ $paginator.Next.URL | absURL }}">
+      下一页 →
+      {{- if (.Param "ShowPageNums") }}
+      ({{ add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }})
+      {{- end }}
+    </a>
+    {{- end }}
+  </nav>
+</footer>
 {{- end }}
 
 {{- end }}{{/* end main */}}
