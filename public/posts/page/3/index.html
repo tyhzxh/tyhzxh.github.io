@@ -307,6 +307,26 @@
 
 <article class="post-entry"> 
 <figure class="entry-cover">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt="算法思维与优化">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">贪心算法详解：从基础概念到经典问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>贪心算法概述 **贪心算法（Greedy Algorithm）**是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。贪心算法在算法竞赛和实际工程中都有着重要的地位。
+贪心算法的核心思想 基本原理 贪心算法的核心思想是：
+局部最优选择：在每一步都做出当前看起来最优的选择 不回溯：一旦做出选择，就不再改变 希望全局最优：通过局部最优选择达到全局最优解 贪心选择性质 一个问题能够用贪心算法解决，必须具备以下性质：
+性质 描述 重要性 贪心选择性质 通过局部最优选择能达到全局最优 核心性质 最优子结构 问题的最优解包含子问题的最优解 必要条件 无后效性 当前选择不影响之前的选择 保证正确性 贪心算法设计步骤 1. 问题分析 def greedy_algorithm_template(problem_input): &#34;&#34;&#34; 贪心算法通用模板 &#34;&#34;&#34; # 步骤1：将问题分解为子问题 subproblems = decompose_problem(problem_input) # 步骤2：确定贪心策略 strategy = define_greedy_strategy() # 步骤3：按贪心策略排序 sorted_items = sort_by_strategy(subproblems, strategy) # 步骤4：逐步构造解 solution = [] for item in sorted_items: if is_feasible(solution, item): solution.append(item) return solution 2. 贪心策略选择 常见的贪心策略包括：
+策略类型 描述 适用场景 最大优先 优先选择最大值 最大收益问题 最小优先 优先选择最小值 最小成本问题 比值优先 按某种比值排序 效率优化问题 截止时间优先 按时间排序 调度问题 经典贪心算法问题 1. 活动选择问题 问题描述 给定n个活动，每个活动都有开始时间和结束时间，选择最多的活动使得它们不冲突。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-27 22:02:23 +0800 CST'>February 27, 2024</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to 贪心算法详解：从基础概念到经典问题" href="https://tyhzxh.github.io/posts/greedy-algorithm-guide/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
         <img loading="lazy" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&amp;h=400&amp;fit=crop" alt="前缀和算法示意图">
 </figure>
   <header class="entry-header">

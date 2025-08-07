@@ -291,6 +291,26 @@
 </header>
 
 <article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://tyhzxh.github.io/images/mysql-constraints.svg" alt="MySQL约束示意图">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MySQL约束完全指南：数据完整性的守护者
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 在数据库设计中，约束是保证数据完整性和一致性的重要机制。MySQL提供了多种约束类型，它们就像数据库的&#34;守门员&#34;，确保只有符合规则的数据才能进入数据库。本文将彻底解析MySQL约束的方方面面。
+什么是MySQL约束？ MySQL约束（Constraints）是数据库中用来保证数据完整性和一致性的规则。它们在数据插入、更新时自动执行检查，确保数据符合预定义的业务规则。
+约束的核心作用 数据完整性：确保数据的准确性和有效性 业务规则强制：在数据库层面实施业务逻辑 错误预防：防止无效数据进入系统 性能优化：某些约束会自动创建索引 MySQL约束类型详解 1. 主键约束 (PRIMARY KEY) 主键约束是最重要的约束之一，用于唯一标识表中的每一行记录。
+特点：
+值必须唯一 不能为NULL 一个表只能有一个主键 自动创建唯一索引 -- 单列主键 CREATE TABLE users ( id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(50) NOT NULL, email VARCHAR(100) NOT NULL ); -- 复合主键 CREATE TABLE order_items ( order_id INT, product_id INT, quantity INT, price DECIMAL(10,2), PRIMARY KEY (order_id, product_id) ); 2. 外键约束 (FOREIGN KEY) 外键约束维护表与表之间的引用完整性，确保数据的关联性。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-19 15:30:00 +0800 CST'>December 19, 2024</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;tyhzxh</footer>
+  <a class="entry-link" aria-label="post link to MySQL约束完全指南：数据完整性的守护者" href="https://tyhzxh.github.io/posts/mysql-constraints-complete-guide/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">LevelDB源码阅读指南
     </h2>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mysqlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00758f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f29111;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">MySQL约束完全指南</text>
+  
+  <!-- MySQL Logo -->
+  <circle cx="400" cy="120" r="40" fill="url(#mysqlGradient)"/>
+  <text x="400" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">SQL</text>
+  
+  <!-- Constraint Types -->
+  <g transform="translate(100, 200)">
+    <!-- Primary Key -->
+    <rect x="0" y="0" width="120" height="80" rx="10" fill="#3498db" opacity="0.8"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">PRIMARY KEY</text>
+    <text x="60" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">唯一标识</text>
+    <text x="60" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">非空唯一</text>
+    
+    <!-- Foreign Key -->
+    <rect x="140" y="0" width="120" height="80" rx="10" fill="#e74c3c" opacity="0.8"/>
+    <text x="200" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">FOREIGN KEY</text>
+    <text x="200" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">引用完整性</text>
+    <text x="200" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">级联操作</text>
+    
+    <!-- Unique -->
+    <rect x="280" y="0" width="120" height="80" rx="10" fill="#2ecc71" opacity="0.8"/>
+    <text x="340" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">UNIQUE</text>
+    <text x="340" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">值唯一</text>
+    <text x="340" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">允许NULL</text>
+    
+    <!-- Not Null -->
+    <rect x="420" y="0" width="120" height="80" rx="10" fill="#f39c12" opacity="0.8"/>
+    <text x="480" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">NOT NULL</text>
+    <text x="480" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">非空约束</text>
+    <text x="480" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">必须有值</text>
+    
+    <!-- Check -->
+    <rect x="70" y="100" width="120" height="80" rx="10" fill="#9b59b6" opacity="0.8"/>
+    <text x="130" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">CHECK</text>
+    <text x="130" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">条件检查</text>
+    <text x="130" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">自定义规则</text>
+    
+    <!-- Default -->
+    <rect x="210" y="100" width="120" height="80" rx="10" fill="#1abc9c" opacity="0.8"/>
+    <text x="270" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">DEFAULT</text>
+    <text x="270" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">默认值</text>
+    <text x="270" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">自动填充</text>
+    
+    <!-- Auto Increment -->
+    <rect x="350" y="100" width="120" height="80" rx="10" fill="#34495e" opacity="0.8"/>
+    <text x="410" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">AUTO_INCREMENT</text>
+    <text x="410" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">自动递增</text>
+    <text x="410" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">唯一序号</text>
+  </g>
+  
+  <!-- Data Integrity Shield -->
+  <g transform="translate(600, 250)">
+    <path d="M 0 0 L 20 -30 L 60 -30 L 80 0 L 60 40 L 20 40 Z" fill="#27ae60" opacity="0.8"/>
+    <text x="40" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">数据</text>
+    <text x="40" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">完整性</text>
+  </g>
+  
+  <!-- Connection Lines -->
+  <g stroke="#7f8c8d" stroke-width="2" fill="none" opacity="0.6">
+    <line x1="220" y1="280" x2="600" y2="270"/>
+    <line x1="340" y1="280" x2="600" y2="270"/>
+    <line x1="460" y1="280" x2="600" y2="270"/>
+    <line x1="200" y1="380" x2="600" y2="270"/>
+    <line x1="340" y1="380" x2="600" y2="270"/>
+    <line x1="480" y1="380" x2="600" y2="270"/>
+  </g>
+  
+  <!-- Benefits -->
+  <g transform="translate(50, 450)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">约束的核心价值：</text>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" fill="#34495e">✓ 保证数据完整性和一致性</text>
+    <text x="0" y="45" font-family="Arial, sans-serif" font-size="14" fill="#34495e">✓ 在数据库层面实施业务规则</text>
+    <text x="0" y="65" font-family="Arial, sans-serif" font-size="14" fill="#34495e">✓ 防止无效数据进入系统</text>
+    <text x="0" y="85" font-family="Arial, sans-serif" font-size="14" fill="#34495e">✓ 提升查询性能（索引优化）</text>
+    
+    <text x="400" y="0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">应用场景：</text>
+    <text x="400" y="25" font-family="Arial, sans-serif" font-size="14" fill="#34495e">• 用户管理系统</text>
+    <text x="400" y="45" font-family="Arial, sans-serif" font-size="14" fill="#34495e">• 电商订单系统</text>
+    <text x="400" y="65" font-family="Arial, sans-serif" font-size="14" fill="#34495e">• 内容管理系统</text>
+    <text x="400" y="85" font-family="Arial, sans-serif" font-size="14" fill="#34495e">• 金融交易系统</text>
+  </g>
+</svg>
